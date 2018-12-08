@@ -1,2 +1,2 @@
 # flight-simulator
-Flight simulator game
+Flight simulator game written in c++
