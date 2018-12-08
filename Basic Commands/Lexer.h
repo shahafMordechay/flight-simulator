@@ -10,6 +10,8 @@
 #include <map>
 #include <string>
 #include <list>
+#include <vector>
+
 using namespace std;
 
 class Lexer {
@@ -19,8 +21,10 @@ public:
     map<string, double> symbolTable;
     Lexer();
     list<string> lexer();
-    void parser();
+    void parser(list<string>);
     void addRelevantCommands();
+    void initializeVar(vector<string>);
+
 
 };
 

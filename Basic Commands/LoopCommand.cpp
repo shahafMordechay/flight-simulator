@@ -4,7 +4,7 @@
 
 #include "LoopCommand.h"
 
-void LoopCommand::doCommand(string params[]) {
+void LoopCommand::doCommand(vector<string> params) {
     for (auto &command:this->myCommands) {
         command->doCommand(params);
     }

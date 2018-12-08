@@ -7,12 +7,13 @@
 
 #include <string>
 #include <list>
+#include <vector>
 using namespace std;
 class Command;
 
 class Command {
 public:
-    virtual void doCommand(string []) = 0;
+    virtual void doCommand(vector<string>) = 0;
 };
 
 

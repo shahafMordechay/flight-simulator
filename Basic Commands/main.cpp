@@ -3,6 +3,6 @@
 
 int main() {
     auto * myreader = new Lexer();
-    list<string> commands = myreader->lexer();
+    myreader->parser(myreader->lexer());
     return 0;
 }

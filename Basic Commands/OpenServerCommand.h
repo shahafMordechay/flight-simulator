@@ -7,11 +7,12 @@
 
 
 #include "Command.h"
+#include <thread>
 
 class OpenServerCommand : public Command {
 public:
-    virtual void doCommand(string []);
-
+    virtual void doCommand(vector<string>);
+    void openServer(string port, string freq);
     OpenServerCommand();
 };
 

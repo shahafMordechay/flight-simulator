@@ -11,7 +11,7 @@
 class LoopCommand: public Command{
     list<Command*> myCommands;
 public:
-    virtual void doCommand(string []);
+    virtual void doCommand(vector<string>);
     LoopCommand();
 
 };

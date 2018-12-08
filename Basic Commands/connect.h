@@ -10,7 +10,7 @@
 
 class connect : public Command {
 public:
-    virtual void doCommand(string []);
+    virtual void doCommand(vector<string>);
     connect();
 };
 

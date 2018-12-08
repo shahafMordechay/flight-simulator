@@ -4,7 +4,7 @@
 
 #include "connect.h"
 
-void connect::doCommand(string []) {
+void connect::doCommand(vector<string>) {
 
 }
 
