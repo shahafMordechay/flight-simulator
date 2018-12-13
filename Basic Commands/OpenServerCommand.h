@@ -8,12 +8,19 @@
 
 #include "Command.h"
 #include <thread>
+#include <unistd.h>
+#include <stdio.h>
+#include <sys/socket.h>
+#include <stdlib.h>
+#include <netinet/in.h>
+#include <string.h>
+#include <map>
 
 class OpenServerCommand : public Command {
 public:
+    map<string, double> vars;
     virtual void doCommand(vector<string>);
-    void openServer(string port, string freq);
-    OpenServerCommand();
+    OpenServerCommand(map<string, double > &var);
 };
 
 

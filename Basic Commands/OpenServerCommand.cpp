@@ -3,23 +3,22 @@
 //
 
 #include "OpenServerCommand.h"
+#include "DataReaderFromServer.h"
 
 
 void OpenServerCommand::doCommand(vector<string> params) {
     if (params.size() != 2) {
         __throw_bad_exception();
     }
-    string port = params[0];
-    string freq = params[1];
-    // new thread.
-    thread(&OpenServerCommand::openServer, port, freq);
-}
-
-OpenServerCommand::OpenServerCommand() {
+    DataReaderFromServer serverReader = DataReaderFromServer(this->vars);
+    // new thread that opens a server.
+    thread t1(serverReader, params);
+    t1.join();
 
 }
 
-void OpenServerCommand::openServer(string port, string freq) {
-
+OpenServerCommand::OpenServerCommand(map<string, double > &vars) {
+    this->vars = vars;
 }
+
 

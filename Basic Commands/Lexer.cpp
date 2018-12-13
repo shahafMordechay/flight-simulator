@@ -36,6 +36,7 @@ list<string> Lexer::lexer() {
             }
         }
     }
+    // return list of strings separated line by line with the string "lineEnd"
     return input;
 }
 
@@ -90,8 +91,7 @@ void Lexer::parser(list<string> input) {
 }
 
 void Lexer::addRelevantCommands() {
-    this->commands.insert({"openDataServer", new OpenServerCommand()});
-    this->commands.insert({"connect", new connect()});
+    this->commands.insert({"openDataServer",new OpenServerCommand(this->symbolTable)});
     this->commands.insert({"while", new LoopCommand()});
 
 }

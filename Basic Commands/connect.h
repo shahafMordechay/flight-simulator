@@ -9,6 +9,7 @@
 #include "Command.h"
 
 class connect : public Command {
+    string add;
 public:
     virtual void doCommand(vector<string>);
     connect();
