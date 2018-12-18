@@ -7,20 +7,13 @@
 
 
 #include "Command.h"
-#include <thread>
-#include <unistd.h>
-#include <stdio.h>
-#include <sys/socket.h>
-#include <stdlib.h>
-#include <netinet/in.h>
-#include <string.h>
-#include <map>
 
 class OpenServerCommand : public Command {
 public:
     map<string, double> vars;
-    virtual void doCommand(vector<string>);
+    virtual int doCommand(vector<string>&, int pos);
     OpenServerCommand(map<string, double > &var);
+    void openServer(int, int);
 };
 
 

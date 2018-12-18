@@ -7,11 +7,11 @@
 
 
 #include "Command.h"
+#include "ConditionParser.h"
 
-class LoopCommand: public Command{
-    list<Command*> myCommands;
+class LoopCommand: public ConditionParser{
 public:
-    virtual void doCommand(vector<string>);
+    virtual int doCommand(vector<string>&, int pos);
     LoopCommand();
 
 };

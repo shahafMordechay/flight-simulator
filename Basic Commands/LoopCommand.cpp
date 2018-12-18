@@ -4,12 +4,13 @@
 
 #include "LoopCommand.h"
 
-void LoopCommand::doCommand(vector<string> params) {
-    for (auto &command:this->myCommands) {
-        command->doCommand(params);
+int LoopCommand::doCommand(vector<string> &params, int pos) {
+    while(this->checkCondition(params)){
+        for(auto &command: this->myCommands){
+
+        }
     }
 }
 
-LoopCommand::LoopCommand() {
-    this->myCommands = list<Command *>();
+LoopCommand::LoopCommand():ConditionParser() {
 }

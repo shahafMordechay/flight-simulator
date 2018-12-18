@@ -6,14 +6,22 @@
 #define MAINPROJ_COMMAND_H
 
 #include <string>
+#include <string.h>
 #include <list>
 #include <vector>
+#include <map>
+#include <unistd.h>
+#include <thread>
+#include <stdio.h>
+#include <sys/socket.h>
+#include <stdlib.h>
+#include <netinet/in.h>
 using namespace std;
 class Command;
 
 class Command {
 public:
-    virtual void doCommand(vector<string>) = 0;
+    virtual int doCommand(vector<string>&, int pos) = 0;
 };
 
 

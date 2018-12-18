@@ -7,6 +7,8 @@
 #define SEPARATOR " "
 #include <fstream>
 #include "Command.h"
+#include "Expression.h"
+#include "CommandExpression.h"
 #include <map>
 #include <string>
 #include <list>
@@ -17,13 +19,13 @@ using namespace std;
 class Lexer {
 public:
     fstream reader;
-    map<string, Command*> commands;
+    map<string, CommandExpression*> commands;
     map<string, double> symbolTable;
+    map<string, string> bindedMap;
     Lexer();
-    list<string> lexer();
-    void parser(list<string>);
-    void addRelevantCommands();
-    void initializeVar(vector<string>);
+    vector<string> lexer();
+    void parser(vector<string>);
+    void addCommand(vector<string> &params);
 
 
 };

@@ -4,99 +4,78 @@
 
 #include "Lexer.h"
 #include "OpenServerCommand.h"
-#include "connect.h"
 #include "LoopCommand.h"
+#include "DefineVarCommand.h"
+#include "IfCommand.h"
+#include "SleepCommand.h"
+#include "ConnectCommand.h"
+#include "AssertionCommand.h"
+#include "Expression.h"
+#include "CommandExpression.h"
 
 Lexer::Lexer() {
-    this->commands = map<string, Command *>();
+    this->commands = map<string, CommandExpression *>();
     this->symbolTable = map<string, double>();
-    addRelevantCommands();
-
+    this->bindedMap = map<string, string>();
 }
 
-list<string> Lexer::lexer() {
-    list<string> input = list<string>();
+vector<string> Lexer::lexer() {
+    vector<string> words;
     // can be any other name.
     this->reader.open("commands.txt");
     string line;
     while (getline(reader, line)) {
         while (!line.empty()) {
-            //push string to back of the list and check if not the last string in the line.
+            //push string to back of the vector and check if not the last string in the line.
             if (line.find(SEPARATOR) != string::npos) {
-                input.push_back(line.substr(0, line.find(SEPARATOR)));
+                words.push_back(line.substr(0, line.find(SEPARATOR)));
                 // next string in the line.
-                line = line.substr(input.back().length() + 1);
+                line = line.substr(words.back().length() + 1);
             }
                 // last string in the line.
             else {
-                input.push_back(line);
+                words.push_back(line);
                 // indicate no more strings in input line.
-                input.emplace_back("lineEnd");
+                words.emplace_back("lineEnd");
                 line = "";
             }
         }
     }
-    // return list of strings separated line by line with the string "lineEnd"
-    return input;
+    // return vector of strings separated line by line with the string "lineEnd"
+    this->addCommand(words);
+    return words;
 }
 
-void Lexer::parser(list<string> input) {
-    Command *currentCommand = nullptr;
-    // indicate if reads variable.
-    bool readVar = false;
-    // unknown size vector of strings.
-    vector<string> parameters;
-    int pos = 0;
-    for (auto &string: input) {
-        if (string != "lineEnd") {
-            // the string is a legal command and exists in my map.
-            if ((this->commands.find(string) != this->commands.end()) || currentCommand != nullptr) {
-                if (currentCommand == nullptr) {
-                    currentCommand = this->commands.at(string);
-                }
-                    //command params
-                else {
-                    parameters.push_back(string);
-                }
-            }
-                // check if its var initialization.
-            else if (string == "var") {
-                readVar = true;
-            }
-                // initialize var.
-            else if (readVar) {
-                parameters.push_back(string);
-
-            }
-
-        }
-            // run command with params.
-        else if (currentCommand) {
-            currentCommand->doCommand(parameters);
-            //clean vector.
-            parameters.clear();
-            //null
-            currentCommand = nullptr;
-        }
-            // initialize variable.
-        else if (readVar) {
-            //convert to string array.
-            initializeVar(parameters);
-            //ended var
-            parameters.clear();
-            readVar = false;
+void Lexer::parser(vector<string> input) {
+    // initialize current readed index.
+    int move = 0;
+    // still strings in the list.
+    while (input.size() > move) {
+        CommandExpression *current = this->commands.at(input[move]);
+        // if valid command
+        if (current != NULL) {
+            move++;
+            // set real start of command.
+            current->setStart(move);
+            // move index forward.
+            move += (int) current->calculate();
         }
     }
 
-}
-
-void Lexer::addRelevantCommands() {
-    this->commands.insert({"openDataServer",new OpenServerCommand(this->symbolTable)});
-    this->commands.insert({"while", new LoopCommand()});
 
 }
 
-void Lexer::initializeVar(vector<string> params) {
-
+void Lexer::addCommand(vector<string> &params) {
+    this->commands.insert(
+            {"openDataServer", new CommandExpression(new OpenServerCommand(this->symbolTable), params, 2)});
+    this->commands.insert({"connect", new CommandExpression(new ConnectCommand(), params, 2)});
+    this->commands.insert({"while", new CommandExpression(new LoopCommand(), params, -1)});
+    this->commands.insert({"var", new CommandExpression(new DefineVarCommand(this->symbolTable), params, -1)});
+    this->commands.insert({"if", new CommandExpression(new IfCommand(), params,-1)});
+    this->commands.insert({"sleep", new CommandExpression(new SleepCommand(), params,-1)});
+    this->commands.insert(
+            {"=", new CommandExpression(new AssertionCommand(this->symbolTable, this->bindedMap), params,-1)});
 }
+
+
 
