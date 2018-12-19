@@ -3,18 +3,9 @@
 //
 
 #include "Lexer.h"
-#include "OpenServerCommand.h"
-#include "LoopCommand.h"
-#include "DefineVarCommand.h"
-#include "IfCommand.h"
-#include "SleepCommand.h"
-#include "ConnectCommand.h"
-#include "AssertionCommand.h"
-#include "Expression.h"
-#include "CommandExpression.h"
 
 Lexer::Lexer() {
-    this->commands = map<string, CommandExpression *>();
+    this->commands = map<string, Expression *>();
     this->symbolTable = map<string, double>();
     this->bindedMap = map<string, string>();
 }
@@ -42,40 +33,29 @@ vector<string> Lexer::lexer() {
         }
     }
     // return vector of strings separated line by line with the string "lineEnd"
-    this->addCommand(words);
     return words;
 }
 
 void Lexer::parser(vector<string> input) {
+    // create new factory.
+     commandsFactory myFactory =  commandsFactory(this->symbolTable, this->bindedMap, input);
     // initialize current readed index.
     int move = 0;
     // still strings in the list.
     while (input.size() > move) {
-        CommandExpression *current = this->commands.at(input[move]);
-        // if valid command
+        //generate specific command.
+        Expression *current = myFactory.makeCommand(input[move], move + 1);
+        // if valid command.
         if (current != NULL) {
             move++;
-            // set real start of command.
-            current->setStart(move);
             // move index forward.
             move += (int) current->calculate();
+            //line end.
+            move++;
         }
     }
-
-
 }
 
-void Lexer::addCommand(vector<string> &params) {
-    this->commands.insert(
-            {"openDataServer", new CommandExpression(new OpenServerCommand(this->symbolTable), params, 2)});
-    this->commands.insert({"connect", new CommandExpression(new ConnectCommand(), params, 2)});
-    this->commands.insert({"while", new CommandExpression(new LoopCommand(), params, -1)});
-    this->commands.insert({"var", new CommandExpression(new DefineVarCommand(this->symbolTable), params, -1)});
-    this->commands.insert({"if", new CommandExpression(new IfCommand(), params,-1)});
-    this->commands.insert({"sleep", new CommandExpression(new SleepCommand(), params,-1)});
-    this->commands.insert(
-            {"=", new CommandExpression(new AssertionCommand(this->symbolTable, this->bindedMap), params,-1)});
-}
 
 
 

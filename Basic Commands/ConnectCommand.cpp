@@ -5,7 +5,7 @@
 #include <netdb.h>
 #include "ConnectCommand.h"
 
-int ConnectCommand::doCommand(vector<string> &params, int pos) {
+int ConnectCommand::doCommand(vector<string> &params) {
     // check params validity.
     if ((params[pos] != "127.0.0.1") && (params[pos + 1] != "5402"))
         __throw_bad_exception();
@@ -73,6 +73,10 @@ void ConnectCommand::connectToServer(string hostId, string port) {
         perror("ERROR writing to socket");
         exit(1);
     }
+}
+
+ConnectCommand::ConnectCommand(int pos) {
+    this->pos = pos;
 }
 
 

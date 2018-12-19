@@ -11,8 +11,10 @@
 
 class ConnectCommand : public Command{
 public:
-    virtual int doCommand(vector<string>&, int pos);
+    int pos;
+    virtual int doCommand(vector<string>&);
     void connectToServer(string, string);
+    ConnectCommand(int pos);
 };
 
 

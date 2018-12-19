@@ -11,8 +11,9 @@
 
 class LoopCommand: public ConditionParser{
 public:
-    virtual int doCommand(vector<string>&, int pos);
-    LoopCommand();
+    int pos;
+    virtual int doCommand(vector<string>&);
+    LoopCommand(vector<string>&,int pos);
 
 };
 

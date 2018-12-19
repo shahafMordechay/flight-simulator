@@ -4,7 +4,7 @@
 
 #include "PrintCommand.h"
 
-int PrintCommand::doCommand(vector<string> &params, int pos) {
+int PrintCommand::doCommand(vector<string> &params) {
     int read = 0;
     //check if its a valid var
     if (this->symbolTable.find(params[pos]) != this->symbolTable.end()) {
@@ -20,6 +20,7 @@ int PrintCommand::doCommand(vector<string> &params, int pos) {
     return read;
 }
 
-PrintCommand::PrintCommand(map<string, double> &symbol) {
+PrintCommand::PrintCommand(map<string, double> &symbol, int pos) {
     this->symbolTable = symbol;
+    this->pos = pos;
 }

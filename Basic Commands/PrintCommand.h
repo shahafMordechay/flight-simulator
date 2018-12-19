@@ -11,9 +11,10 @@
 
 class PrintCommand: public Command {
 public:
+    int pos;
     map<string, double> symbolTable;
-    virtual int doCommand(vector<string>&, int pos);
-    PrintCommand(map<string, double> &);
+    virtual int doCommand(vector<string>&);
+    PrintCommand(map<string, double> &, int pos);
 };
 
 

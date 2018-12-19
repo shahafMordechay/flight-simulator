@@ -10,12 +10,17 @@
 
 class ConditionParser : public Command{
 public:
+    vector<string> condition;
+    vector<string>text;
+    int pos;
     list<Command*> myCommands;
+
     // only the sons implement.
-    virtual int doCommand(vector<string>&, int pos) = 0;
-    ConditionParser();
+    virtual int doCommand(vector<string>&, int pos);
+    explicit ConditionParser(vector<string>&,int pos);
+    void getCond();
     //checks if the conditions is met.
-    virtual bool checkCondition(vector<string> cond);
+    virtual bool checkCondition();
 };
 
 

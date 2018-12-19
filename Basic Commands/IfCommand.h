@@ -10,8 +10,9 @@
 
 class IfCommand: public ConditionParser {
 public:
-    virtual int doCommand(vector<string>&, int pos);
-    IfCommand();
+    int pos;
+    virtual int doCommand(vector<string>&);
+    IfCommand(vector<string>&,int pos);
 };
 
 

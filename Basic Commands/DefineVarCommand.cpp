@@ -4,7 +4,7 @@
 
 #include "DefineVarCommand.h"
 
-int DefineVarCommand::doCommand(vector<string>&params, int pos) {
+int DefineVarCommand::doCommand(vector<string>&params) {
     string varName = params[pos];
     // first set as '0';
     this->symbolTable->insert({varName,0});
@@ -12,7 +12,8 @@ int DefineVarCommand::doCommand(vector<string>&params, int pos) {
     return 1;
 }
 
-DefineVarCommand::DefineVarCommand(map<string, double> &symbol) {
+DefineVarCommand::DefineVarCommand(map<string, double> &symbol, int pos) {
     this->symbolTable = &symbol;
+    this->pos = pos;
 
 }

@@ -11,12 +11,10 @@
 
 class CommandExpression: public Expression {
 public:
-    int varStart;
     vector<string> params;
     Command *myCommand;
     int numOfParams;
     virtual double calculate() throw();
-    void setStart(int start);
     bool isOperand(string val);
     CommandExpression(Command*,vector<string> &params, int numOfParams);
 };

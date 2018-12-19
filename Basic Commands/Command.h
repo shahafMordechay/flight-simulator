@@ -5,6 +5,7 @@
 #ifndef MAINPROJ_COMMAND_H
 #define MAINPROJ_COMMAND_H
 
+#include <cstring>
 #include <string>
 #include <string.h>
 #include <list>
@@ -17,11 +18,9 @@
 #include <stdlib.h>
 #include <netinet/in.h>
 using namespace std;
-class Command;
-
 class Command {
 public:
-    virtual int doCommand(vector<string>&, int pos) = 0;
+    virtual int doCommand(vector<string>&)=0;
 };
 
 

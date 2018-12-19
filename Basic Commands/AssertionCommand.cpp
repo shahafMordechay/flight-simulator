@@ -5,7 +5,7 @@
 #include "AssertionCommand.h"
 
 
-int AssertionCommand::doCommand(vector<string> &params, int pos) {
+int AssertionCommand::doCommand(vector<string> &params) {
     if (params[pos] == "bind") {
         string directory = params[pos + 1];
         // var name is 2 steps before this one.
@@ -24,8 +24,9 @@ int AssertionCommand::doCommand(vector<string> &params, int pos) {
 
 }
 
-AssertionCommand::AssertionCommand(map<string, double> &symbol, map<string, string> &bind) {
+AssertionCommand::AssertionCommand(map<string, double> &symbol, map<string, string> &bind,int pos) {
     this->symbols = &symbol;
     this->binded = &bind;
+    this->pos = pos;
 }
 

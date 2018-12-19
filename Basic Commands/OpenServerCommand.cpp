@@ -5,15 +5,16 @@
 #include "OpenServerCommand.h"
 #include "Expression.h"
 
-int OpenServerCommand::doCommand(vector<string> &params, int pos) {
+int OpenServerCommand::doCommand(vector<string> &params) {
     // new thread that opens a server.
     thread t1(&OpenServerCommand::openServer, this, atoi(params[pos].c_str()), atoi(params[pos+1].c_str()));
     t1.detach();
     return 2;
 }
 
-OpenServerCommand::OpenServerCommand(map<string, double> &vars) {
+OpenServerCommand::OpenServerCommand(map<string, double> &vars, int pos) {
     this->vars = vars;
+    this->pos = pos;
 }
 
 void OpenServerCommand::openServer(int port, int freq) {

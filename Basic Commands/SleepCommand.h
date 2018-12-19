@@ -10,9 +10,9 @@
 
 class SleepCommand: public Command {
 public:
-    int varStart;
-    virtual int doCommand(vector<string>&, int pos);
-    SleepCommand();
+    int pos;
+    int doCommand(vector<string>&);
+    SleepCommand(int pos);
 
 };
 

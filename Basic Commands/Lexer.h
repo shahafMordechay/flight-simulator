@@ -13,19 +13,20 @@
 #include <string>
 #include <list>
 #include <vector>
+#include "commandsFactory.h"
 
 using namespace std;
 
 class Lexer {
 public:
     fstream reader;
-    map<string, CommandExpression*> commands;
+    map<string, Expression*> commands;
     map<string, double> symbolTable;
     map<string, string> bindedMap;
     Lexer();
     vector<string> lexer();
     void parser(vector<string>);
-    void addCommand(vector<string> &params);
+
 
 
 };
