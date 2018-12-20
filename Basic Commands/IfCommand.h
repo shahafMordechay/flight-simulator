@@ -12,7 +12,7 @@ class IfCommand: public ConditionParser {
 public:
     int pos;
     virtual int doCommand(vector<string>&);
-    IfCommand(vector<string>&,int pos);
+    IfCommand(vector<string>&,map<string,double>&,int pos);
 };
 
 

@@ -5,6 +5,7 @@
 #ifndef MAINPROJ_COMMAND_H
 #define MAINPROJ_COMMAND_H
 
+#include "GenFunc.h"
 #include <cstring>
 #include <string>
 #include <string.h>

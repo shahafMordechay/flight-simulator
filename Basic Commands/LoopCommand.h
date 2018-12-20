@@ -13,7 +13,7 @@ class LoopCommand: public ConditionParser{
 public:
     int pos;
     virtual int doCommand(vector<string>&);
-    LoopCommand(vector<string>&,int pos);
+    LoopCommand(vector<string>&,map<string,double>&,int pos);
 
 };
 

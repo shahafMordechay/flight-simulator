@@ -28,11 +28,11 @@ CommandExpression *commandsFactory::definevar(int pos, int numOfParams) {
 }
 
 CommandExpression *commandsFactory::ifcommand(int pos, int numOfParams) {
-    return new CommandExpression(new IfCommand(*params, pos), *params, numOfParams);
+    return new CommandExpression(new IfCommand(*params, *symbol, pos), *params, numOfParams);
 }
 
 CommandExpression *commandsFactory::loopcommand(int pos, int numOfParams) {
-    return new CommandExpression(new LoopCommand(*params, pos), *params, numOfParams);
+    return new CommandExpression(new LoopCommand(*params, *symbol, pos), *params, numOfParams);
 }
 
 CommandExpression *commandsFactory::openservercommand(int pos, int numOfParams) {
