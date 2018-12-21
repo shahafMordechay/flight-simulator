@@ -11,7 +11,7 @@
 class OpenServerCommand : public Command {
 public:
     int pos;
-    map<string, double> vars;
+    map<string, double> *vars;
     virtual int doCommand(vector<string>&);
     OpenServerCommand(map<string, double > &var, int pos);
     void openServer(int, int);

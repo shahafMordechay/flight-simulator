@@ -4,11 +4,10 @@
 
 #include "DefineVarCommand.h"
 
-int DefineVarCommand::doCommand(vector<string>&params) {
+int DefineVarCommand::doCommand(vector<string> &params) {
     string varName = params[pos];
-    // first set as '0';
-    this->symbolTable->insert({varName,0});
-    // read 1 string.
+    // initialize with zero.
+    this->symbolTable->insert({varName, 0});
     return 1;
 }
 

@@ -13,7 +13,7 @@ int OpenServerCommand::doCommand(vector<string> &params) {
 }
 
 OpenServerCommand::OpenServerCommand(map<string, double> &vars, int pos) {
-    this->vars = vars;
+    this->vars = &vars;
     this->pos = pos;
 }
 

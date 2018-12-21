@@ -25,7 +25,7 @@ public:
     map<string, string> bindedMap;
     Lexer();
     vector<string> lexer();
-    void parser(vector<string>);
+    void parser(vector<string>,int);
 
 
 

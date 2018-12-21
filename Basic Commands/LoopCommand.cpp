@@ -5,21 +5,18 @@
 #include "LoopCommand.h"
 
 int LoopCommand::doCommand(vector<string> &params) {
-    // initial pos set.
-    int initialPos = pos;
     // while condition is met execute.
     while (checkCondition()) {
         for (auto &command: this->myCommands) {
-            //update index.
-            initialPos += command->doCommand(params);
+            command->doCommand(params);
         }
     }
-    // return the difference.
-    return (initialPos - pos);
+    return this->endOfLoopIndex;
 }
 
-LoopCommand::LoopCommand(vector<string> &params, map<string, double> &symbols, int pos) : ConditionParser(params,
-                                                                                                          symbols,
-                                                                                                          pos + 1) {
+LoopCommand::LoopCommand(vector<string> &params, map<string, string> &binds, map<string, double> &symbols, int pos)
+        : ConditionParser(params,
+                          symbols, binds,
+                          pos) {
     this->pos = pos;
 }

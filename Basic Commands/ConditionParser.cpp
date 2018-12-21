@@ -3,14 +3,24 @@
 //
 
 #include "ConditionParser.h"
+#include "Lexer.h"
 
-ConditionParser::ConditionParser(vector<string> &params, map<string, double> &symbols, int pos) {
-    this->pos = pos;
+ConditionParser::ConditionParser(vector<string> &params, map<string, double> &symbols, map<string, string> &binds,
+                                 int pos) {
     this->text = params;
+    this->pos = getCond(pos);
     this->symbols = &symbols;
-    this->myLex = Lexer();
+    this->binds = &binds;
+    this->myLex = new Lexer();
     this->myCommands = list<Command *>();
-    getCond();
+    makeMeCommands();
+    mapFunc[">"] = &ConditionParser::bigger;
+    mapFunc["<"] = &ConditionParser::smaller;
+    mapFunc["=="] = &ConditionParser::equal;
+    mapFunc["!="] = &ConditionParser::notEqual;
+    mapFunc[""] = &ConditionParser::notZero;
+    mapFunc[">="] = &ConditionParser::biggerOrEqual;
+    mapFunc["<="] = &ConditionParser::smallerOrEqual;
 
 }
 
@@ -37,7 +47,7 @@ bool ConditionParser::checkCondition() {
             // eval compared to expression.
             double compareTo = GenFunc::evaluate(Exp);
             // check if condition is met.
-            return this->operands.at(Operand)(varValue, compareTo);
+            return (this->*mapFunc.at(Operand))(varValue, compareTo);
         }
     }
         // its not a var
@@ -54,7 +64,7 @@ bool ConditionParser::checkCondition() {
         // no operand.
         if (i == this->condition.size()) {
             // no operand check just true false.
-            return this->operands.at("")(ExpVal);
+            return (this->*mapFunc.at(""))(ExpVal, 0);
         }
         // keep operand.
         string Operand = this->condition[i];
@@ -64,7 +74,7 @@ bool ConditionParser::checkCondition() {
             // get value.
             double varVal = this->symbols->at(this->condition[i]);
             // return wanted func
-            return this->operands.at(Operand)(ExpVal, varVal);
+            return (this->*mapFunc.at(Operand))(ExpVal, varVal);
         }
             // not a var.
         else {
@@ -78,14 +88,14 @@ bool ConditionParser::checkCondition() {
             // get value of second.
             double secExpVal = GenFunc::evaluate(secExp);
             // return wanted func result.
-            return this->operands.at(Operand)(ExpVal, secExpVal);
+            return (this->*mapFunc.at(Operand))(ExpVal, secExpVal);
         }
     }
 }
 
-void ConditionParser::getCond() {
+int ConditionParser::getCond(int pos) {
     // get the condition
-    while (this->text[pos] != "endLine") {
+    while (this->text[pos] != "lineEnd") {
         this->condition.emplace_back(this->text[pos]);
         pos++;
     }
@@ -95,6 +105,7 @@ void ConditionParser::getCond() {
     if (this->condition[condition.size() - 1] == "{")
         // take it out.
         this->condition.pop_back();
+    return pos;
 }
 
 int ConditionParser::doCommand(vector<string> &, int pos) {
@@ -102,7 +113,7 @@ int ConditionParser::doCommand(vector<string> &, int pos) {
 }
 
 bool ConditionParser::checkOperand(string c) {
-    return ((c == "<") || (c == ">") || (c == "==") || (c == "!="));
+    return ((c == "<") || (c == ">") || (c == "==") || (c == "!=") || (c == ">=") || (c == "<="));
 }
 
 bool ConditionParser::bigger(double first, double second) {
@@ -121,6 +132,26 @@ bool ConditionParser::notEqual(double first, double second) {
     return ((first - second) != 0);
 }
 
-bool ConditionParser::notZero(double only) {
+bool ConditionParser::notZero(double only, double junk) {
     return (only != 0);
+}
+
+void ConditionParser::makeMeCommands() {
+    commandsFactory *loopCommands = new commandsFactory(*this->symbols, *this->binds, this->text);
+    //still in the loop.
+    while (this->text[pos] != "}") {
+        while (this->text[pos] != "lineEnd") {
+            CommandExpression *loopCommand = loopCommands->makeCommand(text[pos], pos + 1);
+        }
+    }
+    pos++;
+    delete (loopCommands);
+}
+
+bool ConditionParser::biggerOrEqual(double first, double second) {
+    return (bigger(first, second) || equal(first, second));
+}
+
+bool ConditionParser::smallerOrEqual(double first, double second) {
+    return (smaller(first, second) || equal(first, second));
 }
