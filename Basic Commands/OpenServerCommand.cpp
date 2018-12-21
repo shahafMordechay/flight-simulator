@@ -62,8 +62,7 @@ void OpenServerCommand::openServer(int port, int freq) {
     while(true) {
         bzero(buffer, 256);
         n = static_cast<int>(read(newsockfd, buffer, 255));
-        // sleep.
-        sleep(freq);
+        printf("%s",buffer);
         if (n < 0) {
             perror("ERROR reading from socket");
             exit(1);

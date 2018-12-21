@@ -5,6 +5,7 @@
 #ifndef MAINPROJ_LEXER_H
 #define MAINPROJ_LEXER_H
 #define SEPARATOR " "
+#define ASSERTSEPAR "="
 #include <fstream>
 #include "Command.h"
 #include "Expression.h"
