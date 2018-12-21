@@ -28,11 +28,11 @@ CommandExpression *commandsFactory::definevar(int pos, int numOfParams) {
 }
 
 CommandExpression *commandsFactory::ifcommand(int pos, int numOfParams) {
-    return new CommandExpression(new IfCommand(*params, *symbol, pos), *params, numOfParams);
+    return new CommandExpression(new IfCommand(*params, *bind, *symbol, pos), *params, numOfParams);
 }
 
 CommandExpression *commandsFactory::loopcommand(int pos, int numOfParams) {
-    return new CommandExpression(new LoopCommand(*params, *symbol, pos), *params, numOfParams);
+    return new CommandExpression(new LoopCommand(*params, *bind, *symbol, pos), *params, numOfParams);
 }
 
 CommandExpression *commandsFactory::openservercommand(int pos, int numOfParams) {
@@ -44,7 +44,7 @@ CommandExpression *commandsFactory::printcommand(int pos, int numOfParams) {
 }
 
 CommandExpression *commandsFactory::connectcommand(int pos, int numOfParams) {
-    return new CommandExpression(new ConnectCommand(pos), *params, numOfParams);
+    return new CommandExpression(new ConnectCommand(*this->bind, *this->symbol, pos), *params, numOfParams);
 }
 
 CommandExpression *commandsFactory::sleepcommand(int pos, int numOfParams) {
@@ -68,8 +68,13 @@ CommandExpression *commandsFactory::makeCommand(string c, int pos) {
         return openservercommand(pos, this->commands.at(c));
     else if (c == "var")
         return definevar(pos, this->commands.at(c));
-    else
+        // not existing var
+    else if (this->symbol->find(c) == this->symbol->end())
         throw "Invalid Syntax";
+        // existing var to change.
+    else
+        return NULL;
+
 
 }
 

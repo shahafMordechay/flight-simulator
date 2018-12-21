@@ -93,5 +93,5 @@ Expression* GenFunc::expFromPostfix(string &mathExp) {
 }
 
 double GenFunc::evaluate(string &mathExp) {
-    return 0;
+
 }

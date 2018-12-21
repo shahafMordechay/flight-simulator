@@ -10,13 +10,13 @@ int ConnectCommand::doCommand(vector<string> &params) {
     if ((params[pos] != "127.0.0.1") && (params[pos + 1] != "5402"))
         __throw_bad_exception();
     string host = params[pos];
-    for (int i = 0; i < params[pos].length() ; i++) {
+    for (int i = 0; i < params[pos].length(); i++) {
         host[i] = params[pos][i];
     }
     host[params[pos].length()] = '\0';
     string port = params[pos + 1];
     // open new thread and try connect to the simulator.
-    thread t2(&ConnectCommand::connectToServer,this, host, port);
+    thread t2(&ConnectCommand::connectToServer, this, host, port);
     // continue with my program.
     t2.detach();
     // return num of params read.
@@ -29,8 +29,8 @@ void ConnectCommand::connectToServer(string hostId, string port) {
     struct hostent *server;
     char buffer[256];
     // convert to char*
-    char host [hostId.length() +1];
-    for (int i = 0; i < hostId.length() ; i++) {
+    char host[hostId.length() + 1];
+    for (int i = 0; i < hostId.length(); i++) {
         host[i] = hostId[i];
     }
     host[hostId.length()] = '\0';
@@ -58,25 +58,26 @@ void ConnectCommand::connectToServer(string hostId, string port) {
         perror("ERROR connecting");
         exit(1);
     }
-
-    /* Now ask for a message from the user, this message
-       * will be read by server
-    */
-
-    bzero(buffer, 256);
-    fgets(buffer, 255, stdin);
-
-    /* Send message to the server */
-    n = write(sockfd, buffer, strlen(buffer));
-
-    if (n < 0) {
-        perror("ERROR writing to socket");
-        exit(1);
+    // keep updating the vars in the simulator consistently.
+    while (true) {
+        for(auto &add: *this->binds) {
+            // create string as requasted
+            string setCommand = "set "+add.second+" "+to_string(this->vars->at(add.first));
+            // change val in the simulator.
+            n = write(sockfd, setCommand.c_str(), setCommand.length());
+            // unsuccesfull update.
+            if (n < 0) {
+                perror("ERROR writing to socket");
+                exit(1);
+            }
+        }
     }
 }
 
-ConnectCommand::ConnectCommand(int pos) {
+ConnectCommand::ConnectCommand(map<string, string> &binds,map<string, double> &vars, int pos) {
     this->pos = pos;
+    this->vars = &vars;
+    this->binds = &binds;
 }
 
 

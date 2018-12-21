@@ -5,28 +5,30 @@
 #ifndef MAINPROJ_CONDITIONPARSER_H
 #define MAINPROJ_CONDITIONPARSER_H
 
-
 #include "Command.h"
-#include "Lexer.h"
+
+class Lexer;
 
 class ConditionParser : public Command {
 public:
     vector<string> condition;
     vector<string> text;
     map<string, double> *symbols;
+    map<string, string> *binds;
     int pos;
+    int endOfLoopIndex;
     list<Command *> myCommands;
-    map<string, void *> operands = {(">", bigger(double, double)), ("<", smaller(double, double)),
-                                    ("==", equal(double, double)), ("!=", notEqual(double, double)),
-                                    ("", notZero(double))};
-    Lexer myLex;
+    map<string, bool (ConditionParser::*)(double, double)> mapFunc;
+    Lexer *myLex;
 
     // only the sons implement.
     virtual int doCommand(vector<string> &, int pos);
 
-    explicit ConditionParser(vector<string> &, map<string, double> &, int pos);
+    explicit ConditionParser(vector<string> &, map<string, double> &, map<string, string> &, int pos);
 
-    void getCond();
+    void makeMeCommands();
+
+    int getCond(int pos);
 
     //checks if the conditions is met.
     virtual bool checkCondition();
@@ -41,7 +43,11 @@ public:
 
     virtual bool notEqual(double, double);
 
-    virtual bool notZero(double);
+    virtual bool notZero(double, double);
+
+    virtual bool biggerOrEqual(double, double);
+
+    virtual bool smallerOrEqual(double, double);
 };
 
 
