@@ -4,6 +4,7 @@
 
 #include "ConditionParser.h"
 #include "Lexer.h"
+#include "../GenFunc.h"
 
 ConditionParser::ConditionParser(vector<string> &params, map<string, double> &symbols, map<string, string> &binds,
                                  int pos) {
@@ -11,98 +12,92 @@ ConditionParser::ConditionParser(vector<string> &params, map<string, double> &sy
     this->pos = getCond(pos);
     this->symbols = &symbols;
     this->binds = &binds;
-    this->myLex = new Lexer();
-    this->myCommands = list<Command *>();
+    this->myCommands = list<Expression *>();
     makeMeCommands();
-    mapFunc[">"] = &ConditionParser::bigger;
-    mapFunc["<"] = &ConditionParser::smaller;
-    mapFunc["=="] = &ConditionParser::equal;
-    mapFunc["!="] = &ConditionParser::notEqual;
-    mapFunc[""] = &ConditionParser::notZero;
-    mapFunc[">="] = &ConditionParser::biggerOrEqual;
-    mapFunc["<="] = &ConditionParser::smallerOrEqual;
 
 }
 
 // condition interpeter.
 bool ConditionParser::checkCondition() {
-    // condition index.
-    int i = 0;
-    // its a var.
-    if (this->symbols->find(this->condition[i]) != this->symbols->end()) {
-        // get value.
-        double varValue = this->symbols->at(condition[i]);
-        i++;
-        // check if operand.
-        if (checkOperand(this->condition[i])) {
-            //keep operand.
-            string Operand = this->condition[i];
-            i++;
-            string Exp;
-            while (this->condition.size() > i) {
-                //concat until the end.
-                Exp += this->condition[i];
-                i++;
-            }
-            // eval compared to expression.
-            double compareTo = MathExpCalc::evaluate(Exp);
-            // check if condition is met.
-            return (this->*mapFunc.at(Operand))(varValue, compareTo);
-        }
+    // replace with real values.
+    string translated = GenFunc::replaceByVal(this->condition, *this->symbols);
+    // check if complex.
+    translated = deleteUnimportant(translated);
+    // check if exist.
+    int startIndex = translated.find("<=");
+    // if its really there.
+    if (startIndex != translated.npos) {
+        string firstExp = translated.substr(0, startIndex);
+        string secondExp = translated.substr(startIndex + 2, translated.length() - 1);
+        double first = MathExpCalc::evaluate(firstExp);
+        double second = MathExpCalc::evaluate(secondExp);
+        return smallerOrEqual(first, second);
+
     }
-        // its not a var
-    else {
-        // expression.
-        string Exp;
-        while (checkOperand(this->condition[i]) || this->condition.size() > i) {
-            // concat until operand or until the end.
-            Exp += this->condition[i];
-            i++;
-        }
-        // eval expression.
-        double ExpVal = MathExpCalc::evaluate(Exp);
-        // no operand.
-        if (i == this->condition.size()) {
-            // no operand check just true false.
-            return (this->*mapFunc.at(""))(ExpVal, 0);
-        }
-        // keep operand.
-        string Operand = this->condition[i];
-        i++;
-        // check if next 1 its a var.
-        if (this->symbols->find(this->condition[i]) != this->symbols->end()) {
-            // get value.
-            double varVal = this->symbols->at(this->condition[i]);
-            // return wanted func
-            return (this->*mapFunc.at(Operand))(ExpVal, varVal);
-        }
-            // not a var.
-        else {
-            // make sec exp.
-            string secExp;
-            while (this->condition.size() > i) {
-                // concat until the end.
-                secExp += this->condition[i];
-                i++;
-            }
-            // get value of second.
-            double secExpVal = MathExpCalc::evaluate(secExp);
-            // return wanted func result.
-            return (this->*mapFunc.at(Operand))(ExpVal, secExpVal);
-        }
+    startIndex = translated.find(">=");
+    // if its really there.
+    if (startIndex != translated.npos) {
+        string firstExp = translated.substr(0, startIndex);
+        string secondExp = translated.substr(startIndex + 2, translated.length() - 1);
+        double first = MathExpCalc::evaluate(firstExp);
+        double second = MathExpCalc::evaluate(secondExp);
+        return biggerOrEqual(first, second);
+
+    }
+    startIndex = translated.find("==");
+    // if its really there.
+    if (startIndex != translated.npos) {
+        string firstExp = translated.substr(0, startIndex);
+        string secondExp = translated.substr(startIndex + 2, translated.length() - 1);
+        double first = MathExpCalc::evaluate(firstExp);
+        double second = MathExpCalc::evaluate(secondExp);
+        return equal(first, second);
+
+    }
+    startIndex = translated.find("!=");
+    // if its really there.
+    if (startIndex != translated.npos) {
+        string firstExp = translated.substr(0, startIndex);
+        string secondExp = translated.substr(startIndex + 2, translated.length() - 1);
+        double first = MathExpCalc::evaluate(firstExp);
+        double second = MathExpCalc::evaluate(secondExp);
+        return notEqual(first, second);
+
+    }
+    startIndex = translated.find(">");
+    // if its really there.
+    if (startIndex != translated.npos) {
+        string firstExp = translated.substr(0, startIndex);
+        string secondExp = translated.substr(startIndex + 1, translated.length() - 1);
+        double first = MathExpCalc::evaluate(firstExp);
+        double second = MathExpCalc::evaluate(secondExp);
+        return bigger(first, second);
+
+    }
+    startIndex = translated.find("<");
+    if (startIndex != translated.npos) {
+        string firstExp = translated.substr(0, startIndex);
+        string secondExp = translated.substr(startIndex + 1, translated.length() - 1);
+        double first = MathExpCalc::evaluate(firstExp);
+        double second = MathExpCalc::evaluate(secondExp);
+        return smaller(first, second);
+
+    } else {
+        return notZero(MathExpCalc::evaluate(translated));
     }
 }
 
 int ConditionParser::getCond(int pos) {
     // get the condition
     while (this->text[pos] != "lineEnd") {
-        this->condition.emplace_back(this->text[pos]);
+        // concat until the end.
+        this->condition += (this->text[pos]);
         pos++;
     }
     // skip line end indicator.
     pos++;
     // delete unwanted char from cond.
-    if (this->condition[condition.size() - 1] == "{")
+    if (this->condition[condition.length() - 1] == '{')
         // take it out.
         this->condition.pop_back();
     return pos;
@@ -110,10 +105,6 @@ int ConditionParser::getCond(int pos) {
 
 int ConditionParser::doCommand(vector<string> &, int pos) {
     return 0;
-}
-
-bool ConditionParser::checkOperand(string c) {
-    return ((c == "<") || (c == ">") || (c == "==") || (c == "!=") || (c == ">=") || (c == "<="));
 }
 
 bool ConditionParser::bigger(double first, double second) {
@@ -132,7 +123,7 @@ bool ConditionParser::notEqual(double first, double second) {
     return ((first - second) != 0);
 }
 
-bool ConditionParser::notZero(double only, double junk) {
+bool ConditionParser::notZero(double only) {
     return (only != 0);
 }
 
@@ -140,11 +131,15 @@ void ConditionParser::makeMeCommands() {
     commandsFactory *loopCommands = new commandsFactory(*this->symbols, *this->binds, this->text);
     //still in the loop.
     while (this->text[pos] != "}") {
-        while (this->text[pos] != "lineEnd") {
-            CommandExpression *loopCommand = loopCommands->makeCommand(text[pos], pos + 1);
-        }
+        // make new command.
+        try {
+            Expression *myOne = loopCommands->makeCommand(this->text[pos], pos + 1);
+            if (myOne != NULL)
+                this->myCommands.emplace_back(myOne);
+        } catch (exception) {} //invalid command.
+        pos++;
     }
-    pos++;
+    this->endOfLoopIndex = pos + 2;
     delete (loopCommands);
 }
 
@@ -154,4 +149,12 @@ bool ConditionParser::biggerOrEqual(double first, double second) {
 
 bool ConditionParser::smallerOrEqual(double first, double second) {
     return (smaller(first, second) || equal(first, second));
+}
+
+string ConditionParser::deleteUnimportant(string condition) {
+    if (condition[0] == '(') {
+        condition = condition.substr(1, condition.length() - 2);
+        return condition;
+    }
+    return condition;
 }

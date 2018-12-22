@@ -36,7 +36,7 @@ CommandExpression *commandsFactory::loopcommand(int pos, int numOfParams) {
 }
 
 CommandExpression *commandsFactory::openservercommand(int pos, int numOfParams) {
-    return new CommandExpression(new OpenServerCommand(*this->symbol, pos), *params, numOfParams, pos);
+    return new CommandExpression(new OpenServerCommand(*this->symbol, *this->bind, pos), *params, numOfParams, pos);
 }
 
 CommandExpression *commandsFactory::printcommand(int pos, int numOfParams) {
@@ -70,7 +70,7 @@ CommandExpression *commandsFactory::makeCommand(string c, int pos) {
         return definevar(pos, this->commands.at(c));
         // not existing var
     else if (this->symbol->find(c) == this->symbol->end())
-        throw "Invalid Syntax";
+        throw exception();
         // existing var to change.
     else
         return NULL;

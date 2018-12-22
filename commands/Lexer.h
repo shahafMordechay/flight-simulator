@@ -6,6 +6,8 @@
 #define MAINPROJ_LEXER_H
 #define SEPARATOR " "
 #define ASSERTSEPAR "="
+#define WHILE "while"
+#define IF "if"
 #include <fstream>
 #include "Command.h"
 #include "../expressions/Expression.h"

@@ -18,6 +18,7 @@ class CommandExpression: public Expression {
 public:
     virtual double calculate() throw();
     bool isOperand(string val);
+
     CommandExpression(Command*,vector<string> &params, int numOfParams,int pos);
 };
 

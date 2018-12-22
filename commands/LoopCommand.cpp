@@ -8,7 +8,7 @@ int LoopCommand::doCommand(vector<string> &params) {
     // while condition is met execute.
     while (checkCondition()) {
         for (auto &command: this->myCommands) {
-            command->doCommand(params);
+            command->calculate();
         }
     }
     return this->endOfLoopIndex;

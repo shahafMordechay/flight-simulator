@@ -6,7 +6,7 @@
 
 int SleepCommand::doCommand(vector<string> &params) {
     // sleep for wanted time
-    sleep(static_cast<unsigned int>(atoi(params[pos].c_str())));
+    std::this_thread::sleep_for(std::chrono::milliseconds(atoi(params[pos].c_str())));
     return 1;
 }
 

@@ -14,7 +14,7 @@ int IfCommand::doCommand(vector<string> &params) {
     // execute all the commands in the if loop just once.
     if (checkCondition()) {
         for (auto &command: this->myCommands) {
-            command->doCommand(params);
+            command->calculate();
         }
     }
     // return how many read.

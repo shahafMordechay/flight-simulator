@@ -5,22 +5,20 @@
 #include "PrintCommand.h"
 
 int PrintCommand::doCommand(vector<string> &params) {
-    int read = 0;
-    //check if its a valid var
-    if (this->symbolTable.find(params[pos]) != this->symbolTable.end()) {
-        // print val
-        printf("%lf", this->symbolTable.at(params[pos]));
-        read++;
-        // normal string.
+    // print just string
+    if (params[pos][0] == '\"') {
+        string whatToPrint = params[pos].substr(1, params[pos].length() - 2);
+        printf("%s\n", &whatToPrint);
+        // existing var
+    } else if (*this->symbolTable->find(params[pos]) != *this->symbolTable->end()) {
+        printf("%lf\n", this->symbolTable->at(params[pos]));
     } else {
-        printf("%s", reinterpret_cast<char *>(&params[pos]));
-
+        throw "no such var";
     }
-    // how many should step.
-    return read;
+    return 1;
 }
 
 PrintCommand::PrintCommand(map<string, double> &symbol, int pos) {
-    this->symbolTable = symbol;
+    this->symbolTable = &symbol;
     this->pos = pos;
 }

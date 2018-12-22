@@ -11,15 +11,13 @@ class Lexer;
 
 class ConditionParser : public Command {
 protected:
-    vector<string> condition;
+    string condition;
     vector<string> text;
     map<string, double> *symbols;
     map<string, string> *binds;
     int pos;
     int endOfLoopIndex;
-    list<Command *> myCommands;
-    map<string, bool (ConditionParser::*)(double, double)> mapFunc;
-    Lexer *myLex;
+    list<Expression *> myCommands;
 
 public:
     // only the sons implement.
@@ -34,8 +32,6 @@ public:
     //checks if the conditions is met.
     virtual bool checkCondition();
 
-    virtual bool checkOperand(string c);
-
     virtual bool bigger(double, double);
 
     virtual bool smaller(double, double);
@@ -44,11 +40,13 @@ public:
 
     virtual bool notEqual(double, double);
 
-    virtual bool notZero(double, double);
+    virtual bool notZero(double);
 
     virtual bool biggerOrEqual(double, double);
 
     virtual bool smallerOrEqual(double, double);
+
+    virtual string deleteUnimportant(string condition);
 };
 
 

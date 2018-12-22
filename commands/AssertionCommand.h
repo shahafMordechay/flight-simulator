@@ -15,8 +15,8 @@ public:
     map<string, double> *symbols;
     map<string, string> *binded;
     virtual int doCommand(vector<string>&);
-
     AssertionCommand(map<string, double > &symbols, map<string, string> &bind, int pos);
+
 };
 
 

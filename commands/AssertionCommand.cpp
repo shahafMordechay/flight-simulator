@@ -3,6 +3,7 @@
 //
 
 #include "AssertionCommand.h"
+#include "../GenFunc.h"
 
 int AssertionCommand::doCommand(vector<string> &params) {
     // count num of params
@@ -26,15 +27,9 @@ int AssertionCommand::doCommand(vector<string> &params) {
         string Exp;
         // read the full expression.
         while (params[pos + counter] != "lineEnd") {
-            // check if existing var.
-            if (this->symbols->find(params[pos + counter]) != this->symbols->end()) {
-                // concat the value instead of the var name.
-                Exp += to_string(this->symbols->at(params[pos + counter]));
+            // check if its a var and replace by value.
+                Exp += GenFunc::replaceByVal(params[pos + counter], *this->symbols);
                 counter++;
-            } else {
-                Exp += params[pos + counter];
-                counter++;
-            }
         }
         // give me the value of the string.
         double value = MathExpCalc::evaluate(Exp);
@@ -51,4 +46,5 @@ AssertionCommand::AssertionCommand(map<string, double> &symbol, map<string, stri
     this->binded = &bind;
     this->pos = pos;
 }
+
 

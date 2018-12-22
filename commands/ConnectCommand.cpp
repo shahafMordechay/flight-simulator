@@ -10,10 +10,6 @@ int ConnectCommand::doCommand(vector<string> &params) {
     if ((params[pos] != "127.0.0.1") && (params[pos + 1] != "5402"))
         __throw_bad_exception();
     string host = params[pos];
-    for (int i = 0; i < params[pos].length(); i++) {
-        host[i] = params[pos][i];
-    }
-    host[params[pos].length()] = '\0';
     string port = params[pos + 1];
     // open new thread and try connect to the simulator.
     thread t2(&ConnectCommand::connectToServer, this, host, port);
@@ -28,13 +24,7 @@ void ConnectCommand::connectToServer(string hostId, string port) {
     struct sockaddr_in serv_addr{};
     struct hostent *server;
     char buffer[256];
-    // convert to char*
-    char host[hostId.length() + 1];
-    for (int i = 0; i < hostId.length(); i++) {
-        host[i] = hostId[i];
-    }
-    host[hostId.length()] = '\0';
-    server = gethostbyname(host);
+    server = gethostbyname(hostId.c_str());
     /* Create a socket point */
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -49,20 +39,19 @@ void ConnectCommand::connectToServer(string hostId, string port) {
     }
     bzero((char *) &serv_addr, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
-    bcopy(server->h_name, (char *) &serv_addr.sin_addr.s_addr, static_cast<size_t>(server->h_length));
+    bcopy((char *) server->h_addr, (char *) &serv_addr.sin_addr.s_addr, server->h_length);
     // port num.
-    serv_addr.sin_port = htons(static_cast<uint16_t>(atoi(port.c_str())));
+    serv_addr.sin_port = htons((atoi(port.c_str())));
 
     /* Now connect to the server */
-    if (connect(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
-        perror("ERROR connecting");
-        exit(1);
+    while (connect(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
+        // keep trying.
     }
     // keep updating the vars in the simulator consistently.
     while (true) {
-        for(auto &add: *this->binds) {
+        for (auto &add: *this->binds) {
             // create string as requasted
-            string setCommand = "set "+add.second+" "+to_string(this->vars->at(add.first));
+            string setCommand = "set " + add.second + " " + to_string(this->vars->at(add.first));
             // change val in the simulator.
             n = write(sockfd, setCommand.c_str(), setCommand.length());
             // unsuccesfull update.
@@ -74,7 +63,7 @@ void ConnectCommand::connectToServer(string hostId, string port) {
     }
 }
 
-ConnectCommand::ConnectCommand(map<string, string> &binds,map<string, double> &vars, int pos) {
+ConnectCommand::ConnectCommand(map<string, string> &binds, map<string, double> &vars, int pos) {
     this->pos = pos;
     this->vars = &vars;
     this->binds = &binds;

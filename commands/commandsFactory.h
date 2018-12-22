@@ -7,7 +7,6 @@
 
 #include "CommandExpression.h"
 #include "../expressions/Expression.h"
-#include "commandsFactory.h"
 #include "Command.h"
 #include "AssertionCommand.h"
 #include "DefineVarCommand.h"
