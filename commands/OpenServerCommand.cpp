@@ -4,24 +4,51 @@
 
 #include "OpenServerCommand.h"
 #include "Expression.h"
+#include "ReadFromServer.h"
 
 int OpenServerCommand::doCommand(vector<string> &params) {
     // new thread that opens a server.
-    thread t1(&OpenServerCommand::openServer, this, atoi(params[pos].c_str()), atoi(params[pos+1].c_str()));
+    thread t1(&OpenServerCommand::openServer, this, atoi(params[pos].c_str()), atoi(params[pos + 1].c_str()));
     t1.detach();
     return 2;
 }
 
-OpenServerCommand::OpenServerCommand(map<string, double> &vars, int pos) {
+OpenServerCommand::OpenServerCommand(map<string, double> &vars,map<string,string> &bind, int pos) {
     this->vars = &vars;
+    this->varsAndPaths = &bind;
     this->pos = pos;
+    this->pathToVal = vector<pair<string, double>>();
+    // enter all possible paths from xml file.
+    this->pathToVal.emplace_back("/instrumentation/airspeed-indicator/indicated-speed-kt",0);
+    this->pathToVal.emplace_back("/instrumentation/altimeter/indicated-altitude-ft",0);
+    this->pathToVal.emplace_back("/instrumentation/altimeter/pressure-alt-ft",0);
+    this->pathToVal.emplace_back("/instrumentation/attitude-indicator/indicated-pitch-deg",0);
+    this->pathToVal.emplace_back("/instrumentation/attitude-indicator/indicated-roll-deg",0);
+    this->pathToVal.emplace_back("/instrumentation/attitude-indicator/internal-pitch-deg",0);
+    this->pathToVal.emplace_back("/instrumentation/attitude-indicator/internal-roll-deg",0);
+    this->pathToVal.emplace_back("/instrumentation/encoder/indicated-altitude-ft",0);
+    this->pathToVal.emplace_back("/instrumentation/encoder/pressure-alt-ft",0);
+    this->pathToVal.emplace_back("/instrumentation/gps/indicated-altitude-ft",0);
+    this->pathToVal.emplace_back("/instrumentation/gps/indicated-ground-speed-kt",0);
+    this->pathToVal.emplace_back("/instrumentation/gps/indicated-vertical-speed",0);
+    this->pathToVal.emplace_back("/instrumentation/heading-indicator/indicated-heading-deg",0);
+    this->pathToVal.emplace_back("/instrumentation/magnetic-compass/indicated-heading-deg",0);
+    this->pathToVal.emplace_back("/instrumentation/slip-skid-ball/indicated-slip-skid",0);
+    this->pathToVal.emplace_back("/instrumentation/turn-indicator/indicated-turn-rate",0);
+    this->pathToVal.emplace_back("/instrumentation/vertical-speed-indicator/indicated-speed-fpm",0);
+    this->pathToVal.emplace_back("/controls/flight/aileron",0);
+    this->pathToVal.emplace_back("/controls/flight/elevator",0);
+    this->pathToVal.emplace_back("/controls/flight/rudder",0);
+    this->pathToVal.emplace_back("/controls/flight/flaps",0);
+    this->pathToVal.emplace_back("/controls/engines/engine/throttle",0);
+    this->pathToVal.emplace_back("/engines/engine/rpm",0);
 }
 
 void OpenServerCommand::openServer(int port, int freq) {
     int sockfd, newsockfd, clilen;
     char buffer[256];
     struct sockaddr_in serv_addr{}, cli_addr{};
-    int  n;
+    int n;
 
     /* First call to socket() function */
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -51,7 +78,7 @@ void OpenServerCommand::openServer(int port, int freq) {
     clilen = sizeof(cli_addr);
 
     /* Accept actual connection from the client */
-    newsockfd = accept(sockfd, (struct sockaddr *)&cli_addr, (socklen_t*)&clilen);
+    newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, (socklen_t *) &clilen);
 
     if (newsockfd < 0) {
         perror("ERROR on accept");
@@ -59,9 +86,13 @@ void OpenServerCommand::openServer(int port, int freq) {
     }
 
     /* If connection is established then start communicating */
-    while(true) {
+    while (true) {
         bzero(buffer, 256);
         n = static_cast<int>(read(newsockfd, buffer, 255));
+        //update my table
+        ReadFromServer::updateValMap(buffer,this->pathToVal);
+        //check if need to update vars.
+        ReadFromServer::updateValues(*this->varsAndPaths,this->pathToVal,*this->vars);
         printf("%s",buffer);
         if (n < 0) {
             perror("ERROR reading from socket");
