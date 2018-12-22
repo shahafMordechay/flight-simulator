@@ -16,3 +16,4 @@ DefineVarCommand::DefineVarCommand(map<string, double> &symbol, int pos) {
     this->pos = pos;
 
 }
+

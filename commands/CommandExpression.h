@@ -13,11 +13,12 @@ class CommandExpression: public Expression {
     vector<string> params;
     Command *myCommand;
     int numOfParams;
+    int pos;
 
 public:
     virtual double calculate() throw();
     bool isOperand(string val);
-    CommandExpression(Command*,vector<string> &params, int numOfParams);
+    CommandExpression(Command*,vector<string> &params, int numOfParams,int pos);
 };
 
 
