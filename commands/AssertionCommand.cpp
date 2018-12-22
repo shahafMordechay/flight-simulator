@@ -37,7 +37,7 @@ int AssertionCommand::doCommand(vector<string> &params) {
             }
         }
         // give me the value of the string.
-        double value = GenFunc::evaluate(Exp);
+        double value = MathExpCalc::evaluate(Exp);
         // update the var in the table.
         this->symbols->at(params[pos - 2]) = value;
 

@@ -10,6 +10,7 @@
 class Lexer;
 
 class ConditionParser : public Command {
+protected:
     vector<string> condition;
     vector<string> text;
     map<string, double> *symbols;

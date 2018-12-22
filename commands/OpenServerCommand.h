@@ -9,13 +9,12 @@
 #include "Command.h"
 
 class OpenServerCommand : public Command {
-public:
     int pos;
     map<string, double> *vars;
-    vector<pair<string, double>> pathToVal;
-    map<string,string> *varsAndPaths;
+
+public:
     virtual int doCommand(vector<string>&);
-    OpenServerCommand(map<string, double > &var,map<string,string> &bind, int pos);
+    OpenServerCommand(map<string, double > &var, int pos);
     void openServer(int, int);
 };
 

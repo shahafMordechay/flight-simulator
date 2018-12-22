@@ -23,9 +23,9 @@ class Lexer {
     map<string, Expression*> commands;
     map<string, double> symbolTable;
     map<string, string> bindedMap;
-    Lexer();
 
 public:
+    Lexer();
     vector<string> lexer();
     void parser(vector<string>,int);
 

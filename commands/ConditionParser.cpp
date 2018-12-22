@@ -45,7 +45,7 @@ bool ConditionParser::checkCondition() {
                 i++;
             }
             // eval compared to expression.
-            double compareTo = GenFunc::evaluate(Exp);
+            double compareTo = MathExpCalc::evaluate(Exp);
             // check if condition is met.
             return (this->*mapFunc.at(Operand))(varValue, compareTo);
         }
@@ -60,7 +60,7 @@ bool ConditionParser::checkCondition() {
             i++;
         }
         // eval expression.
-        double ExpVal = GenFunc::evaluate(Exp);
+        double ExpVal = MathExpCalc::evaluate(Exp);
         // no operand.
         if (i == this->condition.size()) {
             // no operand check just true false.
@@ -86,7 +86,7 @@ bool ConditionParser::checkCondition() {
                 i++;
             }
             // get value of second.
-            double secExpVal = GenFunc::evaluate(secExp);
+            double secExpVal = MathExpCalc::evaluate(secExp);
             // return wanted func result.
             return (this->*mapFunc.at(Operand))(ExpVal, secExpVal);
         }
