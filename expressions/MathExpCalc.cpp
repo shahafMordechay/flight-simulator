@@ -35,7 +35,7 @@ queue<string> MathExpCalc::shuntingYard(string &mathExp) {
     for (int i = 0; i < mathExp.length(); i++) {
 
         // read number or add '-' to number start
-        if (isdigit(mathExp[i]) || (mathExp[i] == '-' && !isdigit(mathExp[i - 1]))) {
+        if (isdigit(mathExp[i]) || mathExp[i] == '.' || (mathExp[i] == '-' && !isdigit(mathExp[i - 1]))) {
             num += mathExp[i];
 
         // push '(' to stack
