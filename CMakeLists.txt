@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.13)
+project(flightSimulator)
+
+set(CMAKE_CXX_STANDARD 14)
+
+add_executable(flightSimulator main.cpp expressions/Expression.h expressions/BinaryExpression.cpp expressions/BinaryExpression.h expressions/Number.cpp expressions/Number.h expressions/Plus.cpp expressions/Plus.h expressions/Minus.cpp expressions/Minus.h expressions/Mult.cpp expressions/Mult.h expressions/Div.cpp expressions/Div.h expressions/MathExpCalc.cpp expressions/MathExpCalc.h commands/Command.h commands/OpenServerCommand.cpp commands/OpenServerCommand.h commands/Lexer.cpp commands/Lexer.h commands/LoopCommand.cpp commands/LoopCommand.h commands/DefineVarCommand.cpp commands/DefineVarCommand.h commands/ConnectCommand.cpp commands/ConnectCommand.h commands/ConditionParser.cpp commands/ConditionParser.h commands/IfCommand.cpp commands/IfCommand.h commands/PrintCommand.cpp commands/PrintCommand.h commands/SleepCommand.cpp commands/SleepCommand.h commands/AssertionCommand.cpp commands/AssertionCommand.h commands/CommandExpression.cpp commands/CommandExpression.h commands/commandsFactory.cpp commands/commandsFactory.h commands/DataReaderFromServer.h commands/DataReaderFromServer.cpp commands/DataReaderServer.cpp commands/DataReaderServer.h GenFunc.cpp GenFunc.h)

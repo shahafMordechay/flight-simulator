@@ -12,23 +12,7 @@
 #include "Minus.h"
 #include "Mult.h"
 #include "Div.h"
-
-
-// true if sign is an operator, false otherwise
-bool MathExpCalc::isOperator(char sign) {
-    return sign == '+' || sign == '-' || sign == '*' || sign == '/';
-}
-
-// true if given string is a number, false otherwise
-bool MathExpCalc::isNumber(string &str) {
-    for (int i = 0; i < str.length(); ++i) {
-        if (!isdigit(str[i]) && (str.length() == 1 || i != 0 || str[0] != '-')) {
-            return false;
-        }
-    }
-
-    return true;
-}
+#include "../GenFunc.h"
 
 // return the precedence of given sign
 int getPrecedence(char sign) {
@@ -59,7 +43,7 @@ queue<string> MathExpCalc::shuntingYard(string &mathExp) {
             signStack.push(mathExp[i]);
 
         // pop operators from stack and push to queue
-        } else if (isOperator(mathExp[i]) || mathExp[i] == ')') {
+        } else if (GenFunc::isOperator(mathExp[i]) || mathExp[i] == ')') {
 
             // push number that comes before operator to queue
             if (!num.empty()) {
@@ -112,7 +96,7 @@ Expression* MathExpCalc::expFromPostfix(queue<string> postfix) {
     while (!postfix.empty()) {
 
         // front in queue is a number
-        if (isNumber(postfix.front())) {
+        if (GenFunc::isNumber(postfix.front())) {
             Number* number = new Number(postfix.front());
             expStack.push(number);
             postfix.pop();

@@ -13,8 +13,6 @@ using namespace std;
 
 class MathExpCalc {
 public:
-    static bool isOperator(char sign);
-    static bool isNumber(string &str);
     static queue<string> shuntingYard(string &mathExp);
     static Expression* expFromPostfix(queue<string> postfix);
     static double evaluate(string &mathExp);
