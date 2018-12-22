@@ -19,3 +19,18 @@ bool GenFunc::isNumber(string &str) {
 
     return true;
 }
+
+string GenFunc::replaceByVal(string vari, map<string, double> &symbols) {
+    // check for existing var.
+    for (auto &var : symbols) {
+        // check if exist.
+        int startIndex = vari.find(var.first);
+        // if its really there.
+        if (startIndex != vari.npos) {
+            vari.erase(startIndex, var.first.length());
+            vari.insert(startIndex, to_string(var.second));
+        }
+    }
+    // return the string.
+    return vari;
+}
