@@ -35,7 +35,9 @@ queue<string> MathExpCalc::shuntingYard(string &mathExp) {
     for (int i = 0; i < mathExp.length(); i++) {
 
         // read number or add '-' to number start
-        if (isdigit(mathExp[i]) || mathExp[i] == '.' || (mathExp[i] == '-' && !isdigit(mathExp[i - 1]))) {
+        if (isdigit(mathExp[i]) || mathExp[i] == '.'
+                || (mathExp[i] == '-' && !isdigit(mathExp[i - 1]) && mathExp[i - 1] != ')')) {
+
             num += mathExp[i];
 
         // push '(' to stack
@@ -57,19 +59,19 @@ queue<string> MathExpCalc::shuntingYard(string &mathExp) {
             /* pop operators from stack to queue while this precedence is lower than
                stack top operator precedence */
             while (!signStack.empty()
-                    && getPrecedence(signStack.top()) > thisPrecedence) {
+                    && getPrecedence(signStack.top()) >= thisPrecedence) {
+
+                if (signStack.top() == '(' && mathExp[i] == ')') {
+                    signStack.pop();
+                    break;
+                }
 
                 string s(1, signStack.top());
                 postfix.push(s);
                 signStack.pop();
             }
 
-            // if operator is ')' than pop '(' from stack
-            if (mathExp[i] == ')') {
-                signStack.pop();
-
-            // push operator to stack
-            } else {
+            if (mathExp[i] != ')') {
                 signStack.push(mathExp[i]);
             }
         }
