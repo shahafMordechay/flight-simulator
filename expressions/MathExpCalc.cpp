@@ -26,7 +26,7 @@ int getPrecedence(char sign) {
 }
 
 // replace '-+' or '+-' to '-' and '--' to '+'. erase '+' if needed.
-string minusPlusCombHandling(string &mathExp) {
+void minusPlusCombHandling(string &mathExp) {
 
     auto current = mathExp.begin();
     auto next = ++mathExp.begin();
