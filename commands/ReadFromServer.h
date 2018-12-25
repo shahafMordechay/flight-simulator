@@ -16,7 +16,7 @@ using namespace std;
 class ReadFromServer {
 public:
     static void updateValues(map<string, string>
-                             &varsAndPaths,
+                             &varsAndPaths,map<string,bool>&con,
                              vector<pair<string, double>> &simulatorData, map<string, double>
                              &myData);
 

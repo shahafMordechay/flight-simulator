@@ -135,7 +135,7 @@ void OpenServerCommand::openServer(int port, int freq) {
         //update my table
         ReadFromServer::updateValMap(normal.c_str(), this->pathToVal);
         //check if need to update vars.
-        ReadFromServer::updateValues(*this->varsAndPaths, this->pathToVal, *this->vars);
+        ReadFromServer::updateValues(*this->varsAndPaths, *this->con, this->pathToVal, *this->vars);
         if (n < 0) {
             perror("ERROR reading from socket");
             exit(1);

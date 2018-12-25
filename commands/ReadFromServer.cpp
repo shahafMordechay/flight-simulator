@@ -10,17 +10,17 @@
 mutex globalMu;
 
 void
-ReadFromServer::updateValues(map<string, string> &varsAndPaths, vector<pair<string, double>> &simulatorData,
+ReadFromServer::updateValues(map<string, string> &varsAndPaths, map<string, bool> &con,
+                             vector<pair<string, double>> &simulatorData,
                              map<string, double> &myData) {
     //for every path from simulator check if existing in bind table.
     for (auto &path: simulatorData) {
         // check binds table.
         for (auto &var: varsAndPaths) {
-            // equal paths.
-            if (path.first == var.second) {
+            // equal paths. and old val
+            if ((path.first == var.second) && !(con.at(var.first))) {
                 // change val in my table.
                 globalMu.lock();
-
                 myData.at(var.first) = path.second;
                 globalMu.unlock();
 
@@ -71,6 +71,7 @@ ReadFromServer::setMgs(string name, map<string, bool> &con, map<string, string> 
                  + " " + to_string(val.at(name)) + "\r\n";
     con.at(name) = false;
     globalMu.unlock();
+    return msg;
 }
 
 
