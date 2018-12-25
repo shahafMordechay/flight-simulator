@@ -15,6 +15,7 @@ protected:
     vector<string> text;
     map<string, double> *symbols;
     map<string, string> *binds;
+    map<string,bool> *con;
     int pos;
     int endOfLoopIndex;
     list<Expression *> myCommands;
@@ -23,7 +24,7 @@ public:
     // only the sons implement.
     virtual int doCommand(vector<string> &, int pos);
 
-    explicit ConditionParser(vector<string> &, map<string, double> &, map<string, string> &, int pos);
+    explicit ConditionParser(map<string,bool>&con,vector<string> &, map<string, double> &, map<string, string> &, int pos);
 
     void makeMeCommands();
 

@@ -3,10 +3,14 @@
 //
 #include "commandsFactory.h"
 
-commandsFactory::commandsFactory(map<string, double> &symbols, map<string, string> &binds, vector<string> &text) {
+commandsFactory::commandsFactory(map<string, bool> &con, map<string, double> &symbols, map<string, string> &binds,
+                                 vector<string> &text,
+                                 bool &indi) {
+    this->indicator = &indi;
     this->params = &text;
     this->bind = &binds;
     this->symbol = &symbols;
+    this->con = &con;
     this->commands = map<string, int>();
     commands.insert({"while", -1});
     commands.insert({"if", -1});
@@ -19,24 +23,26 @@ commandsFactory::commandsFactory(map<string, double> &symbols, map<string, strin
 }
 
 CommandExpression *commandsFactory::assertion(int pos, int numOfParams) {
-    return new CommandExpression(new AssertionCommand(*symbol, *bind, pos), *params, numOfParams, pos);
+    return new CommandExpression(new AssertionCommand(*con, *symbol, *bind, pos), *params, numOfParams, pos);
 }
 
 
 CommandExpression *commandsFactory::definevar(int pos, int numOfParams) {
-    return new CommandExpression(new DefineVarCommand(*this->symbol, pos), *params, numOfParams, pos);
+    return new CommandExpression(new DefineVarCommand(*this->symbol, *this->con, pos), *params, numOfParams, pos);
 }
 
 CommandExpression *commandsFactory::ifcommand(int pos, int numOfParams) {
-    return new CommandExpression(new IfCommand(*params, *bind, *symbol, pos), *params, numOfParams, pos);
+    return new CommandExpression(new IfCommand(*con, *params, *bind, *symbol, pos), *params, numOfParams, pos);
 }
 
 CommandExpression *commandsFactory::loopcommand(int pos, int numOfParams) {
-    return new CommandExpression(new LoopCommand(*params, *bind, *symbol, pos), *params, numOfParams, pos);
+    return new CommandExpression(new LoopCommand(*con, *params, *bind, *symbol, pos), *params, numOfParams, pos);
 }
 
 CommandExpression *commandsFactory::openservercommand(int pos, int numOfParams) {
-    return new CommandExpression(new OpenServerCommand(*this->symbol, *this->bind, pos), *params, numOfParams, pos);
+    return new CommandExpression(new OpenServerCommand(*this->symbol, *this->con, *this->bind, pos, *this->indicator),
+                                 *params,
+                                 numOfParams, pos);
 }
 
 CommandExpression *commandsFactory::printcommand(int pos, int numOfParams) {
@@ -44,7 +50,8 @@ CommandExpression *commandsFactory::printcommand(int pos, int numOfParams) {
 }
 
 CommandExpression *commandsFactory::connectcommand(int pos, int numOfParams) {
-    return new CommandExpression(new ConnectCommand(*this->bind, *this->symbol, pos), *params, numOfParams, pos);
+    return new CommandExpression(new ConnectCommand(*this->bind, *this->symbol, *this->con, pos), *params, numOfParams,
+                                 pos);
 }
 
 CommandExpression *commandsFactory::sleepcommand(int pos, int numOfParams) {

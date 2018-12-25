@@ -3,11 +3,14 @@
 //
 
 #include <netdb.h>
+#include <mutex>
 #include "ConnectCommand.h"
+#include "../GenFunc.h"
+#include "ReadFromServer.h"
 
 int ConnectCommand::doCommand(vector<string> &params) {
     // check params validity.
-    if ((params[pos] != "127.0.0.1") && (params[pos + 1] != "5402"))
+    if ((params[pos] != "127.0.0.1") || ((MathExpCalc::evaluate(params[pos + 1])) != 5402))
         __throw_bad_exception();
     string host = params[pos];
     string port = params[pos + 1];
@@ -43,31 +46,35 @@ void ConnectCommand::connectToServer(string hostId, string port) {
     // port num.
     serv_addr.sin_port = htons((atoi(port.c_str())));
 
-    /* Now connect to the server */
+    // keep trying to connect.
     while (connect(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
-        // keep trying.
     }
     // keep updating the vars in the simulator consistently.
     while (true) {
-        for (auto &add: *this->binds) {
-            // create string as requasted
-            string setCommand = "set " + add.second + " " + to_string(this->vars->at(add.first));
-            // change val in the simulator.
-            n = write(sockfd, setCommand.c_str(), setCommand.length());
-            // unsuccesfull update.
-            if (n < 0) {
-                perror("ERROR writing to socket");
-                exit(1);
+        // if some var value is changed write it.
+        for (auto &var : *this->changedOrNot) {
+            // if changed
+            if (var.second) {
+                // make msg.
+                string msg = ReadFromServer::setMgs(var.first, *this->changedOrNot, *this->binds, *this->vars);
+                n = write(sockfd, msg.c_str(), msg.length());
+                // unsuccesfull update.
+                if (n < 0) {
+                    perror("ERROR writing to socket");
+                    exit(1);
+                }
             }
         }
     }
 }
 
-ConnectCommand::ConnectCommand(map<string, string> &binds, map<string, double> &vars, int pos) {
+ConnectCommand::ConnectCommand(map<string, string> &binds, map<string, double> &vars, map<string, bool> &con, int pos) {
     this->pos = pos;
     this->vars = &vars;
     this->binds = &binds;
+    this->changedOrNot = &con;
 }
+
 
 
 

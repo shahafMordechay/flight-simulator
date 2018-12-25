@@ -9,6 +9,7 @@
 #include <string.h>
 #include <stddef.h>
 #include <vector>
+#include "Command.h"
 
 using namespace std;
 
@@ -19,8 +20,12 @@ public:
                              vector<pair<string, double>> &simulatorData, map<string, double>
                              &myData);
 
-    static void updateValMap(char input[256], vector<pair<string, double>> &simulatorData);
+    static void updateValMap(const char *input, vector<pair<string, double>> &simulatorData);
 
+    static void changeSymbolT(map<string, bool> &con, vector<string> &params, int pos, map<string, string> &binded,
+                              map<string, double> &symbols, double value);
+
+    static string setMgs(string name,map<string, bool> &con, map<string, string> &paths, map<string, double> &val);
 };
 
 

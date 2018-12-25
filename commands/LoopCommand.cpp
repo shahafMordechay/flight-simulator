@@ -14,8 +14,9 @@ int LoopCommand::doCommand(vector<string> &params) {
     return this->endOfLoopIndex;
 }
 
-LoopCommand::LoopCommand(vector<string> &params, map<string, string> &binds, map<string, double> &symbols, int pos)
-        : ConditionParser(params,
+LoopCommand::LoopCommand(map<string,bool>&con,vector<string> &params, map<string, string> &binds, map<string, double> &symbols,
+                         int pos)
+        : ConditionParser(con,params,
                           symbols, binds,
                           pos) {
     this->pos = pos;

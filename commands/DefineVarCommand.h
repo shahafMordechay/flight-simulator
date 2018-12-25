@@ -12,10 +12,11 @@
 class DefineVarCommand: public Command {
     int pos;
     map<string, double> *symbolTable;
+    map<string,bool> *con;
 
 public:
     virtual int doCommand(vector<string>&);
-    DefineVarCommand(map<string, double>&symbols,int pos);
+    DefineVarCommand(map<string, double>&symbols,map<string,bool >&con,int pos);
 };
 
 

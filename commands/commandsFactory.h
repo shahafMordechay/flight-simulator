@@ -17,34 +17,36 @@
 #include "PrintCommand.h"
 #include "ConnectCommand.h"
 #include "SleepCommand.h"
+
 class commandsFactory {
+    bool *indicator;
     map<string, double> *symbol;
     map<string, string> *bind;
+    map<string,bool> *con;
     vector<string> *params;
-    map<string,int> commands;
+    map<string, int> commands;
 
 public:
-    commandsFactory(map<string, double> &symbols, map<string, string> &binds, vector<string> &text);
+    commandsFactory(map<string,bool>&con,map<string, double> &symbols, map<string, string> &binds, vector<string> &text,
+                    bool &indi);
 
-    CommandExpression* assertion(int pos, int numOfParams);
+    CommandExpression *assertion(int pos, int numOfParams);
 
-    CommandExpression* definevar(int pos, int numOfParams);
+    CommandExpression *definevar(int pos, int numOfParams);
 
-    CommandExpression* ifcommand(int pos, int numOfParams);
+    CommandExpression *ifcommand(int pos, int numOfParams);
 
-    CommandExpression* loopcommand(int pos, int numOfParams);
+    CommandExpression *loopcommand(int pos, int numOfParams);
 
-    CommandExpression* openservercommand(int pos, int numOfParams);
+    CommandExpression *openservercommand(int pos, int numOfParams);
 
-    CommandExpression* connectcommand(int pos, int numOfParams);
+    CommandExpression *connectcommand(int pos, int numOfParams);
 
-    CommandExpression* printcommand(int pos, int numOfParams);
+    CommandExpression *printcommand(int pos, int numOfParams);
 
-    CommandExpression* sleepcommand(int pos, int numOfParams);
+    CommandExpression *sleepcommand(int pos, int numOfParams);
 
-    CommandExpression* makeCommand(string c, int pos);
-
-
+    CommandExpression *makeCommand(string c, int pos);
 
 
 };

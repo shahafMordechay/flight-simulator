@@ -7,12 +7,14 @@
 
 
 #include "ConditionParser.h"
-class IfCommand: public ConditionParser {
+
+class IfCommand : public ConditionParser {
     int pos;
 
 public:
-    virtual int doCommand(vector<string>&);
-    IfCommand(vector<string>&,map<string,string> &,map<string,double>&,int pos);
+    virtual int doCommand(vector<string> &);
+
+    IfCommand(map<string,bool>&,vector<string> &, map<string, string> &, map<string, double> &, int pos);
 };
 
 

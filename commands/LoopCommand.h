@@ -9,12 +9,13 @@
 #include "Command.h"
 #include "ConditionParser.h"
 
-class LoopCommand: public ConditionParser{
+class LoopCommand : public ConditionParser {
     int pos;
 
 public:
-    virtual int doCommand(vector<string>&);
-    LoopCommand(vector<string>&,map<string,string>&,map<string,double>&,int pos);
+    virtual int doCommand(vector<string> &);
+
+    LoopCommand(map<string, bool> &con, vector<string> &, map<string, string> &, map<string, double> &, int pos);
 
 };
 

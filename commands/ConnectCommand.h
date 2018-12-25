@@ -13,11 +13,11 @@ class ConnectCommand : public Command{
     int pos;
     map<string, double> *vars;
     map<string, string> *binds;
-
+    map<string, bool > *changedOrNot;
 public:
     virtual int doCommand(vector<string>&);
     void connectToServer(string, string);
-    ConnectCommand(map<string, string> &binds,map<string, double> &vars,int pos);
+    ConnectCommand(map<string, string> &binds,map<string, double> &vars,map<string,bool > &con,int pos);
 };
 
 

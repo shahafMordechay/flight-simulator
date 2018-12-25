@@ -6,12 +6,14 @@
 #include "Lexer.h"
 #include "../GenFunc.h"
 
-ConditionParser::ConditionParser(vector<string> &params, map<string, double> &symbols, map<string, string> &binds,
+ConditionParser::ConditionParser(map<string, bool> &con, vector<string> &params, map<string, double> &symbols,
+                                 map<string, string> &binds,
                                  int pos) {
     this->text = params;
     this->pos = getCond(pos);
     this->symbols = &symbols;
     this->binds = &binds;
+    this->con = &con;
     this->myCommands = list<Expression *>();
     makeMeCommands();
 
@@ -128,16 +130,29 @@ bool ConditionParser::notZero(double only) {
 }
 
 void ConditionParser::makeMeCommands() {
-    commandsFactory *loopCommands = new commandsFactory(*this->symbols, *this->binds, this->text);
+    bool indi = false;
+    auto *loopCommands = new commandsFactory(*this->con, *this->symbols, *this->binds, this->text, indi);
     //still in the loop.
     while (this->text[pos] != "}") {
-        // make new command.
-        try {
+        // check if loop in loop
+        if ((this->text[pos] == "while") || (this->text[pos] == "if")) {
             Expression *myOne = loopCommands->makeCommand(this->text[pos], pos + 1);
-            if (myOne != NULL)
-                this->myCommands.emplace_back(myOne);
-        } catch (exception) {} //invalid command.
-        pos++;
+            this->myCommands.emplace_back(myOne);
+            pos++;
+            // skip all inside loop commands.
+            while (this->text[pos] != "}")
+                pos++;
+            // skip end line indicator.
+            pos++;
+        } else {
+            // make new command.
+            try {
+                Expression *myOne = loopCommands->makeCommand(this->text[pos], pos + 1);
+                if (myOne != NULL)
+                    this->myCommands.emplace_back(myOne);
+            } catch (exception) {} //invalid command.
+            pos++;
+        }
     }
     this->endOfLoopIndex = pos + 2;
     delete (loopCommands);

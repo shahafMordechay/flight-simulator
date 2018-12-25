@@ -8,6 +8,7 @@
 #define ASSERTSEPAR "="
 #define WHILE "while"
 #define IF "if"
+
 #include <fstream>
 #include "Command.h"
 #include "../expressions/Expression.h"
@@ -21,16 +22,20 @@
 using namespace std;
 
 class Lexer {
+    int numPar;
+    bool Contin;
+    char **params;
     fstream reader;
-    map<string, Expression*> commands;
+    map<string, bool> con;
     map<string, double> symbolTable;
     map<string, string> bindedMap;
 
 public:
-    Lexer();
-    vector<string> lexer();
-    void parser(vector<string>,int);
+    Lexer(int, char **);
 
+    vector<string> lexer();
+
+    void parser(vector<string>, int);
 
 
 };

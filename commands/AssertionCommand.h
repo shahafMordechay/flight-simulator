@@ -8,14 +8,17 @@
 
 #include "Command.h"
 
-class AssertionCommand: public Command{
+class AssertionCommand : public Command {
     int pos;
 
 public:
     map<string, double> *symbols;
     map<string, string> *binded;
-    virtual int doCommand(vector<string>&);
-    AssertionCommand(map<string, double > &symbols, map<string, string> &bind, int pos);
+    map<string,bool> *con;
+
+    virtual int doCommand(vector<string> &);
+
+    AssertionCommand(map<string,bool>&con,map<string, double> &symbols, map<string, string> &bind, int pos);
 
 };
 

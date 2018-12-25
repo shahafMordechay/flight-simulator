@@ -4,8 +4,9 @@
 
 #include "IfCommand.h"
 
-IfCommand::IfCommand(vector<string> &params, map<string, string> &binds, map<string, double> &symbols, int pos)
-        : ConditionParser(params, symbols, binds,
+IfCommand::IfCommand(map<string,bool>& con,vector<string> &params, map<string, string> &binds, map<string, double> &symbols,
+                     int pos)
+        : ConditionParser(con,params, symbols, binds,
                           pos) {
     this->pos = pos;
 }
