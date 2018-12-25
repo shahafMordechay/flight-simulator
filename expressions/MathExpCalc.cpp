@@ -25,8 +25,49 @@ int getPrecedence(char sign) {
     }
 }
 
+// replace '-+' or '+-' to '-' and '--' to '+'. erase '+' if needed.
+string minusPlusCombHandling(string &mathExp) {
+
+    auto current = mathExp.begin();
+    auto next = ++mathExp.begin();
+    for (; next < mathExp.end(); current++, next++) {
+        if (*current == '-') {
+
+            // current and next are '-'
+            if (*next == '-') {
+
+                // erase '+' if comes after an operator
+                if (current > mathExp.begin() && GenFunc::isOperator(*(--current))) {
+                    mathExp.erase(next);
+                    current += 2;
+                    next++;
+                // replace '--' to '+'
+                } else {
+                    *next = '+';
+                }
+                mathExp.erase(current);
+
+            // current is '-' next is '+'
+            } else if (*next == '+') {
+                mathExp.erase(next);
+            }
+
+        // current is '+' next is '-'
+        } else if (*current == '+' && *next == '-') {
+            mathExp.erase(current);
+        }
+    }
+
+    // erase '+' from string start
+    if (mathExp[0] == '+') {
+        mathExp.erase(mathExp.begin());
+    }
+}
+
 // convert infix math expression to postfix
 queue<string> MathExpCalc::shuntingYard(string &mathExp) {
+    minusPlusCombHandling(mathExp);
+
     queue<string> postfix;
     stack<char> signStack;
 
