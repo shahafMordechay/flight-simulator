@@ -14,6 +14,8 @@ public:
     static bool isOperator(char sign);
     static bool isNumber(string &str);
     static string replaceByVal(string var,map<string,double >&symbols);
+    static bool isSimulatorVar(map<string,string> &paths, string var);
+    static string getPath(map<string,string> &paths, string var);
 
 };
 
