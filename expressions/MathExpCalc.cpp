@@ -142,6 +142,7 @@ Expression *MathExpCalc::expFromPostfix(queue<string> postfix) {
         if (GenFunc::isNumber(postfix.front())) {
             Number *number = new Number(postfix.front());
             expStack.push(number);
+            free(number);
             postfix.pop();
 
             // front in queue is an operator
@@ -183,6 +184,8 @@ Expression *MathExpCalc::expFromPostfix(queue<string> postfix) {
     }// end of while
 
     Expression *result = expStack.top();
+    while (!expStack.empty())
+        expStack.pop();
 
     return result;
 }
@@ -191,5 +194,7 @@ Expression *MathExpCalc::expFromPostfix(queue<string> postfix) {
 double MathExpCalc::evaluate(string &mathExp) {
     queue<string> postfix = shuntingYard(mathExp);
     Expression *resultExp = expFromPostfix(postfix);
-    return resultExp->calculate();
+    double value = resultExp->calculate();
+    delete(resultExp);
+    return value;
 }
