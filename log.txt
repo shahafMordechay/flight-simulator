@@ -1,0 +1,555 @@
+commit 2049c67ac2de4c4434ea59c7f88623d0e0321064
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Wed Dec 26 23:42:57 2018 +0200
+
+    Create details.txt
+
+commit bdda404069cecda0c0fd4a54b7bc4f9cb1533c9d
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Wed Dec 26 23:35:10 2018 +0200
+
+    Create conf.txt
+
+commit 5e4b2875493013a70e812aaacd07e5e1d23bd52f
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Wed Dec 26 21:43:38 2018 +0200
+
+    fly script commands
+
+commit 18aaa69308081a1549d25b6575a3e93fc5976071
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Wed Dec 26 21:42:53 2018 +0200
+
+    Add files via upload
+
+commit b3f0152954b8a54595efadae274b76bac4e39552
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Wed Dec 26 21:42:18 2018 +0200
+
+    latest version
+
+commit 7eb87d95b37f3c3c1445a54f6ec61dd583297dbe
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Wed Dec 26 21:40:54 2018 +0200
+
+    latest update
+    
+    airplane can fly
+
+commit f7ec2d33e7a2e210563d112287f5280d50d98c61
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Tue Dec 25 20:18:17 2018 +0200
+
+    Add files via upload
+
+commit 793408094fb6c4a42d86bd1dd29cc2ce4375bf0f
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Tue Dec 25 19:43:51 2018 +0200
+
+    Add files via upload
+
+commit e014889598b035ead3f57fcb10de10ab30f10b61
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Tue Dec 25 19:43:05 2018 +0200
+
+    updated files
+
+commit 70c0a3c6b9eedf6e4e8c04514f7e43eb9ed4a40f
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Tue Dec 25 19:41:22 2018 +0200
+
+    func ret val changed
+    
+    private func inside mathexp
+
+commit d26ae34d623dd14766eefec7961fef6e6b1305c6
+Merge: 843e3a7 48bc561
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Tue Dec 25 19:24:53 2018 +0200
+
+    Merge pull request #4 from shahafMordechay/expression-patch1
+    
+    fix double operators bug
+
+commit 48bc561fa590c77033c154eb51d3875aa1c60885
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Tue Dec 25 19:24:35 2018 +0200
+
+    fix double operators bug
+    
+    added a function that replaces '+-' and '-+' to '-' and also '--' to '+'.
+    delete '+' if needed.
+
+commit 843e3a769e427ef948c19a2e0357946e7974cab9
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sun Dec 23 20:33:55 2018 +0200
+
+    fix minus precedence bug
+    
+    updated MathExpCalc to calculate minus from left to write instead of right to left
+
+commit 733df1c2854b5cf4c1c71454aeb0d7f059d68349
+Merge: fb589de 09ec327
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 23:36:27 2018 +0200
+
+    Merge pull request #3 from shahafMordechay/expression-patch1
+    
+    Expression patch1
+
+commit 09ec32795a097f5e6a9adbee21da10ec0a023391
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 23:35:46 2018 +0200
+
+    updated isNumber function
+    
+    updated isNumber function to identify fractions
+
+commit 9d7083c3fddb8981b9b5d18362349199e21d0a88
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 23:34:30 2018 +0200
+
+    updated to work with fractions
+
+commit fb589deb9e25d4a8ff474c9a43f01025f3d5c357
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Sat Dec 22 22:37:38 2018 +0200
+
+    Add files via upload
+
+commit bb311a43b0cdd3c1437a47b29876b04c45d4291a
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Sat Dec 22 22:37:04 2018 +0200
+
+    Add files via upload
+
+commit f2eb0995f2270a38fd35ee750c6a7e8450847a16
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Sat Dec 22 15:08:39 2018 +0200
+
+    Add files via upload
+
+commit 299628ade71c7afe0aae09e9a1eecca600105bfb
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 14:17:40 2018 +0200
+
+    Delete main.cpp
+
+commit efb22e9d1958cadd866ba2f80a1a3ac5332ee1cc
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 14:17:34 2018 +0200
+
+    Delete connect.h
+
+commit 1aeb49a04e593d72c137baf5c75692e97e65bd65
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 14:17:29 2018 +0200
+
+    Delete connect.cpp
+
+commit 924e4ec32fda4094689c77b3f5e936a4dd99068b
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 14:17:23 2018 +0200
+
+    Delete commandsFactory.h
+
+commit c6953b0772537f1eafcee407497703e1fd0fd106
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 14:17:18 2018 +0200
+
+    Delete commandsFactory.cpp
+
+commit 3d533623a7b757279764ad41e74c61ae7b16676d
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 14:17:13 2018 +0200
+
+    Delete commands.txt
+
+commit 4e6e3e9028c202b13c63e8c9b8e155180589e58d
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 14:17:07 2018 +0200
+
+    Delete SleepCommand.h
+
+commit 8482f5c563a0688904c95494c88008a47a70a386
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 14:17:02 2018 +0200
+
+    Delete SleepCommand.cpp
+
+commit f969e6f6c007f011ae13be15d908f36424725ca0
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 14:16:56 2018 +0200
+
+    Delete PrintCommand.h
+
+commit 76a1676436367fcc612400587b0e3d2fe4b5936c
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 14:16:50 2018 +0200
+
+    Delete PrintCommand.cpp
+
+commit 125b06264cbf21795ce76a7ed6afb29156f90ce2
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 14:16:44 2018 +0200
+
+    Delete OpenServerCommand.h
+
+commit d4e18fefb98865ab1da2b4b5edbec7e1a5b4221e
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 14:16:39 2018 +0200
+
+    Delete OpenServerCommand.cpp
+
+commit 4b5c50f718c2547cc8598674f14fdfdc938b4578
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 14:16:32 2018 +0200
+
+    Delete LoopCommand.h
+
+commit 05a1323cad7cd84ce77d61193979b683adc751c2
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 14:16:26 2018 +0200
+
+    Delete LoopCommand.cpp
+
+commit 15bf6c29ae2ef1755be3d4d569c0265f1633d6a4
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 14:16:20 2018 +0200
+
+    Delete Lexer.h
+
+commit 0cf970bf8f7fbadea553274692e1bd9f6cd26a2d
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 14:16:13 2018 +0200
+
+    Delete Lexer.cpp
+
+commit 6652639b8f4ba23f7ce4dae912218a480c58b827
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 14:16:07 2018 +0200
+
+    Delete IfCommand.h
+
+commit ca14d14cd4fcffe62f1a64629d3731a8682b7434
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 14:16:01 2018 +0200
+
+    Delete IfCommand.cpp
+
+commit c0d85a320a2013708464c868ed63ecda53627c59
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 14:15:54 2018 +0200
+
+    Delete GenFunc.h
+
+commit ec08dc5030355e7bddfe0fb14bb8c8cc1f54c648
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 14:15:47 2018 +0200
+
+    Delete GenFunc.cpp
+
+commit 6356726901a453740d12686bcbe845571d1473c1
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 14:15:40 2018 +0200
+
+    Delete Expression.h
+
+commit afd26af3ccd17d11678127bb9ed5d3a92deddc13
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 14:15:33 2018 +0200
+
+    Delete DefineVarCommand.h
+
+commit 88cbdaaef0147e41107ccc4f9a6e54fa9642d356
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 14:15:24 2018 +0200
+
+    Delete DefineVarCommand.cpp
+
+commit 92ea2b75a97821fa30ca4f006538cf9cad248173
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 14:15:18 2018 +0200
+
+    Delete DataReaderServer.h
+
+commit 015bc3141f534083a3510e0a238f9f74338cc641
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 14:15:11 2018 +0200
+
+    Delete DataReaderServer.cpp
+
+commit e4381fec10d304a7612e64abd3dd55b6513a8a0b
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 13:58:50 2018 +0200
+
+    Delete DataReaderFromServer.h
+
+commit be233869aebb5e2d2431291c4d81f2a68d100390
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 13:58:40 2018 +0200
+
+    Delete DataReaderFromServer.cpp
+
+commit caa4ffaa93cb2d5a1ede3b32632900a44133a155
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 13:57:46 2018 +0200
+
+    Delete ConnectCommand.h
+
+commit 28626ab518539325abf350442ebf372f98902da4
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 13:57:38 2018 +0200
+
+    Delete ConnectCommand.cpp
+
+commit 9a7dff8fcd324d7ef3bb28efa66fdd3086281762
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 13:56:11 2018 +0200
+
+    Delete ConditionParser.h
+
+commit 5d7f4d3a36f5774cf1cf7c256079f7273864fd73
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 13:56:01 2018 +0200
+
+    Delete ConditionParser.cpp
+
+commit 57d5a0a357ce8e40fe6605cdf4a44888b6ebcb20
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 13:55:53 2018 +0200
+
+    Delete CommandExpression.h
+
+commit 762899e20e3b74051c75c3d1f93a937d46f06f3c
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 13:55:47 2018 +0200
+
+    Delete CommandExpression.cpp
+
+commit 5351a8d024d5bb57e2636670c824040ab8c3fd32
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 13:55:40 2018 +0200
+
+    Delete Command.h
+
+commit aa031a47f9d7171bb72365577d6c76442251fd94
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 13:55:33 2018 +0200
+
+    Delete CMakeLists.txt
+
+commit 8e07a91f2c866ceb2bbe5f2bedc0e227a3e19b83
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 13:55:24 2018 +0200
+
+    Delete AssertionCommand.h
+
+commit 93cdef33e3180cea41bf6ed20a4ca8d36a8e9503
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 13:55:18 2018 +0200
+
+    Delete AssertionCommand.cpp
+
+commit 910e9b209951a8024e7a6dcc30c34b3b2eed8744
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 13:53:27 2018 +0200
+
+    bugs fixing
+
+commit 2f2e86d66f80041cf5f58b557e3137bfab1e64db
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Sat Dec 22 13:39:48 2018 +0200
+
+    Add files via upload
+
+commit bdcee173619f730ec214d794fec3c23f1cfa5cb1
+Merge: 91060d4 66ee247
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 13:29:59 2018 +0200
+
+    Merge pull request #2 from shahafMordechay/patch2
+    
+    changed GenFunc to expressions/MathExpCalc
+
+commit 66ee247997d3d6fa48fadfeb631a36f74e83405a
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 22 13:19:18 2018 +0200
+
+    changed GenFunc to expressions/MathExpCalc
+    
+    moved GenFunc functions to expressions/MathExpCalc
+    moved MathExpCalc  isOperator, isNumber functions to GenFunc
+    changed commands member to private
+    deleted Expression.h from command directory(already found in expressions directory)
+    changed #include "Expression.h" in command to "../expressions/Expression.h"
+
+commit 91060d4c6fc85bc20373ad39a469591cfa75c29d
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Fri Dec 21 17:04:11 2018 +0200
+
+    lexer change
+    
+    updated lexer to support no spaces at all or spaces before or after assertion command.
+
+commit e673e4536096052365570dfe75471b81cf076f27
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Fri Dec 21 13:19:26 2018 +0200
+
+    Delete Expression.h
+
+commit 69d958cb66c90f1744ddf8fc9be7b8c3468dfdb0
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Fri Dec 21 13:18:50 2018 +0200
+
+    add MathExpCalc and constructors
+    
+    constructors added for Plus, Minus, Mult, and Div
+    MathExpCalc can calculate math expression string
+
+commit d0c280d12a68396ab76c514397cc1bb70be6b73f
+Merge: aae6fd4 393228a
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Fri Dec 21 13:08:02 2018 +0200
+
+    Merge pull request #1 from shahafMordechay/Bknisan-patch-1
+    
+    condition parser
+
+commit 393228a661eacd1b09ef48db83261dc7e3a8d657
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Fri Dec 21 13:07:13 2018 +0200
+
+    condition parser
+    
+    take out the condition.
+    make commands list in progress
+
+commit aae6fd405eccb058eb5a1f6faaa701bc3555d605
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Fri Dec 21 13:07:04 2018 +0200
+
+    Delete GenFunc.h
+
+commit f836e05d8519e60490d953d4cb49e36856ef13bd
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Fri Dec 21 13:06:55 2018 +0200
+
+    Delete GenFunc.cpp
+
+commit 2aa44a3a21cb10a289bae95fabc0bc53a0154322
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Thu Dec 20 10:48:00 2018 +0200
+
+    condition parser
+    
+    read condition and check if true or false
+
+commit 469ba379f597ab0e4901825631c0120a5b625895
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Wed Dec 19 19:39:01 2018 +0200
+
+    test file
+
+commit dc61b28110f1ba420cd7e6a10b2a5a4457589e3b
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Wed Dec 19 19:37:59 2018 +0200
+
+    commandsFactory
+    
+    commands factory addition + minor changes in the classes
+
+commit dca8f8d48060cd50610428dbada2ad4596ad12df
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Wed Dec 19 19:30:32 2018 +0200
+
+    general static functions
+    
+    static queue<string> shuntingYard(string &mathExp);     // convert infix math expression to postfix
+
+commit 4c0b2e3ad39803c0edbd3f70afb846a2c1385a0e
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Tue Dec 18 21:44:44 2018 +0200
+
+    commands.txt
+    
+    test file to check the code.
+
+commit 08991a5fbb5e1385911b295bcb227b9c13379c5f
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Tue Dec 18 21:42:04 2018 +0200
+
+    עדכוניים לקומנדס
+    
+    still there is a problem in the expression command in separating the 2 parameters.
+
+commit 33ade199c84d287abb22b2aa10e160aab5250d55
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Tue Dec 18 20:05:22 2018 +0200
+
+    Add files via upload
+
+commit 6e9b5cd1bff2b19133209542404452078b959f8d
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Tue Dec 18 16:47:02 2018 +0200
+
+    Add files via upload
+
+commit a263ae5a10c0b2667f6d93a1d25176ca7bfd035d
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Thu Dec 13 21:22:16 2018 +0200
+
+    Add files via upload
+    
+    הצלחתי לפתוח טרד שרץ במקביל באופן סרבר קומנד.
+    יש לו אינסטנס של דאטה רידר פרום סרבר ששם מתבצעת כל הפתיחה
+
+commit 5f6868ad632f3b315d072d8d317d8c853c4a690a
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Thu Dec 13 21:19:54 2018 +0200
+
+    Delete DataReaderServer.h
+
+commit 887d25ed114c5401526df04d7562c012330332b8
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Thu Dec 13 21:19:44 2018 +0200
+
+    Delete DataReaderServer.cpp
+
+commit 52ddd66ed053528e0a3cff9e44cf047edd6a74e1
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Sat Dec 8 23:30:16 2018 +0200
+
+    fix some parsing problems
+
+commit 57865a8c2224771ebe7ba4772211fa0efd46cecc
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Sat Dec 8 14:51:50 2018 +0200
+
+    Delete empty
+
+commit 1096adc0bdc232676e62aca61ebbb469c4cb4f3d
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Sat Dec 8 14:49:25 2018 +0200
+
+    Add files via upload
+    
+    basic command classes and lexer reader done.
+
+commit b9193d8c57a401ba0b662998dcb870974ae7955f
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Sat Dec 8 14:48:09 2018 +0200
+
+    Create empty
+
+commit 7cec5680b10367252a9a248f7b1626868e03b495
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 8 13:37:10 2018 +0200
+
+    Update README.md
+
+commit eaf82982ee5d06d9ac30070a25327b864acef08e
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Sat Dec 8 13:36:03 2018 +0200
+
+    Initial commit
