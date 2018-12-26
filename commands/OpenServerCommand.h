@@ -23,6 +23,8 @@ public:
 
     void openServer(int, int);
 
+    ~OpenServerCommand();
+
 };
 
 

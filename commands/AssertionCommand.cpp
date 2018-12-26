@@ -39,7 +39,13 @@ int AssertionCommand::doCommand(vector<string> &params) {
         }
         // give me the value of the string.
         double value = MathExpCalc::evaluate(Exp);
-        ReadFromServer::changeSymbolT(*this->con, params, pos, *this->binded, *this->symbols, value);
+        // if not binded to path.
+        if (this->binded->find(params[pos - 2]) == this->binded->end())
+            this->symbols->at(params[pos - 2]) = value;
+        //binded to path.
+        else {
+            ReadFromServer::changeSymbolT(*this->con, params, pos, *this->binded, *this->symbols, value);
+        }
     }
     // how many read.
     return counter;
@@ -52,5 +58,6 @@ AssertionCommand::AssertionCommand(map<string, bool> &con, map<string, double> &
     this->binded = &bind;
     this->pos = pos;
 }
+
 
 

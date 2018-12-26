@@ -23,6 +23,7 @@ using namespace std;
 class Command {
 public:
     virtual int doCommand(vector<string>&)=0;
+    virtual ~Command(){};
 };
 
 

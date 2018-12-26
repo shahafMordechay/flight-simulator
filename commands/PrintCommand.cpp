@@ -8,7 +8,7 @@ int PrintCommand::doCommand(vector<string> &params) {
     // print just string
     if (params[pos][0] == '\"') {
         string whatToPrint = params[pos].substr(1, params[pos].length() - 2);
-        printf("%s\n", &whatToPrint);
+        printf("%s\n", whatToPrint.c_str());
         // existing var
     } else if (*this->symbolTable->find(params[pos]) != *this->symbolTable->end()) {
         printf("%lf\n", this->symbolTable->at(params[pos]));

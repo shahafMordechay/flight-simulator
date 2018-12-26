@@ -29,7 +29,6 @@ class commandsFactory {
 public:
     commandsFactory(map<string,bool>&con,map<string, double> &symbols, map<string, string> &binds, vector<string> &text,
                     bool &indi);
-
     CommandExpression *assertion(int pos, int numOfParams);
 
     CommandExpression *definevar(int pos, int numOfParams);

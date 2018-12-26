@@ -14,7 +14,7 @@ ConditionParser::ConditionParser(map<string, bool> &con, vector<string> &params,
     this->symbols = &symbols;
     this->binds = &binds;
     this->con = &con;
-    this->myCommands = list<Expression *>();
+    this->myCommands =  list<Expression *>();
     makeMeCommands();
 
 }
@@ -172,4 +172,10 @@ string ConditionParser::deleteUnimportant(string condition) {
         return condition;
     }
     return condition;
+}
+
+ConditionParser::~ConditionParser() {
+    for (auto &command: this->myCommands) {
+        delete (command);
+    }
 }

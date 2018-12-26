@@ -15,13 +15,12 @@ CommandExpression::CommandExpression(Command *c, vector<string> &params, int num
     // command params
     this->params = params;
     //num of params to my command.
-    this->numOfParams = numOfParams;
     // start position of command.
     this->pos = pos;
 
 }
 
-bool CommandExpression::isOperand(string val) {
-    return (val == "+" || val == "-" || val == "*" || val == "/");
+CommandExpression::~CommandExpression() {
+    free(this->myCommand);
 }
 

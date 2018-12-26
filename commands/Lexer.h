@@ -29,6 +29,7 @@ class Lexer {
     map<string, bool> con;
     map<string, double> symbolTable;
     map<string, string> bindedMap;
+    list<Expression*>* allCommands;
 
 public:
     Lexer(int, char **);
@@ -36,6 +37,7 @@ public:
     vector<string> lexer();
 
     void parser(vector<string>, int);
+    ~Lexer();
 
 
 };

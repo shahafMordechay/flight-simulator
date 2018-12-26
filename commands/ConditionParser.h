@@ -48,6 +48,8 @@ public:
     virtual bool smallerOrEqual(double, double);
 
     virtual string deleteUnimportant(string condition);
+
+    ~ConditionParser();
 };
 
 

@@ -13,7 +13,8 @@ int OpenServerCommand::doCommand(vector<string> &params) {
     //stop running main thread untill connection.
     *this->indicator = true;
     // new thread that opens a server.
-    thread t1(&OpenServerCommand::openServer, this, atoi(params[pos].c_str()), atoi(params[pos + 1].c_str()));
+    thread t1(&OpenServerCommand::openServer, this, MathExpCalc::evaluate(params[pos]),
+              MathExpCalc::evaluate(params[pos + 1]));
     t1.detach();
     return 2;
 }
@@ -49,7 +50,7 @@ OpenServerCommand::OpenServerCommand(map<string, double> &vars, map<string, bool
     this->pathToVal.emplace_back("/controls/flight/elevator", 0);
     this->pathToVal.emplace_back("/controls/flight/rudder", 0);
     this->pathToVal.emplace_back("/controls/flight/flaps", 0);
-    this->pathToVal.emplace_back("/controls/engines/engine/throttle", 0);
+    this->pathToVal.emplace_back("/controls/engines/current-engine/throttle", 0);
     this->pathToVal.emplace_back("/engines/engine/rpm", 0);
 }
 
@@ -89,12 +90,13 @@ void OpenServerCommand::openServer(int port, int freq) {
 
     /* Accept actual connection from the client */
     newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, (socklen_t *) &clilen);
-    // connection made continue running commands.
-    *this->indicator = false;
     if (newsockfd < 0) {
         perror("ERROR on accept");
         exit(1);
     }
+    bzero(buffer, 256);
+    // throw first away.
+    n = read(newsockfd, buffer, 255);
     bzero(buffer, 256);
     /* If connection is established then start communicating */
     while (true) {
@@ -140,7 +142,16 @@ void OpenServerCommand::openServer(int port, int freq) {
             perror("ERROR reading from socket");
             exit(1);
         }
+        // main can run
+        *this->indicator = false;
     }
+}
+
+OpenServerCommand::~OpenServerCommand() {
+    delete (this->con);
+    delete (this->vars);
+    delete (this->varsAndPaths);
+
 }
 
 

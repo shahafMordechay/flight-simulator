@@ -49,12 +49,11 @@ void ReadFromServer::updateValMap(const char *input, vector<pair<string, double>
 void ReadFromServer::changeSymbolT(map<string, bool> &con, vector<string> &params, int pos, map<string, string> &binded,
                                    map<string, double> &symbols, double value) {
     // update the var in the table.
-    for (auto &varName: binded) {
+    for (auto &varName: symbols) {
         if (varName.first == params[pos - 2]) {
             //change val.
             globalMu.lock();
             symbols.at(varName.first) = value;
-            // indicate update.
             con.at(varName.first) = true;
             globalMu.unlock();
 

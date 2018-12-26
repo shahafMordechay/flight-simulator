@@ -8,6 +8,7 @@
 Lexer::Lexer(int num, char **par) {
     this->numPar = num;
     this->params = par;
+    this->allCommands = new list<Expression *>;
     this->con = map<string, bool>();
     this->symbolTable = map<string, double>();
     this->bindedMap = map<string, string>();
@@ -189,6 +190,8 @@ void Lexer::parser(vector<string> input, int offset) {
             offset += (int) current->calculate();
             //stops the execution until connected to server.
             while (this->Contin) {};
+            // add to my list
+            this->allCommands->emplace_back(current);
             //line end.
             if (input[offset] == "lineEnd")
                 offset++;
@@ -199,6 +202,13 @@ void Lexer::parser(vector<string> input, int offset) {
             offset++;
         }
     }
+}
+
+Lexer::~Lexer() {
+    for (auto &command : *this->allCommands)
+        delete (command);
+    delete (this->allCommands);
+
 }
 
 
