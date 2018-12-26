@@ -8,222 +8,222 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug"/>
+				<Option working_dir="/home/nisan/CLionProjects/flightSimulator/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/nisan/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/nisan/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/nisan/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/nisan/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug"/>
+				<Option working_dir="/home/nisan/CLionProjects/flightSimulator/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="flightSimulator">
-				<Option output="/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug/flightSimulator" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/usr/include/c++/7"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
-					<Add directory="/usr/include/c++/7/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 flightSimulator"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="flightSimulator/fast">
-				<Option output="/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug/flightSimulator" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/usr/include/c++/7"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
-					<Add directory="/usr/include/c++/7/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 flightSimulator/fast"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/nisan/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/nisan/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/nisan/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/nisan/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug"/>
+				<Option working_dir="/home/nisan/CLionProjects/flightSimulator/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/nisan/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/nisan/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/nisan/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/nisan/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="flightSimulator">
+				<Option output="/home/nisan/CLionProjects/flightSimulator/cmake-build-debug/flightSimulator" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/nisan/CLionProjects/flightSimulator/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/nisan/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 flightSimulator"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/nisan/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/nisan/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/nisan/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="flightSimulator/fast">
+				<Option output="/home/nisan/CLionProjects/flightSimulator/cmake-build-debug/flightSimulator" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/nisan/CLionProjects/flightSimulator/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/7"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
+					<Add directory="/usr/include/c++/7/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/nisan/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 flightSimulator/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/nisan/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/nisan/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/nisan/CLionProjects/flightSimulator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/GenFunc.cpp">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/GenFunc.cpp">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/GenFunc.h">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/GenFunc.h">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/commands/AssertionCommand.cpp">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/commands/AssertionCommand.cpp">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/commands/AssertionCommand.h">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/commands/AssertionCommand.h">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/commands/Command.h">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/commands/Command.h">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/commands/CommandExpression.cpp">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/commands/CommandExpression.cpp">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/commands/CommandExpression.h">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/commands/CommandExpression.h">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/commands/ConditionParser.cpp">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/commands/ConditionParser.cpp">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/commands/ConditionParser.h">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/commands/ConditionParser.h">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/commands/ConnectCommand.cpp">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/commands/ConnectCommand.cpp">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/commands/ConnectCommand.h">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/commands/ConnectCommand.h">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/commands/DefineVarCommand.cpp">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/commands/DefineVarCommand.cpp">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/commands/DefineVarCommand.h">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/commands/DefineVarCommand.h">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/commands/IfCommand.cpp">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/commands/IfCommand.cpp">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/commands/IfCommand.h">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/commands/IfCommand.h">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/commands/Lexer.cpp">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/commands/Lexer.cpp">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/commands/Lexer.h">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/commands/Lexer.h">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/commands/LoopCommand.cpp">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/commands/LoopCommand.cpp">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/commands/LoopCommand.h">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/commands/LoopCommand.h">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/commands/OpenServerCommand.cpp">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/commands/OpenServerCommand.cpp">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/commands/OpenServerCommand.h">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/commands/OpenServerCommand.h">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/commands/PrintCommand.cpp">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/commands/PrintCommand.cpp">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/commands/PrintCommand.h">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/commands/PrintCommand.h">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/commands/ReadFromServer.cpp">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/commands/ReadFromServer.cpp">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/commands/ReadFromServer.h">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/commands/ReadFromServer.h">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/commands/SleepCommand.cpp">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/commands/SleepCommand.cpp">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/commands/SleepCommand.h">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/commands/SleepCommand.h">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/commands/commandsFactory.cpp">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/commands/commandsFactory.cpp">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/commands/commandsFactory.h">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/commands/commandsFactory.h">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/expressions/BinaryExpression.cpp">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/expressions/BinaryExpression.cpp">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/expressions/BinaryExpression.h">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/expressions/BinaryExpression.h">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/expressions/Div.cpp">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/expressions/Div.cpp">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/expressions/Div.h">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/expressions/Div.h">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/expressions/Expression.h">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/expressions/Expression.h">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/expressions/MathExpCalc.cpp">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/expressions/MathExpCalc.cpp">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/expressions/MathExpCalc.h">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/expressions/MathExpCalc.h">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/expressions/Minus.cpp">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/expressions/Minus.cpp">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/expressions/Minus.h">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/expressions/Minus.h">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/expressions/Mult.cpp">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/expressions/Mult.cpp">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/expressions/Mult.h">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/expressions/Mult.h">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/expressions/Number.cpp">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/expressions/Number.cpp">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/expressions/Number.h">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/expressions/Number.h">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/expressions/Plus.cpp">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/expressions/Plus.cpp">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/expressions/Plus.h">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/expressions/Plus.h">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/main.cpp">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/main.cpp">
 			<Option target="flightSimulator"/>
 		</Unit>
-		<Unit filename="/home/shahaf/CLionProjects/flightSimulator/CMakeLists.txt">
+		<Unit filename="/home/nisan/CLionProjects/flightSimulator/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>
