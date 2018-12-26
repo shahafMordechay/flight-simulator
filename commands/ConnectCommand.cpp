@@ -10,16 +10,36 @@
 
 int ConnectCommand::doCommand(vector<string> &params) {
     // check params validity.
-    if ((params[pos] != "127.0.0.1") || ((MathExpCalc::evaluate(params[pos + 1])) != 5402))
+    int num = 0;
+    string line;
+    string first;
+    string second;
+    // check if complicated.
+    while (params[pos + num] != "lineEnd") {
+        num++;
+        line += params[pos + num];
+    }
+    //coma.
+    if (line.find(',') != std::string::npos) {
+        //first par.
+        first = line.substr(0, line.find(','));
+        //sec par.
+        second = line.substr(line.find(',') + 1);
+    } else {
+        // normal.
+        num = 2;
+        first = params[pos];
+        second = params[pos + 1];
+    }
+    if (((first != "127.0.0.1")) ||
+        ((MathExpCalc::evaluate(second) != 5402)))
         __throw_bad_exception();
-    string host = params[pos];
-    string port = params[pos + 1];
     // open new thread and try connect to the simulator.
-    thread t2(&ConnectCommand::connectToServer, this, host, port);
+    thread t2(&ConnectCommand::connectToServer, this, first, second);
     // continue with my program.
     t2.detach();
     // return num of params read.
-    return 2;
+    return num;
 }
 
 void ConnectCommand::connectToServer(string hostId, string port) {
@@ -50,7 +70,7 @@ void ConnectCommand::connectToServer(string hostId, string port) {
     while (connect(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
     }
     // keep updating the vars in the simulator consistently.
-    while (true) {
+    while (this->conne) {
         // if some var value is changed write it.
         for (auto &var : *this->changedOrNot) {
             // if changed
@@ -66,11 +86,14 @@ void ConnectCommand::connectToServer(string hostId, string port) {
             }
         }
     }
+    free(server);
 }
 
-ConnectCommand::ConnectCommand(map<string, string> &binds, map<string, double> &vars, map<string, bool> &con, int pos) {
+ConnectCommand::ConnectCommand(map<string, string> &binds, map<string, double> &vars, map<string, bool> &con, int pos,
+                               bool &conne) {
     this->pos = pos;
     this->vars = &vars;
+    this->conne = &conne;
     this->binds = &binds;
     this->changedOrNot = &con;
 }

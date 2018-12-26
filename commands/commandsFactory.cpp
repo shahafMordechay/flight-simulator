@@ -5,12 +5,13 @@
 
 commandsFactory::commandsFactory(map<string, bool> &con, map<string, double> &symbols, map<string, string> &binds,
                                  vector<string> &text,
-                                 bool &indi) {
+                                 bool &indi, bool &cone) {
     this->indicator = &indi;
     this->params = &text;
     this->bind = &binds;
     this->symbol = &symbols;
     this->con = &con;
+    this->connectedOno = &cone;
     this->commands = map<string, int>();
     commands.insert({"while", -1});
     commands.insert({"if", -1});
@@ -50,7 +51,7 @@ CommandExpression *commandsFactory::printcommand(int pos, int numOfParams) {
 }
 
 CommandExpression *commandsFactory::connectcommand(int pos, int numOfParams) {
-    return new CommandExpression(new ConnectCommand(*this->bind, *this->symbol, *this->con, pos), *params, numOfParams,
+    return new CommandExpression(new ConnectCommand(*this->bind, *this->symbol, *this->con, pos, *this->connectedOno), *params, numOfParams,
                                  pos);
 }
 

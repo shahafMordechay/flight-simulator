@@ -6,17 +6,37 @@
 #include "ReadFromServer.h"
 
 int OpenServerCommand::doCommand(vector<string> &params) {
-    string my = to_string(MathExpCalc::evaluate(params[pos]));
-    if (((MathExpCalc::evaluate(params[pos])) != 5400) ||
-        ((MathExpCalc::evaluate(params[pos + 1])) != 10))
+    int num = 0;
+    string line;
+    string first;
+    string second;
+    // check if complicated.
+    while (params[pos + num] != "lineEnd") {
+        num++;
+        line += params[pos + num];
+    }
+    //coma.
+    if (line.find(',') != std::string::npos) {
+        //first par.
+        first = line.substr(0, line.find(','));
+        //sec par.
+        second = line.substr(line.find(',') + 1);
+    } else {
+        // normal.
+        num = 2;
+        first = params[pos];
+        second = params[pos + 1];
+    }
+    if (((MathExpCalc::evaluate(first) != 5400)) ||
+        ((MathExpCalc::evaluate(second) != 10)))
         __throw_bad_exception();
     //stop running main thread untill connection.
     *this->indicator = true;
     // new thread that opens a server.
-    thread t1(&OpenServerCommand::openServer, this, MathExpCalc::evaluate(params[pos]),
-              MathExpCalc::evaluate(params[pos + 1]));
+    thread t1(&OpenServerCommand::openServer, this, MathExpCalc::evaluate(first),
+              MathExpCalc::evaluate(second));
     t1.detach();
-    return 2;
+    return num;
 }
 
 OpenServerCommand::OpenServerCommand(map<string, double> &vars, map<string, bool> &con, map<string, string> &bind,

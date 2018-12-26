@@ -13,6 +13,7 @@ Lexer::Lexer(int num, char **par) {
     this->symbolTable = map<string, double>();
     this->bindedMap = map<string, string>();
     this->Contin = false;
+    this->Connected = true;
 }
 
 vector<string> Lexer::lexer() {
@@ -26,6 +27,9 @@ vector<string> Lexer::lexer() {
             while (line[0] == '\t') {
                 line = line.substr(1);
             }
+            //skip spaces.
+            while (line[0] == ' ')
+                line = line.substr(1);
             while (!line.empty()) {
                 //push string to back of the vector and check if not the last string in the line.
                 if (line.find(SEPARATOR) != string::npos) {
@@ -103,6 +107,9 @@ vector<string> Lexer::lexer() {
             while (line[0] == '\t') {
                 line = line.substr(1);
             }
+            //skip spaces.
+            while (line[0] == ' ')
+                line = line.substr(1);
             while (!line.empty()) {
                 //push string to back of the vector and check if not the last string in the line.
                 if (line.find(SEPARATOR) != string::npos) {
@@ -178,7 +185,7 @@ vector<string> Lexer::lexer() {
 
 void Lexer::parser(vector<string> input, int offset) {
     // create new factory.
-    commandsFactory myFactory = commandsFactory(con, symbolTable, bindedMap, input, Contin);
+    commandsFactory myFactory = commandsFactory(con, symbolTable, bindedMap, input, Contin, Connected);
     // still strings in the list.
     while (input.size() > offset) {
         //generate specific command.
@@ -210,7 +217,6 @@ Lexer::~Lexer() {
     delete (this->allCommands);
 
 }
-
 
 
 

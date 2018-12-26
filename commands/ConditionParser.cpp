@@ -131,7 +131,8 @@ bool ConditionParser::notZero(double only) {
 
 void ConditionParser::makeMeCommands() {
     bool indi = false;
-    auto *loopCommands = new commandsFactory(*this->con, *this->symbols, *this->binds, this->text, indi);
+    bool conne = true;
+    auto *loopCommands = new commandsFactory(*this->con, *this->symbols, *this->binds, this->text, indi,conne);
     //still in the loop.
     while (this->text[pos] != "}") {
         // check if loop in loop

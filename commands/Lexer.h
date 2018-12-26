@@ -24,6 +24,7 @@ using namespace std;
 class Lexer {
     int numPar;
     bool Contin;
+    bool Connected;
     char **params;
     fstream reader;
     map<string, bool> con;

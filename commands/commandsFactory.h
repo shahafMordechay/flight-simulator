@@ -20,6 +20,7 @@
 
 class commandsFactory {
     bool *indicator;
+    bool *connectedOno;
     map<string, double> *symbol;
     map<string, string> *bind;
     map<string,bool> *con;
@@ -28,7 +29,7 @@ class commandsFactory {
 
 public:
     commandsFactory(map<string,bool>&con,map<string, double> &symbols, map<string, string> &binds, vector<string> &text,
-                    bool &indi);
+                    bool &indi, bool &cone);
     CommandExpression *assertion(int pos, int numOfParams);
 
     CommandExpression *definevar(int pos, int numOfParams);
