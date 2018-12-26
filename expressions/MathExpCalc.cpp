@@ -41,18 +41,18 @@ void minusPlusCombHandling(string &mathExp) {
                     mathExp.erase(next);
                     current += 2;
                     next++;
-                // replace '--' to '+'
+                    // replace '--' to '+'
                 } else {
                     *next = '+';
                 }
                 mathExp.erase(current);
 
-            // current is '-' next is '+'
+                // current is '-' next is '+'
             } else if (*next == '+') {
                 mathExp.erase(next);
             }
 
-        // current is '+' next is '-'
+            // current is '+' next is '-'
         } else if (*current == '+' && *next == '-') {
             mathExp.erase(current);
         }
@@ -77,15 +77,15 @@ queue<string> MathExpCalc::shuntingYard(string &mathExp) {
 
         // read number or add '-' to number start
         if (isdigit(mathExp[i]) || mathExp[i] == '.'
-                || (mathExp[i] == '-' && !isdigit(mathExp[i - 1]) && mathExp[i - 1] != ')')) {
+            || (mathExp[i] == '-' && !isdigit(mathExp[i - 1]) && mathExp[i - 1] != ')')) {
 
             num += mathExp[i];
 
-        // push '(' to stack
-        }  else if (mathExp[i] == '('){
+            // push '(' to stack
+        } else if (mathExp[i] == '(') {
             signStack.push(mathExp[i]);
 
-        // pop operators from stack and push to queue
+            // pop operators from stack and push to queue
         } else if (GenFunc::isOperator(mathExp[i]) || mathExp[i] == ')') {
 
             // push number that comes before operator to queue
@@ -100,7 +100,7 @@ queue<string> MathExpCalc::shuntingYard(string &mathExp) {
             /* pop operators from stack to queue while this precedence is lower than
                stack top operator precedence */
             while (!signStack.empty()
-                    && getPrecedence(signStack.top()) >= thisPrecedence) {
+                   && getPrecedence(signStack.top()) >= thisPrecedence) {
 
                 if (signStack.top() == '(' && mathExp[i] == ')') {
                     signStack.pop();
@@ -132,46 +132,46 @@ queue<string> MathExpCalc::shuntingYard(string &mathExp) {
 }
 
 // build expression from postfix math expression queue
-Expression* MathExpCalc::expFromPostfix(queue<string> postfix) {
-    stack<Expression*> expStack;
+Expression *MathExpCalc::expFromPostfix(queue<string> postfix) {
+    stack<Expression *> expStack;
 
     // build expression from polish notation
     while (!postfix.empty()) {
 
         // front in queue is a number
         if (GenFunc::isNumber(postfix.front())) {
-            Number* number = new Number(postfix.front());
+            Number *number = new Number(postfix.front());
             expStack.push(number);
             postfix.pop();
 
-        // front in queue is an operator
+            // front in queue is an operator
         } else {
-            Expression* num2 = expStack.top();
+            Expression *num2 = expStack.top();
             expStack.pop();
-            Expression* num1 = expStack.top();
+            Expression *num1 = expStack.top();
             expStack.pop();
 
             switch (postfix.front()[0]) {
                 case '+': {
-                    Plus* plus = new Plus(num1, num2);
+                    Plus *plus = new Plus(num1, num2);
                     expStack.push(plus);
                     postfix.pop();
                     break;
                 }
                 case '-': {
-                    Minus* minus = new Minus(num1, num2);
+                    Minus *minus = new Minus(num1, num2);
                     expStack.push(minus);
                     postfix.pop();
                     break;
                 }
                 case '*': {
-                    Mult* mult = new Mult(num1, num2);
+                    Mult *mult = new Mult(num1, num2);
                     expStack.push(mult);
                     postfix.pop();
                     break;
                 }
                 case '/': {
-                    Div* div = new Div(num1, num2);
+                    Div *div = new Div(num1, num2);
                     expStack.push(div);
                     postfix.pop();
                     break;
@@ -182,13 +182,14 @@ Expression* MathExpCalc::expFromPostfix(queue<string> postfix) {
         }
     }// end of while
 
-    Expression* result = expStack.top();
+    Expression *result = expStack.top();
+
     return result;
 }
 
 // convert given math expression to postfix, build an expression and calculates
 double MathExpCalc::evaluate(string &mathExp) {
     queue<string> postfix = shuntingYard(mathExp);
-    Expression* resultExp = expFromPostfix(postfix);
+    Expression *resultExp = expFromPostfix(postfix);
     return resultExp->calculate();
 }

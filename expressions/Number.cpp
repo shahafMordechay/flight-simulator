@@ -11,3 +11,6 @@ Number::Number(string num) {
 double Number::calculate() {
     return this->num;
 }
+
+
+
