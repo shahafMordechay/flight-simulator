@@ -19,3 +19,4 @@ DefineVarCommand::DefineVarCommand(map<string, double> &symbol, map<string, bool
 
 }
 
+

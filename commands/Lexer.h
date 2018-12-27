@@ -25,6 +25,7 @@ class Lexer {
     int numPar;
     bool Contin;
     bool Connected;
+    bool Server;
     char **params;
     fstream reader;
     map<string, bool> con;

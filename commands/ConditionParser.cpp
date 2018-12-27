@@ -14,7 +14,7 @@ ConditionParser::ConditionParser(map<string, bool> &con, vector<string> &params,
     this->symbols = &symbols;
     this->binds = &binds;
     this->con = &con;
-    this->myCommands =  list<Expression *>();
+    this->myCommands = list<Expression *>();
     makeMeCommands();
 
 }
@@ -132,7 +132,11 @@ bool ConditionParser::notZero(double only) {
 void ConditionParser::makeMeCommands() {
     bool indi = false;
     bool conne = true;
-    auto *loopCommands = new commandsFactory(*this->con, *this->symbols, *this->binds, this->text, indi,conne);
+    bool over = false;
+    bool closeSr = false;
+    bool serverClosed = false;
+    auto *loopCommands = new commandsFactory(*this->con, *this->symbols, *this->binds, this->text, indi, conne, over,
+                                             closeSr, serverClosed);
     //still in the loop.
     while (this->text[pos] != "}") {
         // check if loop in loop
@@ -156,7 +160,8 @@ void ConditionParser::makeMeCommands() {
         }
     }
     this->endOfLoopIndex = pos + 2;
-    delete (loopCommands);
+    //delete the factory.
+    free(loopCommands);
 }
 
 bool ConditionParser::biggerOrEqual(double first, double second) {
@@ -176,7 +181,9 @@ string ConditionParser::deleteUnimportant(string condition) {
 }
 
 ConditionParser::~ConditionParser() {
-    for (auto &command: this->myCommands) {
-        delete (command);
-    }
+    auto it = this->myCommands.begin();
+    for (; it != this->myCommands.end();)
+        this->myCommands.erase(it++);
+    //delete last.
+    this->myCommands.erase(this->myCommands.end());
 }

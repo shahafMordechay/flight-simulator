@@ -11,6 +11,7 @@ int LoopCommand::doCommand(vector<string> &params) {
             command->calculate();
         }
     }
+
     return (this->endOfLoopIndex - this->pos);
 }
 

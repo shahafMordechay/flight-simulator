@@ -14,6 +14,7 @@ Lexer::Lexer(int num, char **par) {
     this->bindedMap = map<string, string>();
     this->Contin = false;
     this->Connected = true;
+    this->Server = true;
 }
 
 vector<string> Lexer::lexer() {
@@ -185,7 +186,11 @@ vector<string> Lexer::lexer() {
 
 void Lexer::parser(vector<string> input, int offset) {
     // create new factory.
-    commandsFactory myFactory = commandsFactory(con, symbolTable, bindedMap, input, Contin, Connected);
+    //threads finish indicator.
+    bool connect = false;
+    bool server = false;
+    commandsFactory myFactory = commandsFactory(con, symbolTable, bindedMap, input, Contin, Connected, connect, Server,
+                                                server);
     // still strings in the list.
     while (input.size() > offset) {
         //generate specific command.
@@ -209,12 +214,21 @@ void Lexer::parser(vector<string> input, int offset) {
             offset++;
         }
     }
+    // disconnect
+    this->Connected = false;
+    // keep closing detached threads.
+    while (!connect) {}
+    // indicate server to shutdown.
+    this->Server = false;
+    // keep running until server closed.
+    while (!server) {}
 }
 
 Lexer::~Lexer() {
     for (auto &command : *this->allCommands)
         delete (command);
     delete (this->allCommands);
+
 
 }
 

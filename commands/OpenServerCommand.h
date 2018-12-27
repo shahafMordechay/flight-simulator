@@ -12,6 +12,8 @@ class OpenServerCommand : public Command {
 public:
     int pos;
     bool *indicator;
+    bool *Connectover;
+    bool *finish;
     map<string, double> *vars;
     vector<pair<string, double>> pathToVal;
     map<string, string> *varsAndPaths;
@@ -19,11 +21,10 @@ public:
 
     virtual int doCommand(vector<string> &);
 
-    OpenServerCommand(map<string, double> &var, map<string, bool> &con, map<string, string> &bind, int pos, bool &indi);
-
-    void openServer(int, int);
-
+    OpenServerCommand(map<string, double> &var, map<string, bool> &con, map<string, string> &bind, int pos, bool &indi,
+                      bool &over,bool &finish);
     ~OpenServerCommand();
+    void openServer(int, int);
 
 };
 

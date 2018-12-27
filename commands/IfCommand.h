@@ -14,7 +14,7 @@ class IfCommand : public ConditionParser {
 public:
     virtual int doCommand(vector<string> &);
 
-    IfCommand(map<string,bool>&,vector<string> &, map<string, string> &, map<string, double> &, int pos);
+    IfCommand(map<string, bool> &, vector<string> &, map<string, string> &, map<string, double> &, int pos);
 };
 
 

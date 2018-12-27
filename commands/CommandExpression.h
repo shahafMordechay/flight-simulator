@@ -18,6 +18,7 @@ public:
     virtual double calculate() throw();
 
     CommandExpression(Command*,vector<string> &params, int numOfParams,int pos);
+    ~CommandExpression();
 };
 
 

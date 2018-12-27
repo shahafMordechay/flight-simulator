@@ -5,13 +5,16 @@
 
 commandsFactory::commandsFactory(map<string, bool> &con, map<string, double> &symbols, map<string, string> &binds,
                                  vector<string> &text,
-                                 bool &indi, bool &cone) {
+                                 bool &indi, bool &cone, bool &ove, bool &closeServer, bool &serverClosed) {
     this->indicator = &indi;
     this->params = &text;
     this->bind = &binds;
     this->symbol = &symbols;
     this->con = &con;
+    this->over = &ove;
     this->connectedOno = &cone;
+    this->over_2 = &closeServer;
+    this->serverOno = &serverClosed;
     this->commands = map<string, int>();
     commands.insert({"while", -1});
     commands.insert({"if", -1});
@@ -41,9 +44,11 @@ CommandExpression *commandsFactory::loopcommand(int pos, int numOfParams) {
 }
 
 CommandExpression *commandsFactory::openservercommand(int pos, int numOfParams) {
-    return new CommandExpression(new OpenServerCommand(*this->symbol, *this->con, *this->bind, pos, *this->indicator),
-                                 *params,
-                                 numOfParams, pos);
+    return new CommandExpression(
+            new OpenServerCommand(*this->symbol, *this->con, *this->bind, pos, *this->indicator, *this->over_2,
+                                  *this->serverOno),
+            *params,
+            numOfParams, pos);
 }
 
 CommandExpression *commandsFactory::printcommand(int pos, int numOfParams) {
@@ -51,8 +56,10 @@ CommandExpression *commandsFactory::printcommand(int pos, int numOfParams) {
 }
 
 CommandExpression *commandsFactory::connectcommand(int pos, int numOfParams) {
-    return new CommandExpression(new ConnectCommand(*this->bind, *this->symbol, *this->con, pos, *this->connectedOno), *params, numOfParams,
-                                 pos);
+    return new CommandExpression(
+            new ConnectCommand(*this->bind, *this->symbol, *this->con, pos, *this->connectedOno, *this->over), *params,
+            numOfParams,
+            pos);
 }
 
 CommandExpression *commandsFactory::sleepcommand(int pos, int numOfParams) {

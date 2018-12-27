@@ -31,9 +31,6 @@ int ConnectCommand::doCommand(vector<string> &params) {
         first = params[pos];
         second = params[pos + 1];
     }
-    if (((first != "127.0.0.1")) ||
-        ((MathExpCalc::evaluate(second) != 5402)))
-        __throw_bad_exception();
     // open new thread and try connect to the simulator.
     thread t2(&ConnectCommand::connectToServer, this, first, second);
     // continue with my program.
@@ -55,11 +52,6 @@ void ConnectCommand::connectToServer(string hostId, string port) {
         perror("ERROR opening socket");
         exit(1);
     }
-
-    if (server == NULL) {
-        fprintf(stderr, "ERROR, no such host\n");
-        exit(0);
-    }
     bzero((char *) &serv_addr, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
     bcopy((char *) server->h_addr, (char *) &serv_addr.sin_addr.s_addr, server->h_length);
@@ -70,7 +62,7 @@ void ConnectCommand::connectToServer(string hostId, string port) {
     while (connect(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
     }
     // keep updating the vars in the simulator consistently.
-    while (this->conne) {
+    while (*this->conne) {
         // if some var value is changed write it.
         for (auto &var : *this->changedOrNot) {
             // if changed
@@ -86,17 +78,22 @@ void ConnectCommand::connectToServer(string hostId, string port) {
             }
         }
     }
-    free(server);
+    //dis.
+    close(sockfd);
+    //indicate over.
+    *this->finished = true;
 }
 
 ConnectCommand::ConnectCommand(map<string, string> &binds, map<string, double> &vars, map<string, bool> &con, int pos,
-                               bool &conne) {
+                               bool &conne, bool &fish) {
     this->pos = pos;
     this->vars = &vars;
     this->conne = &conne;
+    this->finished = &fish;
     this->binds = &binds;
     this->changedOrNot = &con;
 }
+
 
 
 

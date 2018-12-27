@@ -20,3 +20,7 @@ CommandExpression::CommandExpression(Command *c, vector<string> &params, int num
 
 }
 
+CommandExpression::~CommandExpression() {
+    free (this->myCommand);
+}
+

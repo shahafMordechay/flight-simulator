@@ -27,9 +27,6 @@ int OpenServerCommand::doCommand(vector<string> &params) {
         first = params[pos];
         second = params[pos + 1];
     }
-    if (((MathExpCalc::evaluate(first) != 5400)) ||
-        ((MathExpCalc::evaluate(second) != 10)))
-        __throw_bad_exception();
     //stop running main thread untill connection.
     *this->indicator = true;
     // new thread that opens a server.
@@ -41,9 +38,11 @@ int OpenServerCommand::doCommand(vector<string> &params) {
 
 OpenServerCommand::OpenServerCommand(map<string, double> &vars, map<string, bool> &con, map<string, string> &bind,
                                      int pos,
-                                     bool &indi) {
+                                     bool &indi, bool &over, bool &finish) {
     this->vars = &vars;
     this->con = &con;
+    this->Connectover = &over;
+    this->finish = &finish;
     this->varsAndPaths = &bind;
     this->pos = pos;
     this->indicator = &indi;
@@ -119,7 +118,8 @@ void OpenServerCommand::openServer(int port, int freq) {
     n = read(newsockfd, buffer, 255);
     bzero(buffer, 256);
     /* If connection is established then start communicating */
-    while (true) {
+    // keep cumunicating until out socket get close.
+    while (*this->Connectover) {
         int i = 0;
         int start;
         if (remainings != "") {
@@ -165,14 +165,20 @@ void OpenServerCommand::openServer(int port, int freq) {
         // main can run
         *this->indicator = false;
     }
+    //close my socket.
+    close(sockfd);
+    // main can finish.
+    *this->finish = true;
 }
 
 OpenServerCommand::~OpenServerCommand() {
-    delete (this->con);
-    delete (this->vars);
-    delete (this->varsAndPaths);
-
+    auto it = this->pathToVal.begin();
+    for (; it != this->pathToVal.end();)
+        this->pathToVal.erase(it++);
+    // delete last.
+    this->pathToVal.erase(this->pathToVal.end());
 }
+
 
 
 

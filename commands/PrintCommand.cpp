@@ -33,3 +33,4 @@ PrintCommand::PrintCommand(map<string, double> &symbol, int pos) {
     this->symbolTable = &symbol;
     this->pos = pos;
 }
+

@@ -21,3 +21,4 @@ int IfCommand::doCommand(vector<string> &params) {
     // return how many read.
     return this->endOfLoopIndex;
 }
+

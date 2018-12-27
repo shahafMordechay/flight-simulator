@@ -17,6 +17,7 @@ public:
 
     LoopCommand(map<string, bool> &con, vector<string> &, map<string, string> &, map<string, double> &, int pos);
 
+
 };
 
 
