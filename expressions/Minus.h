@@ -9,7 +9,6 @@ public:
     Minus(Expression* left, Expression* right) : BinaryExpression(left, right){};
     double calculate() override;
 
-    virtual ~Minus();
 };
 
 

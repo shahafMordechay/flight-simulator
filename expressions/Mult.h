@@ -8,8 +8,6 @@ class Mult : public BinaryExpression {
 public:
     Mult(Expression* left, Expression* right) : BinaryExpression(left, right){};
     double calculate() override;
-
-    virtual ~Mult();
 };
 
 
