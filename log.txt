@@ -1,3 +1,61 @@
+commit e4017a13955c2b1f25ac5747ce796847488d260b
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Thu Dec 27 22:26:09 2018 +0200
+
+    make file to run
+
+commit 479f8eb367e51c2f9e3d3d25feef427637cba5b6
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Thu Dec 27 22:23:33 2018 +0200
+
+    binary destructor
+
+commit 4641a8f7d45650b9fa30930fea352ae6e5964cb9
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Thu Dec 27 22:22:20 2018 +0200
+
+    final version.
+    
+    a bit of memory leaks solved
+
+commit 771a770f37f5bba84869d75462b7ac7bb078ff20
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Thu Dec 27 00:52:29 2018 +0200
+
+    final
+
+commit 3e882597adb3886e795b8be057404844da118c24
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Thu Dec 27 00:51:06 2018 +0200
+
+    final version
+    
+    still some memory leaks
+
+commit e45831f09a4bf03d5eaafa9aa06992f6c9684bd7
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Thu Dec 27 00:49:51 2018 +0200
+
+    final version
+
+commit 84a3e3d599c877b639f5779519bd31c82d5a67ae
+Author: Bknisan <39652860+Bknisan@users.noreply.github.com>
+Date:   Thu Dec 27 00:47:38 2018 +0200
+
+    final version
+
+commit 4ccc78f01580bb4ab9fc513bf2ddd3ee0e852af5
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Thu Dec 27 00:12:28 2018 +0200
+
+    Add files via upload
+
+commit 5f2d8ff2fa97999306065b4919847a4d910ec34b
+Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
+Date:   Thu Dec 27 00:10:09 2018 +0200
+
+    Add files via upload
+
 commit 2049c67ac2de4c4434ea59c7f88623d0e0321064
 Author: shahafMordechay <36819025+shahafMordechay@users.noreply.github.com>
 Date:   Wed Dec 26 23:42:57 2018 +0200
