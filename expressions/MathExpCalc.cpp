@@ -134,7 +134,6 @@ queue<string> MathExpCalc::shuntingYard(string &mathExp) {
 // build expression from postfix math expression queue
 Expression *MathExpCalc::expFromPostfix(queue<string> postfix) {
     stack<Expression *> expStack;
-
     // build expression from polish notation
     while (!postfix.empty()) {
 
@@ -186,7 +185,6 @@ Expression *MathExpCalc::expFromPostfix(queue<string> postfix) {
     while (!expStack.empty()) {
         expStack.pop();
     }
-
 
     return result;
 }

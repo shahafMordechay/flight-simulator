@@ -83,9 +83,6 @@ CommandExpression *commandsFactory::makeCommand(string c, int pos) {
         return openservercommand(pos, this->commands.at(c));
     else if (c == "var")
         return definevar(pos, this->commands.at(c));
-        // not existing var
-    else if (this->symbol->find(c) == this->symbol->end())
-        throw exception();
         // existing var to change.
     else
         return NULL;

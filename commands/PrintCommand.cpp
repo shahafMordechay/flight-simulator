@@ -8,24 +8,31 @@ int PrintCommand::doCommand(vector<string> &params) {
     int howmany = 0;
     string toPrint;
     // print just string
-    if (params[pos][0] == '\"') {
-        while (params[pos + howmany] != "lineEnd") {
-            toPrint += params[pos + howmany];
+    while (params[pos + howmany] != "lineEnd") {
+        // existing var.
+        if (*this->symbolTable->find(params[pos + howmany]) != *this->symbolTable->end()) {
+            toPrint += to_string(this->symbolTable->at(params[pos + howmany]));
             howmany++;
-            if (params[pos + howmany] != "lineEnd") {
+            //its a string.
+        } else {
+            // skip /".
+            // while last char of str isnt end of string.
+            while (params[pos + howmany][params[pos + howmany].length() - 1] != '\"') {
+                toPrint += params[pos + howmany];
                 toPrint += " ";
+                howmany++;
             }
+            // end of string.
+            toPrint += params[pos + howmany];
+            // cut unwanted.
+            toPrint = toPrint.substr(1, toPrint.length() - 2);
+            howmany++;
         }
-        // cut ".
-        toPrint = toPrint.substr(1, toPrint.length() - 2);
-        printf("%s\n", toPrint.c_str());
-        // existing var
-    } else if (*this->symbolTable->find(params[pos]) != *this->symbolTable->end()) {
-        howmany++;
-        printf("%lf\n", this->symbolTable->at(params[pos]));
-    } else {
-        throw "no such var";
     }
+    printf("%s\n", toPrint.c_str());
+    // = inside the string
+    if(toPrint.find('=') != string::npos)
+        howmany--;
     return howmany;
 }
 

@@ -70,6 +70,8 @@ void ConnectCommand::connectToServer(string hostId, string port) {
                 // make msg.
                 string msg = ReadFromServer::setMgs(var.first, *this->changedOrNot, *this->binds, *this->vars);
                 n = write(sockfd, msg.c_str(), msg.length());
+                // changed at the server.
+                this->changedOrNot->at(var.first) = false;
                 // unsuccesfull update.
                 if (n < 0) {
                     perror("ERROR writing to socket");

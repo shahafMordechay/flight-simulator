@@ -21,8 +21,11 @@ int AssertionCommand::doCommand(vector<string> &params) {
         }
             // bind to local var.
         else {
-            // bind to local.
-            this->binded->insert({{params[pos - 2], 0}, directory});
+            // bind to local. both ways.
+            this->binded->insert({params[pos - 2], directory});
+            this->binded->insert({directory, params[pos-2] });
+            // put val in new var.
+            this->symbols->at(params[pos-2]) = this->symbols->at(directory);
         }
         counter++;
         // pos -2 is the index of the var name.

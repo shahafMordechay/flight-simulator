@@ -1,3 +1,3 @@
-/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug/CMakeFiles/flightSimulator.dir
-/home/shahaf/CLionProjects/flightSimulator/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/nisan/CLionProjects/flightSimulator/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/nisan/CLionProjects/flightSimulator/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/nisan/CLionProjects/flightSimulator/cmake-build-debug/CMakeFiles/flightSimulator.dir

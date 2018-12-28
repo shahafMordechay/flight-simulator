@@ -20,14 +20,13 @@ ReadFromServer::updateValues(map<string, string> &varsAndPaths, map<string, bool
             // equal paths. and old val
             if ((path.first == var.second) && !(con.at(var.first))) {
                 // change val in my table.
-                globalMu.lock();
                 myData.at(var.first) = path.second;
-                globalMu.unlock();
-
                 break;
             }
         }
     }
+    globalMu.unlock();
+
 
 }
 
@@ -54,7 +53,18 @@ void ReadFromServer::changeSymbolT(map<string, bool> &con, vector<string> &param
             //change val.
             globalMu.lock();
             symbols.at(varName.first) = value;
-            con.at(varName.first) = true;
+            // if binded to simulator.
+            if (GenFunc::isSimulatorVar(binded, varName.first)) {
+                con.at(varName.first) = true;
+                // if binded.
+            } else if (binded.find(varName.first) != binded.end()) {
+                for (auto &path : binded) {
+                    // if binded not to the simulator.
+                    if ((path.first == varName.first) && (path.second[0] != '/'))
+                        symbols.at(path.second) = value;
+
+                }
+            }
             globalMu.unlock();
 
         }
@@ -68,7 +78,6 @@ ReadFromServer::setMgs(string name, map<string, bool> &con, map<string, string> 
     globalMu.lock();
     string msg = "set " + paths.at(name)
                  + " " + to_string(val.at(name)) + "\r\n";
-    con.at(name) = false;
     globalMu.unlock();
     return msg;
 }

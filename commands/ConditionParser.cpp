@@ -156,7 +156,17 @@ void ConditionParser::makeMeCommands() {
                 if (myOne != NULL)
                     this->myCommands.emplace_back(myOne);
             } catch (exception) {} //invalid command.
-            pos++;
+            // its print command.
+            if (this->text[pos] == "print") {
+                // skip all the line.
+                while (this->text[pos] != "lineEnd")
+                    pos++;
+                //skip end of line ass well.
+                pos++;
+
+            } else {
+                pos++;
+            }
         }
     }
     this->endOfLoopIndex = pos + 2;

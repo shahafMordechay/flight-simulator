@@ -199,7 +199,7 @@ void Lexer::parser(vector<string> input, int offset) {
         if (current != NULL) {
             offset++;
             // move index forward.
-            offset += (int) current->calculate();
+            offset += (int) (current->calculate());
             //stops the execution until connected to server.
             while (this->Contin) {};
             // add to my list
