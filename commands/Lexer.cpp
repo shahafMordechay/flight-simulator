@@ -102,8 +102,8 @@ vector<string> Lexer::lexer() {
         // return vector of strings separated line by line with the string "lineEnd"
         return words;
     } else {
-        // keep getting input until \n
-        while (getline(cin, line) && line != "") {
+        // keep getting input until "exit"
+        while (getline(cin, line) && line != "exit") {
             // skip tabs
             while (line[0] == '\t') {
                 line = line.substr(1);
