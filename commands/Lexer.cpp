@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <algorithm>
 #include "Lexer.h"
 
 Lexer::Lexer(int num, char **par) {
@@ -99,8 +100,6 @@ vector<string> Lexer::lexer() {
                 }
             }
         }
-        // return vector of strings separated line by line with the string "lineEnd"
-        return words;
     } else {
         // keep getting input until "exit"
         while (getline(cin, line) && line != "exit") {
@@ -180,8 +179,14 @@ vector<string> Lexer::lexer() {
             }
         }
         // return vector of strings separated line by line with the string "lineEnd"
-        return words;
     }
+    // erase all spaces.
+    vector<string> realOne;
+    for(auto & string: words){
+        if((!string.empty())&&(string != "\t"))
+            realOne.emplace_back(string);
+    }
+    return realOne;
 }
 
 void Lexer::parser(vector<string> input, int offset) {
@@ -231,6 +236,7 @@ Lexer::~Lexer() {
 
 
 }
+
 
 
 
