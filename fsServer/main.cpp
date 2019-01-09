@@ -1,7 +1,10 @@
 #include <iostream>
-#include "FileCacheManager.h"
+#include "StringReverser.h"
+#include "MyTestClientHandler.h"
 
 int main() {
-    CacheManager cm = new FileCacheManager();
+    Solver<string, string> *solver = new StringReverser();
+    ClientHandler *ch = new MyTestClientHandler<string, string>(solver);
+    ch->handleClient(cin, cout);
     return 0;
 }
