@@ -12,13 +12,19 @@ template <class Problem, class Solution>
 class MyTestClientHandler :  public GenClientHandler<string, string> {
 public:
     MyTestClientHandler(Solver<Problem, Solution> *solver) : GenClientHandler(solver){}
+
     void handleClient(istream &input, ostream &output) override{
         char line[ROW_SIZE];
         input.getline(line, ROW_SIZE);
 
         while (line[0] != '\0' && string(line) != "end") {
             string str(line);
-            cout << solver->solve(str) << endl;
+            if (!cachMan->containSolution(&str)) {
+            output << solver->solve(str) << endl;
+            } else {
+                Solution* solution = cachMan->getSolution(&str);
+                output << solution << endl;
+            }
             input.getline(line, ROW_SIZE);
         }
     }

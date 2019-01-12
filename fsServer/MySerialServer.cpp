@@ -1,7 +1,10 @@
 #include <netinet/in.h>
 #include <strings.h>
 #include <unistd.h>
+#include <thread>
+
 #include "MySerialServer.h"
+#include "ClientHandler.h"
 
 void MySerialServer::open(int port, ClientHandler *cHandler) {
     int sockfd, newsockfd, clilen;
@@ -45,13 +48,18 @@ void MySerialServer::open(int port, ClientHandler *cHandler) {
     }
     bzero(buffer, 256);
     // throw first away.
-    n = read(newsockfd, buffer, 255);
+    //n = read(newsockfd, buffer, 255);
     bzero(buffer, 256);
     /* If connection is established then start communicating */
     // keep communicating until out socket get close.
     //close my socket.
 
-
+    int i=0;
+    while (i < 2) {
+        thread th(&ClientHandler::handleClient, cHandler, cin, cout);
+        th.join();
+        i++;
+    }
 
     close(sockfd);
 }
