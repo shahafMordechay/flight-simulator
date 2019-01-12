@@ -30,19 +30,16 @@ void MySerialServer::open(int port, ClientHandler *cHandler) {
 
 
     while ((new_sock = accept(s, (struct sockaddr*)&client, &clilen)) >= 0) {
-
-        if (new_sock < 0)	{
-            if (errno == EWOULDBLOCK)	{
-                cout << "timeout!" << endl;
-                exit(2);
-            }	else	{
-                perror("failure on opening socket");
-                exit(3);
-            }
-        }
-
         cHandler->handleClient(cin, cout);
         setsockopt(s, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(timeout));
+    }
+
+    if (new_sock < 0)	{
+        if (errno == EWOULDBLOCK)	{
+            cout << "timeout!" << endl;
+        }	else	{
+            perror("failure on opening socket");
+        }
     }
 
     close(new_sock);
