@@ -6,62 +6,47 @@
 #include "MySerialServer.h"
 #include "ClientHandler.h"
 
+#define WAIT_FOR_CLIENT 1
+#define WAIT_IN_MILISEC 0
+
 void MySerialServer::open(int port, ClientHandler *cHandler) {
-    int sockfd, newsockfd, clilen;
-    char buffer[256];
-    string remainings = "";
-    struct sockaddr_in serv_addr{}, cli_addr{};
-    int n;
-
-    /* First call to socket() function */
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
-
-    if (sockfd < 0) {
-        perror("ERROR opening socket");
-        exit(1);
+    int s = socket(AF_INET, SOCK_STREAM, 0);
+    struct sockaddr_in serv;
+    serv.sin_addr.s_addr = INADDR_ANY;
+    serv.sin_port = htons(port);
+    serv.sin_family = AF_INET;
+    if (bind(s, (sockaddr *)&serv, sizeof(serv)) < 0)	{
+        cerr << "failure on bind" << endl;
     }
 
-    /* Initialize socket structure */
-    bzero((char *) &serv_addr, sizeof(serv_addr));
-    serv_addr.sin_family = AF_INET;
-    serv_addr.sin_addr.s_addr = INADDR_ANY;
-    serv_addr.sin_port = htons(port);
+    int new_sock;
+    listen(s, 5);
+    struct sockaddr_in client;
+    socklen_t clilen = sizeof(client);
 
-    /* Now bind the host address using bind() call.*/
-    if (bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0) {
-        perror("ERROR on binding");
-        exit(1);
+    timeval timeout;
+    timeout.tv_sec = WAIT_FOR_CLIENT;
+    timeout.tv_usec = WAIT_IN_MILISEC;
+
+
+    while ((new_sock = accept(s, (struct sockaddr*)&client, &clilen)) >= 0) {
+
+        if (new_sock < 0)	{
+            if (errno == EWOULDBLOCK)	{
+                cout << "timeout!" << endl;
+                exit(2);
+            }	else	{
+                perror("failure on opening socket");
+                exit(3);
+            }
+        }
+
+        cHandler->handleClient(cin, cout);
+        setsockopt(s, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(timeout));
     }
 
-    /* Now start listening for the clients, here process will
-       * go in sleep mode and will wait for the incoming connection
-    */
-
-    listen(sockfd, 5);
-    clilen = sizeof(cli_addr);
-
-    /* Accept actual connection from the client */
-    newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, (socklen_t *) &clilen);
-    if (newsockfd < 0) {
-        perror("ERROR on accept");
-        exit(1);
-    }
-    bzero(buffer, 256);
-    // throw first away.
-    //n = read(newsockfd, buffer, 255);
-    bzero(buffer, 256);
-    /* If connection is established then start communicating */
-    // keep communicating until out socket get close.
-    //close my socket.
-
-    int i=0;
-    while (i < 2) {
-        thread th(&ClientHandler::handleClient, cHandler, cin, cout);
-        th.join();
-        i++;
-    }
-
-    close(sockfd);
+    close(new_sock);
+    close(s);
 }
 
 void MySerialServer::stop() {}
