@@ -25,7 +25,15 @@ public:
     State<T>* getCameFrom() {
         return this->cameFrom;
     }
+    T getState() {
+        return this->state;
+    }
+    bool isSameState(State<T> check) {
+        return (check == this);
+    }
 };
+
+
 
 
 #endif //FLIGHTSIMULATOR_STATE_H
