@@ -5,10 +5,11 @@
 #ifndef FLIGHTSIMULATOR_SEARCHER_H
 #define FLIGHTSIMULATOR_SEARCHER_H
 
-#include <queue>
 #include "ISearcher.h"
 #include "../problems/ISearchable.h"
 #include <string>
+#include <unordered_set>
+#include <algorithm>
 
 template<class T, class Solution>
 class Searcher : public ISearcher<Solution> {

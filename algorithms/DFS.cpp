@@ -29,7 +29,7 @@ string DFS<Solution>::search(ISearchable<Solution> searchable) {
     //already visited.
     unordered_set<State<Entry>> closed;
     //still entries to check.
-    while (movingDeep.size() > 0) {
+    while (openListSize() > 0) {
         //get first in the line.
         State<Entry> current = popOpenList();
         // mark as visited
@@ -39,7 +39,7 @@ string DFS<Solution>::search(ISearchable<Solution> searchable) {
             return backTrace(current);
         // get all possible directions.
         list<State<Entry>> mySons = searchable.getAllPossibleStates(current);
-        for (auto son: mySons) {
+        for (State<Entry> son: mySons) {
             // if not visited yet and not in my pr queue.
             if ((closed.find(son) == NULL) && !exists(son)) {
                 // push to my queue.
@@ -47,7 +47,7 @@ string DFS<Solution>::search(ISearchable<Solution> searchable) {
             }
         }
         //set father as the node worked on before.
-        this->movingDeep.top().setCameFrom(current);
+        this->movingDeep.top().setCameFrom(&current);
     }
     // no possible solution.
     return NULL;
@@ -58,10 +58,12 @@ string DFS<Solution>::backTrace(State<Entry> target) {
     string mySol = "";
     while (target.getCameFrom() != NULL) {
         // concat string
-        mySol = target.getState().fromWhere(target.getCameFrom()->getState()) + " " + mySol;
+        mySol = target.getState().fromWhere(target.getCameFrom()->getState()) + ", " + mySol;
         // go back.
         target = *target.getCameFrom();
     }
+    // cut last ", "
+    mySol = mySol.substr(0, mySol.length() - 3);
     return mySol;
 }
 

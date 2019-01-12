@@ -7,8 +7,8 @@
 
 
 #include "Searcher.h"
-
-class AStar: public Searcher {
+template <class Solution>
+class AStar: public Searcher<class Entry, Solution>  {
 
 };
 
