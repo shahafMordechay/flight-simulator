@@ -1,6 +1,7 @@
 #ifndef FLIGHTSIMULATOR_STATE_H
 #define FLIGHTSIMULATOR_STATE_H
 
+#include "Entry.h"
 template <class T>
 class State {
     T state;
