@@ -9,7 +9,9 @@
 template<class Solution>
 State<Entry> DFS<Solution>::popOpenList() {
     this->evaluatedNodes++;
-    return this->movingDeep.pop();
+    State<Entry> top = this->movingDeep.top();
+    this->movingDeep.pop();
+    return  top;
 }
 
 template<class Solution>
