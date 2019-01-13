@@ -31,6 +31,9 @@ public:
     bool isSameState(State<T> check) {
         return (check == this);
     }
+    double getCost(){
+        return this->cost;
+    }
 };
 
 
