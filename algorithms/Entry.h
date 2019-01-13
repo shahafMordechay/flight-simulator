@@ -39,6 +39,10 @@ public:
             return "Down";
     }
 
+    bool operator==(Entry compared) {
+        return ((this->getCol() == compared.getCol()) && (this->getRow() == compared.getRow()));
+    }
+
 };
 
 
