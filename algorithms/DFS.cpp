@@ -43,7 +43,7 @@ string DFS<Solution>::search(ISearchable<Solution> searchable) {
         list<State<Entry>> mySons = searchable.getAllPossibleStates(current);
         for (State<Entry> son: mySons) {
             // if not visited yet and not in my pr queue.
-            if ((closed.find(son) == NULL) && !exists(son)) {
+            if ((closed.find(son) == NULL) && !exists(son) && son.getCost()!= -1) {
                 // push to my queue.
                 this->movingDeep.push(son);
             }
