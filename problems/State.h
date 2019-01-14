@@ -32,7 +32,8 @@ public:
     }
 
     bool isSameState(State<T> check) {
-        return (check == this);
+        return (check.getState() == this->getState() && check.getCameFrom() == this->getCameFrom() &&
+                this->getCost() == check.getCost());
     }
 
     double getCost() {
