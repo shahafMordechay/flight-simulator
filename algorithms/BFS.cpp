@@ -53,25 +53,25 @@ string BFS<Solution>::backTrace(State<Entry> target) {
 }
 
 template<class Solution>
-string BFS<Solution>::search(ISearchable<Solution> searchable) {
+string BFS<Solution>::search(ISearchable<Entry> *searchable) {
     //push first.
-    this->movingBreath.push(searchable.getInitialState());
+    this->movingBreath.push(searchable->getInitialState());
     //already visited.
-    unordered_set<State<Entry>> closed;
+    map<State<Entry>, bool> closed;
     //still entries to check.
     while (openListSize() > 0) {
         //get first in the line.
         State<Entry> current = popOpenList();
         // mark as visited
-        closed.insert(current);
+        closed.insert({current, 1});
         // target state.
-        if (current.isSameState(searchable.getGoalState()))
+        if (current.isSameState(searchable->getGoalState()))
             return backTrace(current);
         // get all possible directions.
-        list<State<Entry>> mySons = searchable.getAllPossibleStates(current);
+        list<State<Entry>> mySons = searchable->getAllPossibleStates(current);
         for (State<Entry> son: mySons) {
             // if not visited yet and not in my pr queue.
-            if ((closed.find(son) == NULL) && !exists(son) && son.getCost() != -1) {
+            if ((closed.find(son) == closed.end()) && !exists(son) && son.getCost() != -1) {
                 // set father
                 son.setCameFrom(&current);
                 // push to my queue.

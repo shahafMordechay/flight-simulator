@@ -3,10 +3,11 @@
 
 #include "../problems/ISearchable.h"
 
-template <class T>
+template<class T, class Solution>
 class ISearcher {
-    virtual T search(ISearchable<T> searchable)=0;
-    virtual int getNumberOfNodesEvaluated()=0;
+    virtual Solution search(ISearchable<T> *searchable) = 0;
+
+    virtual int getNumberOfNodesEvaluated() = 0;
 };
 
 #endif //FLIGHTSIMULATOR_ISEARCHER_H

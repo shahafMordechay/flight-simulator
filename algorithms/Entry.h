@@ -16,6 +16,7 @@ public:
         this->col = c;
         this->row = r;
     }
+    Entry() = default;
 
     int getRow() {
         return this->row;

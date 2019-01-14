@@ -8,23 +8,22 @@
 #include "ISearcher.h"
 #include "../problems/ISearchable.h"
 #include <string>
-#include <unordered_set>
+#include <map>
 #include <algorithm>
 
 template<class T, class Solution>
-class Searcher : public ISearcher<Solution> {
+class Searcher : public ISearcher<T, Solution> {
 protected:
     int evaluatedNodes;
 public:
     Searcher();
-
     virtual int openListSize() = 0;
 
-    virtual T search(ISearchable<T> searchable) = 0;
+    virtual Solution search(ISearchable<T> *searchable) = 0;
 
     virtual State<T> popOpenList() = 0;
 
-    virtual int getNumberOfNodesEvaluated();
+    int getNumberOfNodesEvaluated();
 
 };
 

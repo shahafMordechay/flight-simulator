@@ -4,14 +4,13 @@
 
 #include "DFS.h"
 #include <list>
-#include <unordered_set>
 
 template<class Solution>
 State<Entry> DFS<Solution>::popOpenList() {
     this->evaluatedNodes++;
     State<Entry> top = this->movingDeep.top();
     this->movingDeep.pop();
-    return  top;
+    return top;
 }
 
 template<class Solution>
@@ -25,25 +24,25 @@ DFS<Solution>::DFS() {
 }
 
 template<class Solution>
-string DFS<Solution>::search(ISearchable<Solution> searchable) {
+string DFS<Solution>::search(ISearchable<Entry> *searchable) {
     //push start point.
-    this->movingDeep.push(searchable.getInitialState());
+    this->movingDeep.push(searchable->getInitialState());
     //already visited.
-    unordered_set<State<Entry>> closed;
+    map<State<Entry>, bool> closed;
     //still entries to check.
     while (openListSize() > 0) {
         //get first in the line.
         State<Entry> current = popOpenList();
         // mark as visited
-        closed.insert(current);
+        closed.insert({current, 1});
         // target state.
-        if (current.isSameState(searchable.getGoalState()))
+        if (current.isSameState(searchable->getGoalState()))
             return backTrace(current);
         // get all possible directions.
-        list<State<Entry>> mySons = searchable.getAllPossibleStates(current);
+        list<State<Entry>> mySons = searchable->getAllPossibleStates(current);
         for (State<Entry> son: mySons) {
             // if not visited yet and not in my pr queue.
-            if ((closed.find(son) == NULL) && !exists(son) && son.getCost()!= -1) {
+            if ((closed.find(son) == closed.end()) && !exists(son) && son.getCost() != -1) {
                 // push to my queue.
                 this->movingDeep.push(son);
             }
@@ -58,7 +57,7 @@ string DFS<Solution>::search(ISearchable<Solution> searchable) {
 template<class Solution>
 string DFS<Solution>::backTrace(State<Entry> target) {
     string mySol = "";
-    while (target.getCameFrom() != NULL) {
+    while (target.getCameFrom() != nullptr) {
         // concat string
         mySol = target.getState().fromWhere(target.getCameFrom()->getState()) + ", " + mySol;
         // go back.

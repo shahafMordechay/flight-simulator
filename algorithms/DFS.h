@@ -11,18 +11,22 @@
 #include "Entry.h"
 
 template<class Solution>
-class DFS : public Searcher<class Entry, Solution> {
+class DFS : public Searcher<class Entry, string> {
     //pr queue.
     stack<State<Entry>> movingDeep;
-    virtual State<Entry> popOpenList();
-    virtual int openListSize();
+public:
+    State<Entry> popOpenList() override;
+
+    int openListSize() override;
+
     virtual bool exists(State<Entry>);
+
     string backTrace(State<Entry>);
-    virtual string search(ISearchable<Solution> searchable);
+
+    string search(ISearchable<Entry> *searchable) override;
+
     DFS();
 };
-
-
 
 
 #endif //FLIGHTSIMULATOR_DFS_H

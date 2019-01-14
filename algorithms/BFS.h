@@ -8,19 +8,24 @@
 #include <queue>
 #include "Entry.h"
 #include "Searcher.h"
+
 template<class Solution>
-class BFS: public Searcher<class Entry,Solution> {
+class BFS : public Searcher<class Entry, string> {
     //pr queue.
     queue<State<Entry>> movingBreath;
-    virtual State<Entry> popOpenList();
-    virtual int openListSize();
+public:
+    State<Entry> popOpenList() override;
+
+    int openListSize() override;
+
     virtual bool exists(State<Entry>);
+
     string backTrace(State<Entry>);
-    virtual string search(ISearchable<Solution> searchable);
+
+    string search(ISearchable<Entry> *searchable) override;
+
     BFS();
 };
-
-
 
 
 #endif //FLIGHTSIMULATOR_BFS_H
