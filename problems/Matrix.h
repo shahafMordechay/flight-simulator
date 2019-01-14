@@ -12,15 +12,15 @@
 #include "../algorithms/Entry.h"
 
 class Matrix : public ISearchable<Entry> {
-    State<Entry> src = State<Entry>(Entry(0,0));
-    State<Entry> dst = State<Entry>(Entry(0,0));
-    vector<State<Entry>> matrix;
+    State<Entry>* src ;
+    State<Entry>* dst ;
+    vector<State<Entry>*> matrix;
 public:
-    State<Entry> getInitialState() override;
+    State<Entry>* getInitialState() override;
 
-    State<Entry> getGoalState() override;
+    State<Entry>* getGoalState() override;
 
-    list<State<Entry>> getAllPossibleStates(State<Entry>) override;
+    list<State<Entry>*> getAllPossibleStates(State<Entry>) override;
 
     Matrix(vector<string> mat, string src, string dst);
 

@@ -27,16 +27,27 @@ public:
         return this->cameFrom;
     }
 
-    T getState() {
+    T getState() const{
         return this->state;
     }
 
-    bool isSameState(State<T> check) {
-        return (check.getState() == this->getState() && check.getCameFrom() == this->getCameFrom() &&
-                this->getCost() == check.getCost());
+    bool operator==(State<T> check) {
+        return (check.getState() == this->getState());
     }
 
-    double getCost() {
+    bool operator<(const State<T>& check)const {
+        return (this->getState() < check.getState());
+    }
+
+    bool operator>(State<T> check) {
+        return (getCost() > check.getCost());
+    }
+
+    bool operator!=(State<T> check) {
+        return !(operator==(check));
+    }
+
+    double getCost() const{
         return this->cost;
     }
 };

@@ -7,53 +7,55 @@
 //build my maze.
 Matrix::Matrix(vector<string> mat, string src, string dst) {
     //initialize src
-    this->src = State<Entry>(Entry(src[0] - 48, src[src.length() - 1] - 48));
+    this->src = new State<Entry>(Entry(src[0] - 48, src[src.length() - 1] - 48));
     //initialize dst
-    this->dst = State<Entry>(Entry(dst[0] - 48, dst[dst.length() - 1] - 48));
+    this->dst = new State<Entry>(Entry(dst[0] - 48, dst[dst.length() - 1] - 48));
     // initialize running indexes
-    int i, j;
-    i = j = 0;
+    int i, j, k;
+    i = j = k = 0;
     // row number.(j)
     for (; j < mat.size(); ++j) {
         // col number.(i)
-        while (i < mat[j].length()) {
+        while (k < mat[j].length()) {
             // separator.
-            if (mat[j][i] == ',') {
-                i++;
+            if (mat[j][k] == ',') {
+                k++;
             }
                 // push entry.
             else {
                 // tmp.
-                State<Entry> current = State<Entry>(Entry(j, i));
+                State<Entry> *current = new State<Entry>(Entry(j, i));
                 // set cost.
-                current.setCost(mat[j][i] - 48);
+                current->setCost(mat[j][k] - 48);
                 this->matrix.emplace_back(current);
                 i++;
-                if (current.getState() == this->src.getState())
-                    this->src.setCost(current.getCost());
-                if (current.getState() == this->dst.getState())
-                    this->dst.setCost(current.getCost());
+                k++;
+                if (current->getState() == this->src->getState())
+                    this->src->setCost(current->getCost());
+                if (current->getState() == this->dst->getState())
+                    this->dst->setCost(current->getCost());
 
             }
         }
         // initialize col back to 0.
         i = 0;
+        k = 0;
     }
 
 
 }
 
-State<Entry> Matrix::getInitialState() {
+State<Entry>* Matrix::getInitialState() {
     return this->src;
 }
 
-State<Entry> Matrix::getGoalState() {
+State<Entry>* Matrix::getGoalState() {
     return this->dst;
 }
 
-list<State<Entry>> Matrix::getAllPossibleStates(State<Entry> origin) {
+list<State<Entry> *> Matrix::getAllPossibleStates(State<Entry> origin) {
     // create list.
-    list<State<Entry>> ways = list<State<Entry>>();
+    list<State<Entry> *> ways = list<State<Entry> *>();
     // up, down, left, right.
     Entry up = Entry(origin.getState().getRow() - 1, origin.getState().getCol());
     Entry down = Entry(origin.getState().getRow() + 1, origin.getState().getCol());
@@ -61,8 +63,8 @@ list<State<Entry>> Matrix::getAllPossibleStates(State<Entry> origin) {
     Entry right = Entry(origin.getState().getRow(), origin.getState().getCol() + 1);
     // iterate over states
     for (auto state: this->matrix) {
-        if ((state.getState() == up) || (state.getState() == down) || (state.getState() == left) ||
-            (state.getState() == right))
+        if ((state->getState() == up) || (state->getState() == down) || (state->getState() == left) ||
+            (state->getState() == right))
             ways.emplace_back(state);
     }
     // ret list of ways.
