@@ -7,9 +7,9 @@
 //build my maze.
 Matrix::Matrix(vector<string> mat, string src, string dst) {
     //initialize src
-    this->src = new State<Entry>(Entry(src[0], src[src.length() - 1]));
+    this->src = State<Entry>(Entry(src[0] - 48, src[src.length() - 1] - 48));
     //initialize dst
-    this->dst = new State<Entry>(Entry(dst[0], dst[dst.length() - 1]));
+    this->dst = State<Entry>(Entry(dst[0] - 48, dst[dst.length() - 1] - 48));
     // initialize running indexes
     int i, j;
     i = j = 0;
@@ -23,8 +23,17 @@ Matrix::Matrix(vector<string> mat, string src, string dst) {
             }
                 // push entry.
             else {
-                this->matrix.emplace_back(State<Entry>(Entry(j, i)));
+                // tmp.
+                State<Entry> current = State<Entry>(Entry(j, i));
+                // set cost.
+                current.setCost(mat[j][i] - 48);
+                this->matrix.emplace_back(current);
                 i++;
+                if (current.getState() == this->src.getState())
+                    this->src.setCost(current.getCost());
+                if (current.getState() == this->dst.getState())
+                    this->dst.setCost(current.getCost());
+
             }
         }
         // initialize col back to 0.
@@ -35,11 +44,11 @@ Matrix::Matrix(vector<string> mat, string src, string dst) {
 }
 
 State<Entry> Matrix::getInitialState() {
-    return *this->src;
+    return this->src;
 }
 
 State<Entry> Matrix::getGoalState() {
-    return *this->dst;
+    return this->dst;
 }
 
 list<State<Entry>> Matrix::getAllPossibleStates(State<Entry> origin) {
@@ -64,8 +73,3 @@ list<State<Entry>> Matrix::getAllPossibleStates(State<Entry> origin) {
 
 }
 
-Matrix::~Matrix() {
-    free(this->dst);
-    free(this->src);
-
-}

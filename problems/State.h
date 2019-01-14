@@ -1,8 +1,8 @@
 #ifndef FLIGHTSIMULATOR_STATE_H
 #define FLIGHTSIMULATOR_STATE_H
 
-#include "Entry.h"
-template <class T>
+
+template<class T>
 class State {
     T state;
     double cost;
@@ -23,21 +23,22 @@ public:
         this->cameFrom = cameFrom;
     }
 
-    State<T>* getCameFrom() {
+    State<T> *getCameFrom() {
         return this->cameFrom;
     }
+
     T getState() {
         return this->state;
     }
+
     bool isSameState(State<T> check) {
         return (check == this);
     }
-    double getCost(){
+
+    double getCost() {
         return this->cost;
     }
 };
-
-
 
 
 #endif //FLIGHTSIMULATOR_STATE_H

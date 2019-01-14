@@ -12,10 +12,10 @@
 #include "../algorithms/Entry.h"
 
 class Matrix : public ISearchable<Entry> {
-    State<Entry> *src;
-    State<Entry> *dst;
+    State<Entry> src = State<Entry>(Entry(0,0));
+    State<Entry> dst = State<Entry>(Entry(0,0));
     vector<State<Entry>> matrix;
-
+public:
     State<Entry> getInitialState() override;
 
     State<Entry> getGoalState() override;
@@ -24,7 +24,6 @@ class Matrix : public ISearchable<Entry> {
 
     Matrix(vector<string> mat, string src, string dst);
 
-    ~Matrix();
 };
 
 
