@@ -24,7 +24,7 @@ public:
 
     virtual Solution search(ISearchable<T> *searchable) = 0;
 
-    virtual State<T> popOpenList() = 0;
+    virtual State<T>* popOpenList() = 0;
 
     int getNumberOfNodesEvaluated() {
         return this->evaluatedNodes;

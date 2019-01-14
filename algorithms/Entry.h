@@ -16,13 +16,14 @@ public:
         this->col = c;
         this->row = r;
     }
+
     Entry() = default;
 
-    int getRow() {
+    int getRow() const {
         return this->row;
     }
 
-    int getCol() {
+    int getCol() const {
         return this->col;
     }
 
@@ -31,19 +32,23 @@ public:
         int rowDiff = origin.getRow() - this->getRow();
         int colDiff = origin.getCol() - this->getCol();
         if (rowDiff == 0 && colDiff == -1)
-            return "Left";
-        else if (rowDiff == 0 && colDiff == 1)
             return "Right";
+        else if (rowDiff == 0 && colDiff == 1)
+            return "Left";
         else if (rowDiff == -1 && colDiff == 0)
-            return "Up";
-        else if (rowDiff == 1 && colDiff == 0)
             return "Down";
+        else if (rowDiff == 1 && colDiff == 0)
+            return "Up";
     }
 
-    bool operator==(Entry compared) {
+    const bool operator==(Entry compared) const {
         return ((this->getCol() == compared.getCol()) && (this->getRow() == compared.getRow()));
     }
 
+    const bool operator<(Entry compared) const {
+        return (this->getRow() < compared.getRow()) ||
+                (this->getRow() == compared.getRow() && this->getCol() < compared.getCol());
+    }
 };
 
 
