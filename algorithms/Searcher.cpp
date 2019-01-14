@@ -6,12 +6,4 @@
 
 
 
-template<class T, class Solution>
-int Searcher<T, Solution>::getNumberOfNodesEvaluated() {
-    return this->evaluatedNodes;
-}
 
-template<class T, class Solution>
-Searcher<T, Solution>::Searcher() {
-    this->evaluatedNodes = 0;
-}

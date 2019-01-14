@@ -15,17 +15,77 @@ class DFS : public Searcher<class Entry, string> {
     //pr queue.
     stack<State<Entry>> movingDeep;
 public:
-    State<Entry> popOpenList() override;
+    State<Entry> popOpenList() override{
+        this->evaluatedNodes++;
+        State<Entry> top = this->movingDeep.top();
+        this->movingDeep.pop();
+        return top;
+    }
 
-    int openListSize() override;
+    int openListSize() override{
+        return (int) (this->movingDeep.size());
+    }
 
-    virtual bool exists(State<Entry>);
+    virtual bool exists(State<Entry> wanted){
+        // make copy of my queue.
+        stack<State<Entry>> copy = this->movingDeep;
+        // while still contains elements keep pop.
+        while (!copy.empty()) {
+            // if exists.
+            if (wanted.isSameState(copy.top()))
+                return true;
+            copy.pop();
+        }
+        //no element equals.
+        return false;
+    }
 
-    string backTrace(State<Entry>);
+    string backTrace(State<Entry> target){
+        string mySol = "";
+        while (target.getCameFrom() != nullptr) {
+            // concat string
+            mySol = target.getState().fromWhere(target.getCameFrom()->getState()) + ", " + mySol;
+            // go back.
+            target = *target.getCameFrom();
+        }
+        // cut last ", "
+        mySol = mySol.substr(0, mySol.length() - 3);
+        return mySol;
+    }
 
-    string search(ISearchable<Entry> *searchable) override;
+    string search(ISearchable<Entry> *searchable) override{
+        //push start point.
+        this->movingDeep.push(searchable->getInitialState());
+        //already visited.
+        map<State<Entry>, bool> closed;
+        //still entries to check.
+        while (openListSize() > 0) {
+            //get first in the line.
+            State<Entry> current = popOpenList();
+            // mark as visited
+            closed.insert({current, 1});
+            // target state.
+            if (current.isSameState(searchable->getGoalState()))
+                return backTrace(current);
+            // get all possible directions.
+            list<State<Entry>> mySons = searchable->getAllPossibleStates(current);
+            for (State<Entry> son: mySons) {
+                // if not visited yet and not in my pr queue.
+                if ((closed.find(son) == closed.end()) && (!exists(son)) && (son.getCost() != -1)) {
+                    // push to my queue.
+                    this->movingDeep.push(son);
+                }
+            }
+            //set father as the node worked on before.
+            this->movingDeep.top().setCameFrom(&current);
+        }
+        // no possible solution.
+        return NULL;
+    }
 
-    DFS();
+    DFS(){
+        this->movingDeep = stack<State<Entry>>();
+    }
 };
 
 

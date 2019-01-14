@@ -14,16 +14,22 @@
 template<class T, class Solution>
 class Searcher : public ISearcher<T, Solution> {
 protected:
-    int evaluatedNodes;
+    int evaluatedNodes{};
 public:
-    Searcher();
+    Searcher() {
+        this->evaluatedNodes = 0;
+    }
+
     virtual int openListSize() = 0;
 
     virtual Solution search(ISearchable<T> *searchable) = 0;
 
     virtual State<T> popOpenList() = 0;
 
-    int getNumberOfNodesEvaluated();
+    int getNumberOfNodesEvaluated() {
+        return this->evaluatedNodes;
+
+    }
 
 };
 
