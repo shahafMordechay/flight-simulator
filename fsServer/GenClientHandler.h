@@ -11,16 +11,20 @@
 #include "CacheManager.h"
 #include "FileCacheManager.h"
 
+#define ROW_SIZE 256
+#define PROBLEMS "saved_problems.txt"
+#define SOLUTIONS "saved_solutions.txt"
+
 template <class Problem, class Solution>
 class GenClientHandler : public ClientHandler {
 protected:
     Solver<Problem, Solution> *solver;
-    CacheManager<Problem, Solution> *cachMan;
+    CacheManager *cachMan;
 
 public:
     GenClientHandler(Solver<Problem, Solution> *solver) {
         this->solver = solver;
-        this->cachMan = new FileCacheManager<Problem, Solution>();
+        this->cachMan = new FileCacheManager(PROBLEMS, SOLUTIONS);
     }
 
     virtual ~GenClientHandler() {

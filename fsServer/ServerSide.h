@@ -5,6 +5,8 @@
 
 namespace server_side {
     class Server {
+    protected:
+        virtual void start(int port, ClientHandler *cHandler)=0;
     public:
         virtual void open(int port, ClientHandler *cHandler)=0;
         virtual void stop()=0;

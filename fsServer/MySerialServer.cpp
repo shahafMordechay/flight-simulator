@@ -10,6 +10,12 @@
 #define WAIT_IN_MILISEC 0
 
 void MySerialServer::open(int port, ClientHandler *cHandler) {
+    thread th(&MySerialServer::start, this, port, cHandler);
+    th.join();
+}
+
+void MySerialServer::start(int port, ClientHandler *cHandler) {
+
     int s = socket(AF_INET, SOCK_STREAM, 0);
     struct sockaddr_in serv;
     serv.sin_addr.s_addr = INADDR_ANY;
@@ -27,7 +33,6 @@ void MySerialServer::open(int port, ClientHandler *cHandler) {
     timeval timeout;
     timeout.tv_sec = WAIT_FOR_CLIENT;
     timeout.tv_usec = WAIT_IN_MILISEC;
-
 
     while ((new_sock = accept(s, (struct sockaddr*)&client, &clilen)) >= 0) {
         cHandler->handleClient(cin, cout);

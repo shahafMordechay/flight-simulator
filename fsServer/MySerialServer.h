@@ -7,8 +7,8 @@
 using namespace server_side;
 
 class MySerialServer : public Server {
+    void start(int port, ClientHandler *cHandler)override;
 public:
-    MySerialServer();
     void open(int port, ClientHandler *cHandler)override;
     void stop()override;
 };
