@@ -22,7 +22,7 @@ public:
 
     list<State<Entry>*> getAllPossibleStates(State<Entry>) override;
 
-    Matrix(vector<string> mat, string src, string dst);
+    Matrix(vector<string> &mat, string &src, string &dst);
 
 };
 

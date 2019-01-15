@@ -5,11 +5,18 @@
 #include "Matrix.h"
 
 //build my maze.
-Matrix::Matrix(vector<string> mat, string src, string dst) {
+Matrix::Matrix(vector<string> &mat, string &src, string &dst) {
+    string row, col;
+    row = src.substr(0, src.find(','));
+    src = src.substr(src.find(',') + 1);
+    col = src;
     //initialize src
-    this->src = new State<Entry>(Entry(src[0] - 48, src[src.length() - 1] - 48));
+    this->src = new State<Entry>(Entry(atoi(row.c_str()), atoi(col.c_str())));
     //initialize dst
-    this->dst = new State<Entry>(Entry(dst[0] - 48, dst[dst.length() - 1] - 48));
+    row = dst.substr(0, dst.find(','));
+    dst = dst.substr(dst.find(',') + 1);
+    col = dst;
+    this->dst = new State<Entry>(Entry(atoi(row.c_str()), atoi(col.c_str())));
     // initialize running indexes
     int i, j, k;
     i = j = k = 0;
@@ -45,11 +52,11 @@ Matrix::Matrix(vector<string> mat, string src, string dst) {
 
 }
 
-State<Entry>* Matrix::getInitialState() {
+State<Entry> *Matrix::getInitialState() {
     return this->src;
 }
 
-State<Entry>* Matrix::getGoalState() {
+State<Entry> *Matrix::getGoalState() {
     return this->dst;
 }
 
