@@ -56,6 +56,7 @@ public:
     }
 
     string search(ISearchable<Entry> *searchable) override {
+        this->evaluatedNodes = 0;
         //push start point.
         this->movingDeep.push(searchable->getInitialState());
         //already visited.

@@ -74,6 +74,7 @@ public:
     }
 
     string search(ISearchable<Entry> *searchable) {
+        this->evaluatedNodes = 0;
         this->goal = searchable->getGoalState();
         // make entry free.
         searchable->getInitialState()->setCost(0);
@@ -99,6 +100,7 @@ public:
                     son->setCameFrom(current);
                     this->Astar.push_back(son);
                 }
+
             }
 
         }

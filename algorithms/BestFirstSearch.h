@@ -71,6 +71,7 @@ public:
     }
 
     string search(ISearchable<Entry> *searchable) override {
+        this->evaluatedNodes = 0;
         // make entry free.
         searchable->getInitialState()->setCost(0);
         //push start point.

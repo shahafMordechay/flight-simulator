@@ -59,6 +59,7 @@ public:
     }
 
     string search(ISearchable<Entry> *searchable) {
+        this->evaluatedNodes = 0;
         //push first.
         this->movingBreath.push(searchable->getInitialState());
         //already visited.
@@ -81,8 +82,8 @@ public:
                     son->setCameFrom(current);
                     // push to my queue.
                     this->movingBreath.push(son);
-
                 }
+
             }
         }
         // clean queue before answer.
