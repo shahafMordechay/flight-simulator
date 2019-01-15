@@ -50,6 +50,8 @@ public:
         }
         // cut last ", "
         mySol = mySol.substr(0, mySol.length() - 2);
+        // clean queue before answer.
+        deletePtrs();
         return mySol;
     }
 
@@ -80,12 +82,19 @@ public:
             if (!this->movingDeep.empty())
                 this->movingDeep.top()->setCameFrom(current);
         }
+        // clean queue before answer.
+        deletePtrs();
         // no possible solution.
         return NULL;
     }
 
     DFS() {
         this->movingDeep = stack<State<Entry> *>();
+    }
+
+    void deletePtrs() {
+        while (openListSize() > 0)
+            this->movingDeep.pop();
     }
 };
 
