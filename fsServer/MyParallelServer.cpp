@@ -2,20 +2,24 @@
 #include <strings.h>
 #include <unistd.h>
 #include <thread>
+#include <list>
 
-#include "MySerialServer.h"
+#include "MyParallelServer.h"
 #include "ClientHandler.h"
 
-#define WAIT_FOR_CLIENT 1
+#define WAIT_FOR_CLIENT 5
 #define WAIT_IN_MILISEC 0
 
-void MySerialServer::open(int port, ClientHandler *cHandler) {
-    thread th(&MySerialServer::start, this, port, cHandler);
+void MyParallelServer::open(int port, ClientHandler *cHandler) {
+    thread th(&MyParallelServer::start, this, port, cHandler);
     th.join();
 }
 
-void MySerialServer::start(int port, ClientHandler *cHandler) {
+void startHandleClient(int socket, ClientHandler *cHandler) {
+    cHandler->handleClient(socket);
+}
 
+void MyParallelServer::start(int port, ClientHandler *cHandler) {
     int s = socket(AF_INET, SOCK_STREAM, 0);
     struct sockaddr_in serv;
     serv.sin_addr.s_addr = INADDR_ANY;
@@ -35,8 +39,13 @@ void MySerialServer::start(int port, ClientHandler *cHandler) {
     timeout.tv_usec = WAIT_IN_MILISEC;
 
     while ((new_sock = accept(s, (struct sockaddr*)&client, &clilen)) >= 0) {
-        cHandler->handleClient(new_sock);
+        thread th(startHandleClient, new_sock, cHandler);
+        this->threadList.push_back(move(th));
         setsockopt(s, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof(timeout));
+    }
+
+    for (int i = 0; i < this->threadList.size(); ++i) {
+        this->threadList.at(i).join();
     }
 
     if (new_sock < 0)	{
@@ -51,4 +60,4 @@ void MySerialServer::start(int port, ClientHandler *cHandler) {
     close(s);
 }
 
-void MySerialServer::stop() {}
+void MyParallelServer::stop() {}

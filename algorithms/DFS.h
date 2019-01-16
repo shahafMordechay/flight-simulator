@@ -7,18 +7,17 @@
 
 
 #include <stack>
-#include <queue>
 #include "Searcher.h"
 #include "Entry.h"
 
 template<class Solution>
 class DFS : public Searcher<class Entry, string> {
     //pr queue.
-    vector<State<Entry> *> movingDeep;
+    stack<State<Entry> *> movingDeep;
 public:
     State<Entry> *popOpenList() override {
-        State<Entry> *top = this->movingDeep.back();
-        this->movingDeep.pop_back();
+        State<Entry> *top = this->movingDeep.top();
+        this->movingDeep.pop();
         return top;
     }
 
@@ -28,39 +27,23 @@ public:
 
     virtual bool exists(State<Entry> *wanted) {
         // make copy of my queue.
-        vector<State<Entry> *> copy = this->movingDeep;
+        stack<State<Entry> *> copy = this->movingDeep;
         // while still contains elements keep pop.
         while (!copy.empty()) {
             // if exists.
-            if (wanted->getState() == (copy.back())->getState())
+            if (wanted->getState() == (copy.top())->getState())
                 return true;
-            copy.pop_back();
+            copy.pop();
         }
         //no element equals.
         return false;
-    }
-
-    string backTrace(State<Entry> *target) {
-        string mySol = "";
-        while (target->getCameFrom() != nullptr) {
-            // concat string
-            mySol = target->getState().fromWhere(target->getCameFrom()->getState()) + ", " + mySol;
-            this->waySum += target->getCost();
-            // go back.
-            target = target->getCameFrom();
-        }
-        // cut last ", "
-        mySol = mySol.substr(0, mySol.length() - 2);
-        // clean queue before answer.
-        deletePtrs();
-        return mySol;
     }
 
     string search(ISearchable<Entry> *searchable) override {
         this->evaluatedNodes = 0;
         this->waySum = 0;
         //push start point.
-        this->movingDeep.push_back(searchable->getInitialState());
+        this->movingDeep.push(searchable->getInitialState());
         //already visited.
         map<State<Entry>, Entry> closed;
         //still entries to check.
@@ -79,31 +62,26 @@ public:
                 // if not visited yet and not in my pr queue.
                 if ((closed.find(*son) == closed.end()) && (!exists(son))) {
                     // push to my queue.
-                    this->movingDeep.push_back(son);
+                    this->movingDeep.push(son);
                 }
             }
             //set father as the node worked on before.
             if (!this->movingDeep.empty())
-                this->movingDeep.back()->setCameFrom(current);
+                this->movingDeep.top()->setCameFrom(current);
         }
         // clean queue before answer.
         deletePtrs();
         // no possible solution.
-        return NULL;
+        return "-1";
     }
 
     DFS() {
-    }
-
-    ~DFS() {
-        while (!this->movingDeep.empty())
-            this->movingDeep.pop_back();
-        delete (this->movingDeep);
+        this->movingDeep = stack<State<Entry> *>();
     }
 
     void deletePtrs() {
         while (openListSize() > 0)
-            this->movingDeep.pop_back();
+            this->movingDeep.pop();
     }
 };
 

@@ -24,6 +24,8 @@ public:
 
     Matrix(vector<string> &mat, string &src, string &dst);
 
+    friend string to_string(const Matrix &self);
+
     ~Matrix();
 
 };

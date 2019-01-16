@@ -79,19 +79,25 @@ list<State<Entry> *> Matrix::getAllPossibleStates(State<Entry> origin) {
 }
 
 Matrix::~Matrix() {
-    this->src->setCameFrom(nullptr);
-    this->dst->setCameFrom(nullptr);
-    for (auto &i: this->matrix) {
-        i->setCameFrom(nullptr);
+    free(this->dst);
+    free(this->src);
+    for (auto &i : this->matrix) {
+        free(i);
     }
-    delete(this->src);
-    delete(this->dst);
-    while(!this->matrix.empty()){
-        State<Entry>* state = this->matrix.back();
-        this->matrix.pop_back();
-        delete(state);
-    }
-
-
 }
 
+string to_string(const Matrix &self) {
+    string result = "";
+
+    for (State<Entry> *state : self.matrix) {
+        result += to_string(state->getCost()) + ",";
+    }
+
+    result += "$";
+    Entry temp = self.src->getState();
+    result += to_string(temp.getRow()) + "," + to_string(temp.getCol());
+    temp = self.dst->getState();
+    result += to_string(temp.getRow()) + "," + to_string(temp.getCol());
+
+    return result;
+}

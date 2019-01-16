@@ -7,7 +7,7 @@ using namespace std;
 
 class ClientHandler {
 public:
-    virtual void handleClient(istream &input, ostream &output)=0;
+    virtual void handleClient(int socket)=0;
 };
 
 #endif //FSSERVER_CLIENTHANDLER_H

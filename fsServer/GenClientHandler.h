@@ -4,8 +4,6 @@
 #ifndef FSSERVER_GENCLIENTHANDLER_H
 #define FSSERVER_GENCLIENTHANDLER_H
 
-#endif //FSSERVER_GENCLIENTHANDLER_H
-
 #include "ClientHandler.h"
 #include "Solver.h"
 #include "CacheManager.h"
@@ -27,7 +25,11 @@ public:
         this->cachMan = new FileCacheManager(PROBLEMS, SOLUTIONS);
     }
 
+    virtual void handleClient(int socket)=0;
+
     virtual ~GenClientHandler() {
         free(this->cachMan);
     }
 };
+
+#endif //FSSERVER_GENCLIENTHANDLER_H

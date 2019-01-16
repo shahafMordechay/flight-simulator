@@ -18,13 +18,7 @@ class AStar : public Searcher<class Entry, string> {
     State<Entry> *goal{};
 public:
     AStar() {
-    }
-
-    ~AStar() {
-        while (!this->Astar.empty())
-            this->Astar.pop_back();
-        delete (this->Astar);
-        delete (this->goal);
+        this->Astar = vector<State<Entry> *>();
     }
 
     State<Entry> *popOpenList() override {
@@ -34,7 +28,8 @@ public:
         int j = 0;
         for (State<Entry> *entry : this->Astar) {
             // other entry in my queue that is better.
-            if (estCost(entry) < estCost(front)) {
+            if ((estCost(front) + getDistance(front)) >
+            (estCost(entry) + getDistance(entry))) {
                 // make it my top.
                 front = entry;
                 // better position.
@@ -43,11 +38,9 @@ public:
             i++;
         }
         // erase best from my queue.
-        State<Entry> *tmp = this->Astar.back();
-        this->Astar.back() = this->Astar.at(j);
-        this->Astar.at(j) = tmp;
-        this->Astar.pop_back();
-
+        this->Astar.erase(this->Astar.begin() + j);
+        // shrink it.
+        this->Astar.shrink_to_fit();
         // return best.
         return front;
 
@@ -63,22 +56,6 @@ public:
                 return true;
         }
         return false;
-    }
-
-    string backTrace(State<Entry> *target) {
-        string mySol = "";
-        while (target->getCameFrom() != nullptr) {
-            // concat string
-            mySol = target->getState().fromWhere(target->getCameFrom()->getState()) + ", " + mySol;
-            this->waySum += target->getCost();
-            // go back.
-            target = target->getCameFrom();
-        }
-        // cut last ", "
-        mySol = mySol.substr(0, mySol.length() - 2);
-        // clean queue before answer.
-        deletePtrs();
-        return mySol;
     }
 
     string search(ISearchable<Entry> *searchable) {
@@ -112,9 +89,9 @@ public:
                         this->Astar.push_back(son);
                         // already in queue.
                     } else {
-                        // check if better path.
                         State<Entry> *best = popOpenList();
-                        if (estCost(son) < estCost(best)) {
+                        if (estCost(son) + getDistance(son) <
+                            estCost(best) + getDistance(best)) {
                             best->setCameFrom(son);
                         }
                         this->Astar.push_back(best);
@@ -127,19 +104,18 @@ public:
         // clean queue before answer.
         deletePtrs();
         // no possible solution.
-        return NULL;
+        return "-1";
     }
 
 
 // estimation.
     double estCost(State<Entry> *enter) {
-        return getDistance(enter) + abs(enter->getState().getRow() - this->goal->getState().getRow()) +
+        return abs(enter->getState().getRow() - this->goal->getState().getRow()) +
                abs(enter->getState().getCol() - this->goal->getState().getCol());
     }
 
     void deletePtrs() {
-        while (!Astar.empty())
-            this->Astar.pop_back();
+        this->Astar.clear();
         this->goal = nullptr;
     }
 

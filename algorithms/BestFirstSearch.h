@@ -16,12 +16,7 @@ class BestFirstSearch : public Searcher<class Entry, Solution> {
     //pr queue.
 public:
     BestFirstSearch() {
-    }
-
-    ~BestFirstSearch() {
-        while (!this->movingBest.empty())
-            this->movingBest.pop_back();
-        delete(this->movingBest);
+        this->movingBest = vector<State<Entry> *>();
     }
 
     State<Entry> *popOpenList() override {
@@ -39,11 +34,10 @@ public:
             }
             i++;
         }
-        State<Entry> *tmp = this->movingBest.back();
-        this->movingBest.back() = this->movingBest.at(j);
-        this->movingBest.at(j) = tmp;
         // erase best from my queue.
-        this->movingBest.pop_back();
+        this->movingBest.erase(this->movingBest.begin() + j);
+        // shrink it.
+        this->movingBest.shrink_to_fit();
         // return best.
         return front;
     }
@@ -58,22 +52,6 @@ public:
                 return true;
         }
         return false;
-    }
-
-    string backTrace(State<Entry> *target) {
-        string mySol = "";
-        while (target->getCameFrom() != nullptr) {
-            // concat string
-            mySol = target->getState().fromWhere(target->getCameFrom()->getState()) + ", " + mySol;
-            this->waySum += target->getCost();
-            // go back.
-            target = target->getCameFrom();
-        }
-        // cut last ", "
-        mySol = mySol.substr(0, mySol.length() - 2);
-        // clean queue before answer.
-        deletePtrs();
-        return mySol;
     }
 
     string search(ISearchable<Entry> *searchable) override {
@@ -105,11 +83,10 @@ public:
                         son->setCameFrom(current);
                         this->movingBest.push_back(son);
                     }
-                        // already in the queue
-                    else {
-                        // check if better path.
-                        State<Entry> *best = popOpenList();
-                        if (getDistance(son) < getDistance(best)) {
+                    // already in the queue
+                    else{
+                        State<Entry>* best = popOpenList();
+                        if(getDistance(son) < getDistance(best)){
                             best->setCameFrom(son);
                         }
                         this->movingBest.push_back(best);
@@ -122,13 +99,12 @@ public:
         // clean queue before answer.
         deletePtrs();
         // no possible solution.
-        return NULL;
+        return "-1";
     }
 
 
     void deletePtrs() {
-        while (!this->movingBest.empty())
-            this->movingBest.pop_back();
+        this->movingBest.clear();
     }
 
     int getDistance(State<Entry> *node) {

@@ -6,7 +6,6 @@
 #define FLIGHTSIMULATOR_BFS_H
 
 #include <queue>
-#include <assert.h>
 #include "Entry.h"
 #include "Searcher.h"
 
@@ -16,12 +15,9 @@ class BFS : public Searcher<class Entry, string> {
     queue<State<Entry> *> movingBreath;
 public:
     BFS() {
+        this->movingBreath = queue<State<Entry> *>();
     }
-    ~BFS(){
-        while(!this->movingBreath.empty())
-            this->movingBreath.pop();
-        delete(this->movingBreath);
-    }
+
     State<Entry> *popOpenList() {
         State<Entry> *front = this->movingBreath.front();
         this->movingBreath.pop();
@@ -44,22 +40,6 @@ public:
         }
         //no element equals.
         return false;
-    }
-
-    string backTrace(State<Entry> *target) {
-        string mySol = "";
-        while (target->getCameFrom() != nullptr) {
-            // concat string
-            mySol = target->getState().fromWhere(target->getCameFrom()->getState()) + ", " + mySol;
-            this->waySum += target->getCost();
-            // go back.
-            target = target->getCameFrom();
-        }
-        // cut last ", "
-        mySol = mySol.substr(0, mySol.length() - 2);
-        // clean queue before answer.
-        deletePtrs();
-        return mySol;
     }
 
     string search(ISearchable<Entry> *searchable) {
@@ -95,7 +75,7 @@ public:
         // clean queue before answer.
         deletePtrs();
         // no possible solution.
-        return NULL;
+        return "-1";
     }
 
     void deletePtrs() {

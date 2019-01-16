@@ -35,6 +35,23 @@ public:
         return this->waySum;
     }
 
+    virtual void deletePtrs()=0;
+
+    string backTrace(State<Entry> *target) {
+        string mySol = "";
+        while (target->getCameFrom() != nullptr) {
+            // concat string
+            mySol = target->getState().fromWhere(target->getCameFrom()->getState()) + ", " + mySol;
+            this->waySum += target->getCost();
+            // go back.
+            target = target->getCameFrom();
+        }
+        // cut last ", "
+        mySol = mySol.substr(0, mySol.length() - 2) + "\n";
+        // clean queue before answer.
+        deletePtrs();
+        return mySol;
+    }
 };
 
 
