@@ -16,7 +16,12 @@ class BestFirstSearch : public Searcher<class Entry, Solution> {
     //pr queue.
 public:
     BestFirstSearch() {
-        this->movingBest = vector<State<Entry> *>();
+    }
+
+    ~BestFirstSearch() {
+        while (!this->movingBest.empty())
+            this->movingBest.pop_back();
+        delete(this->movingBest);
     }
 
     State<Entry> *popOpenList() override {
@@ -34,10 +39,11 @@ public:
             }
             i++;
         }
+        State<Entry> *tmp = this->movingBest.back();
+        this->movingBest.back() = this->movingBest.at(j);
+        this->movingBest.at(j) = tmp;
         // erase best from my queue.
-        this->movingBest.erase(this->movingBest.begin() + j);
-        // shrink it.
-        this->movingBest.shrink_to_fit();
+        this->movingBest.pop_back();
         // return best.
         return front;
     }
@@ -99,10 +105,11 @@ public:
                         son->setCameFrom(current);
                         this->movingBest.push_back(son);
                     }
-                    // already in the queue
-                    else{
-                        State<Entry>* best = popOpenList();
-                        if(getDistance(son) < getDistance(best)){
+                        // already in the queue
+                    else {
+                        // check if better path.
+                        State<Entry> *best = popOpenList();
+                        if (getDistance(son) < getDistance(best)) {
                             best->setCameFrom(son);
                         }
                         this->movingBest.push_back(best);
@@ -120,7 +127,8 @@ public:
 
 
     void deletePtrs() {
-        this->movingBest.clear();
+        while (!this->movingBest.empty())
+            this->movingBest.pop_back();
     }
 
     int getDistance(State<Entry> *node) {

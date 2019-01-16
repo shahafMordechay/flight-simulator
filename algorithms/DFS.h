@@ -7,17 +7,18 @@
 
 
 #include <stack>
+#include <queue>
 #include "Searcher.h"
 #include "Entry.h"
 
 template<class Solution>
 class DFS : public Searcher<class Entry, string> {
     //pr queue.
-    stack<State<Entry> *> movingDeep;
+    vector<State<Entry> *> movingDeep;
 public:
     State<Entry> *popOpenList() override {
-        State<Entry> *top = this->movingDeep.top();
-        this->movingDeep.pop();
+        State<Entry> *top = this->movingDeep.back();
+        this->movingDeep.pop_back();
         return top;
     }
 
@@ -27,13 +28,13 @@ public:
 
     virtual bool exists(State<Entry> *wanted) {
         // make copy of my queue.
-        stack<State<Entry> *> copy = this->movingDeep;
+        vector<State<Entry> *> copy = this->movingDeep;
         // while still contains elements keep pop.
         while (!copy.empty()) {
             // if exists.
-            if (wanted->getState() == (copy.top())->getState())
+            if (wanted->getState() == (copy.back())->getState())
                 return true;
-            copy.pop();
+            copy.pop_back();
         }
         //no element equals.
         return false;
@@ -59,7 +60,7 @@ public:
         this->evaluatedNodes = 0;
         this->waySum = 0;
         //push start point.
-        this->movingDeep.push(searchable->getInitialState());
+        this->movingDeep.push_back(searchable->getInitialState());
         //already visited.
         map<State<Entry>, Entry> closed;
         //still entries to check.
@@ -78,12 +79,12 @@ public:
                 // if not visited yet and not in my pr queue.
                 if ((closed.find(*son) == closed.end()) && (!exists(son))) {
                     // push to my queue.
-                    this->movingDeep.push(son);
+                    this->movingDeep.push_back(son);
                 }
             }
             //set father as the node worked on before.
             if (!this->movingDeep.empty())
-                this->movingDeep.top()->setCameFrom(current);
+                this->movingDeep.back()->setCameFrom(current);
         }
         // clean queue before answer.
         deletePtrs();
@@ -92,12 +93,17 @@ public:
     }
 
     DFS() {
-        this->movingDeep = stack<State<Entry> *>();
+    }
+
+    ~DFS() {
+        while (!this->movingDeep.empty())
+            this->movingDeep.pop_back();
+        delete (this->movingDeep);
     }
 
     void deletePtrs() {
         while (openListSize() > 0)
-            this->movingDeep.pop();
+            this->movingDeep.pop_back();
     }
 };
 

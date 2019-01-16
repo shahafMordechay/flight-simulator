@@ -18,7 +18,13 @@ class AStar : public Searcher<class Entry, string> {
     State<Entry> *goal{};
 public:
     AStar() {
-        this->Astar = vector<State<Entry> *>();
+    }
+
+    ~AStar() {
+        while (!this->Astar.empty())
+            this->Astar.pop_back();
+        delete (this->Astar);
+        delete (this->goal);
     }
 
     State<Entry> *popOpenList() override {
@@ -28,8 +34,7 @@ public:
         int j = 0;
         for (State<Entry> *entry : this->Astar) {
             // other entry in my queue that is better.
-            if ((estCost(front) + getDistance(front)) >
-            (estCost(entry) + getDistance(entry))) {
+            if (estCost(entry) < estCost(front)) {
                 // make it my top.
                 front = entry;
                 // better position.
@@ -38,9 +43,11 @@ public:
             i++;
         }
         // erase best from my queue.
-        this->Astar.erase(this->Astar.begin() + j);
-        // shrink it.
-        this->Astar.shrink_to_fit();
+        State<Entry> *tmp = this->Astar.back();
+        this->Astar.back() = this->Astar.at(j);
+        this->Astar.at(j) = tmp;
+        this->Astar.pop_back();
+
         // return best.
         return front;
 
@@ -105,9 +112,9 @@ public:
                         this->Astar.push_back(son);
                         // already in queue.
                     } else {
+                        // check if better path.
                         State<Entry> *best = popOpenList();
-                        if (estCost(son) + getDistance(son) <
-                            estCost(best) + getDistance(best)) {
+                        if (estCost(son) < estCost(best)) {
                             best->setCameFrom(son);
                         }
                         this->Astar.push_back(best);
@@ -126,12 +133,13 @@ public:
 
 // estimation.
     double estCost(State<Entry> *enter) {
-        return abs(enter->getState().getRow() - this->goal->getState().getRow()) +
+        return getDistance(enter) + abs(enter->getState().getRow() - this->goal->getState().getRow()) +
                abs(enter->getState().getCol() - this->goal->getState().getCol());
     }
 
     void deletePtrs() {
-        this->Astar.clear();
+        while (!Astar.empty())
+            this->Astar.pop_back();
         this->goal = nullptr;
     }
 

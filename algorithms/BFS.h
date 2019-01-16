@@ -6,6 +6,7 @@
 #define FLIGHTSIMULATOR_BFS_H
 
 #include <queue>
+#include <assert.h>
 #include "Entry.h"
 #include "Searcher.h"
 
@@ -15,9 +16,12 @@ class BFS : public Searcher<class Entry, string> {
     queue<State<Entry> *> movingBreath;
 public:
     BFS() {
-        this->movingBreath = queue<State<Entry> *>();
     }
-
+    ~BFS(){
+        while(!this->movingBreath.empty())
+            this->movingBreath.pop();
+        delete(this->movingBreath);
+    }
     State<Entry> *popOpenList() {
         State<Entry> *front = this->movingBreath.front();
         this->movingBreath.pop();
