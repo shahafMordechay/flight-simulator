@@ -27,7 +27,7 @@ public:
         return this->cameFrom;
     }
 
-    T getState() const{
+    T getState() const {
         return this->state;
     }
 
@@ -35,7 +35,7 @@ public:
         return (check.getState() == this->getState());
     }
 
-    bool operator<(const State<T>& check)const {
+    bool operator<(const State<T> &check) const {
         return (this->getState() < check.getState());
     }
 
@@ -47,7 +47,7 @@ public:
         return !(operator==(check));
     }
 
-    double getCost() const{
+    double getCost() const {
         return this->cost;
     }
 };

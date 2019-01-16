@@ -23,34 +23,30 @@ Matrix::Matrix(vector<string> &mat, string &src, string &dst) {
     // row number.(j)
     for (; j < mat.size(); ++j) {
         // col number.(i)
-        while (k < mat[j].length()) {
-            // separator.
-            if (mat[j][k] == ',') {
-                k++;
-            }
-                // push entry.
-            else {
-                // tmp.
-                State<Entry> *current = new State<Entry>(Entry(j, i));
-                // set cost.
-                current->setCost(mat[j][k] - 48);
-                this->matrix.emplace_back(current);
-                i++;
-                k++;
-                if (current->getState() == this->src->getState())
-                    this->src->setCost(current->getCost());
-                if (current->getState() == this->dst->getState())
-                    this->dst->setCost(current->getCost());
+        string line = mat[j];
+        while (!line.empty()) {
+            // tmp.
+            State<Entry> *current = new State<Entry>(Entry(j, i));
+            // set cost.
+            string cost = line.substr(0, line.find(','));
+            if (line.find(',') != std::string::npos)
+                line = line.substr(cost.length() + 1);
+            else
+                line = "";
+            current->setCost(atoi(cost.c_str()));
+            this->matrix.emplace_back(current);
+            i++;
+            k += cost.length();
+            if (current->getState() == this->dst->getState())
+                this->dst->setCost(current->getCost());
 
-            }
         }
-        // initialize col back to 0.
         i = 0;
-        k = 0;
+
     }
-
-
+    this->src->setCost(0);
 }
+
 
 State<Entry> *Matrix::getInitialState() {
     return this->src;
@@ -70,14 +66,24 @@ list<State<Entry> *> Matrix::getAllPossibleStates(State<Entry> origin) {
     Entry right = Entry(origin.getState().getRow(), origin.getState().getCol() + 1);
     // iterate over states
     for (auto state: this->matrix) {
-        if ((state->getState() == up) || (state->getState() == down) || (state->getState() == left) ||
-            (state->getState() == right))
+        if (((state->getState() == up) || (state->getState() == down) || (state->getState() == left) ||
+             (state->getState() == right)) && state->getCost() != -1 && state->getState() != this->src->getState())
             ways.emplace_back(state);
     }
     // ret list of ways.
     return ways;
 
     // find all ways.
+
+
+}
+
+Matrix::~Matrix() {
+    free(this->dst);
+    free(this->src);
+    for (auto &i : this->matrix) {
+        free(i);
+    }
 
 
 }
