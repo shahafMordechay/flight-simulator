@@ -19,7 +19,6 @@ public:
     }
 
     State<Entry> *popOpenList() {
-        this->evaluatedNodes++;
         State<Entry> *front = this->movingBreath.front();
         this->movingBreath.pop();
         return front;
@@ -35,7 +34,7 @@ public:
         // while still contains elements keep pop.
         while (!copy.empty()) {
             // if exists.
-            if (*wanted == *(copy.front()))
+            if (wanted->getState() == (copy.front()->getState()))
                 return true;
             copy.pop();
         }
@@ -48,6 +47,7 @@ public:
         while (target->getCameFrom() != nullptr) {
             // concat string
             mySol = target->getState().fromWhere(target->getCameFrom()->getState()) + ", " + mySol;
+            this->waySum += target->getCost();
             // go back.
             target = target->getCameFrom();
         }
@@ -60,6 +60,7 @@ public:
 
     string search(ISearchable<Entry> *searchable) {
         this->evaluatedNodes = 0;
+        this->waySum = 0;
         //push first.
         this->movingBreath.push(searchable->getInitialState());
         //already visited.
@@ -68,6 +69,7 @@ public:
         while (openListSize() > 0) {
             //get first in the line.
             State<Entry> *current = popOpenList();
+            this->evaluatedNodes++;
             // mark as visited
             closed.insert({*current, current->getState()});
             // target state.
@@ -77,7 +79,7 @@ public:
             list<State<Entry> *> mySons = searchable->getAllPossibleStates(*current);
             for (State<Entry> *son: mySons) {
                 // if not visited yet and not in my pr queue.
-                if ((closed.find(*son) == closed.end()) && (!exists(son)) && (son->getCost() != -1)) {
+                if ((closed.find(*son) == closed.end()) && (!exists(son))) {
                     // set father
                     son->setCameFrom(current);
                     // push to my queue.

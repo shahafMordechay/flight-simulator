@@ -20,14 +20,13 @@ public:
     }
 
     State<Entry> *popOpenList() override {
-        this->evaluatedNodes++;
         State<Entry> *front = this->movingBest.front();
         // iterate over vector.
         int i = 0;
         int j = 0;
         for (State<Entry> *entry : this->movingBest) {
             // other entry in my queue that is better.
-            if (front->getCost() > entry->getCost()) {
+            if (getDistance(front) > getDistance(entry)) {
                 // make it my top.
                 front = entry;
                 // better position.
@@ -49,7 +48,7 @@ public:
 
     virtual bool exists(State<Entry> *wanted) {
         for (State<Entry> *pos : this->movingBest) {
-            if (*pos == *wanted)
+            if (pos->getState() == wanted->getState())
                 return true;
         }
         return false;
@@ -60,6 +59,7 @@ public:
         while (target->getCameFrom() != nullptr) {
             // concat string
             mySol = target->getState().fromWhere(target->getCameFrom()->getState()) + ", " + mySol;
+            this->waySum += target->getCost();
             // go back.
             target = target->getCameFrom();
         }
@@ -72,6 +72,7 @@ public:
 
     string search(ISearchable<Entry> *searchable) override {
         this->evaluatedNodes = 0;
+        this->waySum = 0;
         // make entry free.
         searchable->getInitialState()->setCost(0);
         //push start point.
@@ -82,6 +83,7 @@ public:
         while (openListSize() > 0) {
             //get first in the line.
             State<Entry> *current = popOpenList();
+            this->evaluatedNodes++;
             // mark as visited
             closed.insert({*current, current->getState()});
             // target state.
@@ -91,10 +93,21 @@ public:
             list<State<Entry> *> mySons = searchable->getAllPossibleStates(*current);
             for (State<Entry> *son: mySons) {
                 // if not visited yet and not in my pr queue.
-                if ((closed.find(*son) == closed.end()) && (!exists(son)) && (son->getCost() != -1)) {
+                if (closed.find(*son) == closed.end()) {
                     // push to my queue.
-                    son->setCameFrom(current);
-                    this->movingBest.push_back(son);
+                    if (!exists(son)) {
+                        son->setCameFrom(current);
+                        this->movingBest.push_back(son);
+                    }
+                    // already in the queue
+                    else{
+                        State<Entry>* best = popOpenList();
+                        if(getDistance(son) < getDistance(best)){
+                            best->setCameFrom(son);
+                        }
+                        this->movingBest.push_back(best);
+                    }
+
                 }
             }
 
@@ -108,6 +121,16 @@ public:
 
     void deletePtrs() {
         this->movingBest.clear();
+    }
+
+    int getDistance(State<Entry> *node) {
+        State<Entry> *cpy = node;
+        int cost = (int) cpy->getCost();
+        while (cpy->getCameFrom() != nullptr) {
+            cpy = cpy->getCameFrom();
+            cost += (int) cpy->getCost();
+        }
+        return cost;
     }
 };
 

@@ -45,6 +45,10 @@ public:
         return ((this->getCol() == compared.getCol()) && (this->getRow() == compared.getRow()));
     }
 
+    const bool operator!=(Entry compared) const {
+        return ((this->getCol() != compared.getCol()) || (this->getRow() != compared.getRow()));
+    }
+
     const bool operator<(Entry compared) const {
         return (this->getRow() < compared.getRow()) ||
                 (this->getRow() == compared.getRow() && this->getCol() < compared.getCol());

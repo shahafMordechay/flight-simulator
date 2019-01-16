@@ -22,14 +22,14 @@ public:
     }
 
     State<Entry> *popOpenList() override {
-        this->evaluatedNodes++;
         State<Entry> *front = this->Astar.front();
         // iterate over vector.
         int i = 0;
         int j = 0;
         for (State<Entry> *entry : this->Astar) {
             // other entry in my queue that is better.
-            if ((front->getCost() + estCost(front)) > (entry->getCost() + estCost(entry))) {
+            if ((estCost(front) + getDistance(front)) >
+            (estCost(entry) + getDistance(entry))) {
                 // make it my top.
                 front = entry;
                 // better position.
@@ -52,7 +52,7 @@ public:
 
     bool exists(State<Entry> *wanted) {
         for (State<Entry> *pos : this->Astar) {
-            if (*pos == *wanted)
+            if (pos->getState() == wanted->getState())
                 return true;
         }
         return false;
@@ -63,6 +63,7 @@ public:
         while (target->getCameFrom() != nullptr) {
             // concat string
             mySol = target->getState().fromWhere(target->getCameFrom()->getState()) + ", " + mySol;
+            this->waySum += target->getCost();
             // go back.
             target = target->getCameFrom();
         }
@@ -75,6 +76,7 @@ public:
 
     string search(ISearchable<Entry> *searchable) {
         this->evaluatedNodes = 0;
+        this->waySum = 0;
         this->goal = searchable->getGoalState();
         // make entry free.
         searchable->getInitialState()->setCost(0);
@@ -86,6 +88,7 @@ public:
         while (openListSize() > 0) {
             //get first in the line.
             State<Entry> *current = popOpenList();
+            this->evaluatedNodes++;
             // mark as visited
             closed.insert({*current, current->getState()});
             // target state.
@@ -94,11 +97,21 @@ public:
             // get all possible directions.
             list<State<Entry> *> mySons = searchable->getAllPossibleStates(*current);
             for (State<Entry> *son: mySons) {
-                // if not visited yet and not in my pr queue.
-                if ((closed.find(*son) == closed.end()) && (!exists(son)) && (son->getCost() != -1)) {
-                    // push to my queue.
-                    son->setCameFrom(current);
-                    this->Astar.push_back(son);
+                // if not visited yet
+                if ((closed.find(*son) == closed.end())) {
+                    // push to my queue. if not there.
+                    if (!exists(son)) {
+                        son->setCameFrom(current);
+                        this->Astar.push_back(son);
+                        // already in queue.
+                    } else {
+                        State<Entry> *best = popOpenList();
+                        if (estCost(son) + getDistance(son) <
+                            estCost(best) + getDistance(best)) {
+                            best->setCameFrom(son);
+                        }
+                        this->Astar.push_back(best);
+                    }
                 }
 
             }
@@ -111,7 +124,7 @@ public:
     }
 
 
-    // estimation.
+// estimation.
     double estCost(State<Entry> *enter) {
         return abs(enter->getState().getRow() - this->goal->getState().getRow()) +
                abs(enter->getState().getCol() - this->goal->getState().getCol());
@@ -122,7 +135,15 @@ public:
         this->goal = nullptr;
     }
 
-
+    int getDistance(State<Entry> *node) {
+        State<Entry> *cpy = node;
+        int cost = (int) cpy->getCost();
+        while (cpy->getCameFrom() != nullptr) {
+            cpy = cpy->getCameFrom();
+            cost += (int) cpy->getCost();
+        }
+        return cost;
+    }
 };
 
 

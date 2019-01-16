@@ -15,6 +15,7 @@ template<class T, class Solution>
 class Searcher : public ISearcher<T, Solution> {
 protected:
     int evaluatedNodes{};
+    int waySum{};
 public:
     Searcher() {
         this->evaluatedNodes = 0;
@@ -29,6 +30,9 @@ public:
     int getNumberOfNodesEvaluated() {
         return this->evaluatedNodes;
 
+    }
+    int getWaySum(){
+        return this->waySum;
     }
 
 };
