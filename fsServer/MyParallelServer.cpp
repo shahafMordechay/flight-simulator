@@ -7,7 +7,7 @@
 #include "MyParallelServer.h"
 #include "ClientHandler.h"
 
-#define WAIT_FOR_CLIENT 5
+#define WAIT_FOR_CLIENT 1
 #define WAIT_IN_MILISEC 0
 
 void MyParallelServer::open(int port, ClientHandler *cHandler) {
@@ -45,7 +45,9 @@ void MyParallelServer::start(int port, ClientHandler *cHandler) {
     }
 
     for (int i = 0; i < this->threadList.size(); ++i) {
-        this->threadList.at(i).join();
+        if (this->threadList.at(i).joinable()) {
+            this->threadList.at(i).join();
+        }
     }
 
     if (new_sock < 0)	{

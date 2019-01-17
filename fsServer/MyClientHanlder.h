@@ -17,7 +17,26 @@ public:
         char line[ROW_SIZE];
 
         while (read(socket, line, ROW_SIZE) > 0 && string(line).substr(0, 3) != "end") {
-            matrixVector.emplace_back(line);
+
+            string temp = line, splitted = "";
+            for (int i = 0; i < temp.length(); ++i) {
+                bool isWhiteSpace = (temp[i] == '\r' || temp[i] == '\n');
+
+                if (!isWhiteSpace) {
+                    splitted += temp[i];
+                }
+
+                if (isWhiteSpace && splitted == "end") {
+                    break;
+                } else if (isWhiteSpace && splitted != "") {
+                    matrixVector.emplace_back(splitted);
+                    splitted = "";
+                }
+            }
+
+            if (splitted == "end") {
+                break;
+            }
         }
 
         if (!matrixVector.empty()) {

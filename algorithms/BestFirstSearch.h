@@ -5,7 +5,6 @@
 #ifndef FLIGHTSIMULATOR_BESTFIRSTSEARCH_H
 #define FLIGHTSIMULATOR_BESTFIRSTSEARCH_H
 
-#include "Searcher.h"
 #include "Entry.h"
 #include "Searcher.h"
 #include <queue>
@@ -52,6 +51,22 @@ public:
                 return true;
         }
         return false;
+    }
+
+    string backTrace(State<Entry> *target) {
+        string mySol = "";
+        while (target->getCameFrom() != nullptr) {
+            // concat string
+            mySol = target->getState().fromWhere(target->getCameFrom()->getState()) + ", " + mySol;
+            this->waySum += target->getCost();
+            // go back.
+            target = target->getCameFrom();
+        }
+        // cut last ", "
+        mySol = mySol.substr(0, mySol.length() - 2) + "\n";
+        // clean queue before answer.
+        deletePtrs();
+        return mySol;
     }
 
     string search(ISearchable<Entry> *searchable) override {

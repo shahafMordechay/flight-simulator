@@ -7,6 +7,8 @@
 
 #include "ISearcher.h"
 #include "../problems/ISearchable.h"
+#include "Entry.h"
+
 #include <string>
 #include <map>
 #include <algorithm>
@@ -37,7 +39,7 @@ public:
 
     virtual void deletePtrs()=0;
 
-    string backTrace(State<Entry> *target) {
+    virtual string backTrace(State<Entry> *target) {
         string mySol = "";
         while (target->getCameFrom() != nullptr) {
             // concat string

@@ -79,17 +79,10 @@ list<State<Entry> *> Matrix::getAllPossibleStates(State<Entry> origin) {
 }
 
 Matrix::~Matrix() {
-     this->src->setCameFrom(nullptr);
-    this->dst->setCameFrom(nullptr);
-    for (auto &i: this->matrix) {
-        i->setCameFrom(nullptr);
-    }
-    delete(this->src);
-    delete(this->dst);
-    while(!this->matrix.empty()){
-        State<Entry>* state = this->matrix.back();
-        this->matrix.pop_back();
-        delete(state);
+    free(this->dst);
+    free(this->src);
+    for (auto &i : this->matrix) {
+        free(i);
     }
 }
 
