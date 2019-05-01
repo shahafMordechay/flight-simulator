@@ -1,2 +1,2 @@
 # flight-simulator
-Flight simulator game written in c++
+c++ program program communicating with FlightGear simulator open source code.
